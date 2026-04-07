@@ -1,0 +1,63 @@
+# ==========================================
+# 1. LINGKUNGAN PYTHON & CACHE
+# ==========================================
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# ==========================================
+# 2. VIRTUAL ENVIRONMENT
+# ==========================================
+# Pastikan folder venv lu dan tim nggak ikut ke-push
+venv/
+env/
+.venv/
+env.bak/
+venv.bak/
+
+# ==========================================
+# 3. JUPYTER NOTEBOOK & IDE
+# ==========================================
+.ipynb_checkpoints/
+.vscode/
+.idea/
+
+# ==========================================
+# 4. SECRETS & KONFIGURASI LOKAL (SANGAT FATAL)
+# ==========================================
+.env
+.streamlit/secrets.toml
+
+# ==========================================
+# 5. OS GENERATED FILES
+# ==========================================
+.DS_Store
+Thumbs.db
+
+# ==========================================
+# 6. SPESIFIK PROJECT LU (WAJIB ADA)
+# ==========================================
+
+# A. Abaikan semua file data (Mentah & Hasil Resample)
+data/raw/*.parquet
+data/processed/*.parquet
+*.parquet
+*.csv
+
+# B. Abaikan semua file Model PyCaret (Ukurannya raksasa)
+models/weekly/*.pkl
+models/monthly/*.pkl
+models/yearly/*.pkl
+*.pkl
+
+# C. Pengecualian (Exception)
+# Kita butuh foldernya tetap ada di Git walaupun isinya (data/model) diabaikan.
+# Syaratnya: Lu harus bikin file kosong bernama '.gitkeep' di dalam folder-folder ini.
+!data/.gitkeep
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!models/.gitkeep
+!models/weekly/.gitkeep
+!models/monthly/.gitkeep
+!models/yearly/.gitkeep
