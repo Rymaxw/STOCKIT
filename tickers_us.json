@@ -1,0 +1,221 @@
+{
+  "meta": {
+    "index": "US_TOP30",
+    "generated_at": "2026-04-07T17:13:16.489806",
+    "total": 30,
+    "valid": 30,
+    "invalid": 0
+  },
+  "tickers": [
+    {
+      "ticker": "AAPL",
+      "yf_symbol": "AAPL",
+      "available": true,
+      "rows_found": 1255,
+      "note": "OK"
+    },
+    {
+      "ticker": "MSFT",
+      "yf_symbol": "MSFT",
+      "available": true,
+      "rows_found": 1255,
+      "note": "OK"
+    },
+    {
+      "ticker": "GOOGL",
+      "yf_symbol": "GOOGL",
+      "available": true,
+      "rows_found": 1255,
+      "note": "OK"
+    },
+    {
+      "ticker": "AMZN",
+      "yf_symbol": "AMZN",
+      "available": true,
+      "rows_found": 1255,
+      "note": "OK"
+    },
+    {
+      "ticker": "NVDA",
+      "yf_symbol": "NVDA",
+      "available": true,
+      "rows_found": 1255,
+      "note": "OK"
+    },
+    {
+      "ticker": "META",
+      "yf_symbol": "META",
+      "available": true,
+      "rows_found": 1255,
+      "note": "OK"
+    },
+    {
+      "ticker": "TSLA",
+      "yf_symbol": "TSLA",
+      "available": true,
+      "rows_found": 1255,
+      "note": "OK"
+    },
+    {
+      "ticker": "AVGO",
+      "yf_symbol": "AVGO",
+      "available": true,
+      "rows_found": 1255,
+      "note": "OK"
+    },
+    {
+      "ticker": "AMD",
+      "yf_symbol": "AMD",
+      "available": true,
+      "rows_found": 1255,
+      "note": "OK"
+    },
+    {
+      "ticker": "ORCL",
+      "yf_symbol": "ORCL",
+      "available": true,
+      "rows_found": 1255,
+      "note": "OK"
+    },
+    {
+      "ticker": "BRK-B",
+      "yf_symbol": "BRK-B",
+      "available": true,
+      "rows_found": 1255,
+      "note": "OK"
+    },
+    {
+      "ticker": "JPM",
+      "yf_symbol": "JPM",
+      "available": true,
+      "rows_found": 1255,
+      "note": "OK"
+    },
+    {
+      "ticker": "V",
+      "yf_symbol": "V",
+      "available": true,
+      "rows_found": 1255,
+      "note": "OK"
+    },
+    {
+      "ticker": "MA",
+      "yf_symbol": "MA",
+      "available": true,
+      "rows_found": 1255,
+      "note": "OK"
+    },
+    {
+      "ticker": "BAC",
+      "yf_symbol": "BAC",
+      "available": true,
+      "rows_found": 1255,
+      "note": "OK"
+    },
+    {
+      "ticker": "LLY",
+      "yf_symbol": "LLY",
+      "available": true,
+      "rows_found": 1255,
+      "note": "OK"
+    },
+    {
+      "ticker": "UNH",
+      "yf_symbol": "UNH",
+      "available": true,
+      "rows_found": 1255,
+      "note": "OK"
+    },
+    {
+      "ticker": "JNJ",
+      "yf_symbol": "JNJ",
+      "available": true,
+      "rows_found": 1255,
+      "note": "OK"
+    },
+    {
+      "ticker": "MRK",
+      "yf_symbol": "MRK",
+      "available": true,
+      "rows_found": 1255,
+      "note": "OK"
+    },
+    {
+      "ticker": "ABBV",
+      "yf_symbol": "ABBV",
+      "available": true,
+      "rows_found": 1255,
+      "note": "OK"
+    },
+    {
+      "ticker": "WMT",
+      "yf_symbol": "WMT",
+      "available": true,
+      "rows_found": 1255,
+      "note": "OK"
+    },
+    {
+      "ticker": "PG",
+      "yf_symbol": "PG",
+      "available": true,
+      "rows_found": 1255,
+      "note": "OK"
+    },
+    {
+      "ticker": "COST",
+      "yf_symbol": "COST",
+      "available": true,
+      "rows_found": 1255,
+      "note": "OK"
+    },
+    {
+      "ticker": "HD",
+      "yf_symbol": "HD",
+      "available": true,
+      "rows_found": 1255,
+      "note": "OK"
+    },
+    {
+      "ticker": "KO",
+      "yf_symbol": "KO",
+      "available": true,
+      "rows_found": 1255,
+      "note": "OK"
+    },
+    {
+      "ticker": "PEP",
+      "yf_symbol": "PEP",
+      "available": true,
+      "rows_found": 1255,
+      "note": "OK"
+    },
+    {
+      "ticker": "CVX",
+      "yf_symbol": "CVX",
+      "available": true,
+      "rows_found": 1255,
+      "note": "OK"
+    },
+    {
+      "ticker": "XOM",
+      "yf_symbol": "XOM",
+      "available": true,
+      "rows_found": 1255,
+      "note": "OK"
+    },
+    {
+      "ticker": "CRM",
+      "yf_symbol": "CRM",
+      "available": true,
+      "rows_found": 1255,
+      "note": "OK"
+    },
+    {
+      "ticker": "NFLX",
+      "yf_symbol": "NFLX",
+      "available": true,
+      "rows_found": 1255,
+      "note": "OK"
+    }
+  ]
+}
