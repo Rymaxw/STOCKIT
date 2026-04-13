@@ -83,6 +83,7 @@ def build_tickers_us_json():
         status = "✓" if result["available"] else "✗"
         print(f"  [{status}] {symbol:<8} — {result['rows_found']} baris ({result['note']})")
 
+
         if not result["available"]:
             failed.append(symbol)
 
