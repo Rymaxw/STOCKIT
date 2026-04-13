@@ -100,8 +100,7 @@ def build_tickers_us_json():
         "tickers": results,
     }
 
-    os.makedirs("data", exist_ok=True)
-    with open("data/tickers_us.json", "w", encoding="utf-8") as f:
+    with open("Data/Raw/tickers_us.json", "w", encoding="utf-8") as f:
         json.dump(output, f, indent=2, ensure_ascii=False)
 
     print(f"\n{'─'*40}")
@@ -109,7 +108,7 @@ def build_tickers_us_json():
     print(f"  Invalid : {output['meta']['invalid']} ticker")
     if failed:
         print(f"  Gagal   : {', '.join(failed)}")
-    print(f"  File    : data/tickers_us.json")
+    print(f"  File    : Data/Raw/tickers_us.json")
 
 
 build_tickers_us_json()
