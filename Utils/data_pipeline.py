@@ -29,7 +29,7 @@ def simpan_satu_saham(ticker, yf_period, yf_interval):
         kolom_wajib = ['Open', 'High', 'Low', 'Close', 'Volume']
         df_ohlcv = df[kolom_wajib]
         
-        # Simpan langsung ke parquet
+      
         project_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         raw_dir = os.path.join(project_dir, 'Data', 'Raw')
         os.makedirs(raw_dir, exist_ok=True)
