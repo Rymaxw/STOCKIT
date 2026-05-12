@@ -28,7 +28,7 @@ def render_sidebar_filter(
     period_map      = period_map or PERIOD_MAP
 
     with st.sidebar:
-        st.markdown("##Panel Filter")
+        st.markdown("## Panel Filter")
         st.markdown("---")
 
         st.markdown("**Periode Data**")
