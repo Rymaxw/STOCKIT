@@ -52,12 +52,12 @@ class ManajerPenyimpanan:
         os.makedirs(self.folder_diproses, exist_ok=True)
 
     def simpan_mentah(self, data_ohlcv, kode_saham):
-        jalur = os.path.join(self.sumber_data, f"{kode_saham}.parquet")
-        data_ohlcv.to_parquet(jalur)
+        lokasi = os.path.join(self.sumber_data, f"{kode_saham}.parquet")
+        data_ohlcv.to_parquet(lokasi)
 
     def simpan_agregasi(self, data_agregasi, kode_saham, frekuensi):
-        jalur = os.path.join(self.folder_diproses, f"{kode_saham}_{frekuensi}.parquet")
-        data_agregasi.to_parquet(jalur)
+        lokasi = os.path.join(self.folder_diproses, f"{kode_saham}_{frekuensi}.parquet")
+        data_agregasi.to_parquet(lokasi)
 
 class OrkestratorPipeline:
     def __init__(self, pengambil, pemroses, manajer):
@@ -138,10 +138,10 @@ if __name__ == "__main__":
     kode_saham_cek = sukses[0] if sukses else None
     
     if kode_saham_cek in sukses:
-        jalur_berkas = os.path.join(manajer.sumber_data, f"{kode_saham_cek}.parquet")
-        data_inspeksi = pd.read_parquet(jalur_berkas)
+        lokasi_berkas = os.path.join(manajer.sumber_data, f"{kode_saham_cek}.parquet")
+        data_inspeksi = pd.read_parquet(lokasi_berkas)
         
-        print(f"Data {kode_saham_cek} berhasil dimuat dari: {jalur_berkas}")
+        print(f"Data {kode_saham_cek} berhasil dimuat dari: {lokasi_berkas}")
         print(f"Total baris: {len(data_inspeksi)}")
         print(f"\nPratinjau 5 data teratas {kode_saham_cek}:")
         print(data_inspeksi.head())
@@ -153,13 +153,13 @@ if __name__ == "__main__":
         print("="*40)
         
         for frekuensi, label in [('mingguan', 'MINGGUAN'), ('bulanan', 'BULANAN'), ('tahunan', 'TAHUNAN')]:
-            jalur_agregasi = os.path.join(manajer.folder_diproses, f"{kode_saham_cek}_{frekuensi}.parquet")
-            if os.path.exists(jalur_agregasi):
-                data_agregasi = pd.read_parquet(jalur_agregasi)
+            lokasi_agregasi = os.path.join(manajer.folder_diproses, f"{kode_saham_cek}_{frekuensi}.parquet")
+            if os.path.exists(lokasi_agregasi):
+                data_agregasi = pd.read_parquet(lokasi_agregasi)
                 print(f"\n[{label}] Total baris: {len(data_agregasi)} | Kolom: {len(data_agregasi.columns)}")
                 print(data_agregasi.head(3))
             else:
-                print(f"\n[{label}] Berkas tidak ditemukan: {jalur_agregasi}")
+                print(f"\n[{label}] Berkas tidak ditemukan: {lokasi_agregasi}")
                 
     else:
         if kode_saham_cek:

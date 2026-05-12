@@ -3,124 +3,120 @@ import numpy as np
 import os
 import glob
 
-def load_all_cleaned_data(processed_dir='data/processed'):
-    """
-    Fungsi bantuan untuk memuat semua data parquet yang sudah dibersihkan.
-    Mengembalikan DataFrame gabungan dengan kolom 'Ticker'.
-    """
-    all_files = glob.glob(os.path.join(processed_dir, "*_clean.parquet"))
-    df_list = []
-    
-    for file in all_files:
-        filename = os.path.basename(file)
-        ticker = filename.split('_clean.parquet')[0]
-        
-        try:
-            df = pd.read_parquet(file)
-            df['Ticker'] = ticker
-            df_list.append(df)
-        except Exception as e:
-            print(f"Gagal memuat {filename}: {e}")
-            
-    if not df_list:
-        return pd.DataFrame()
-        
-    return pd.concat(df_list)
+class PengelolaDataSaham:
+    def __init__(self, folder_data='data/processed'):
+        self.folder_data = folder_data
 
-def calculate_score(df):
-    """
-    Fungsi untuk menghitung skor dan meranking saham.
-    Menerima DataFrame gabungan yang memiliki kolom 'Ticker'.
-    
-    Metrik:
-    - Return 30 Hari (40%): (Close_hari_ini - Close_30_hari_lalu) / Close_30_hari_lalu
-    - Sharpe Ratio (40%): (Mean Daily Return / Std Daily Return) * sqrt(252) (Asumsi risk free = 0)
-    - Volatilitas (20%): Std Daily Return * sqrt(252) (Semakin rendah semakin baik)
-    """
-    # Handle apabila input berupa dictionary (untuk fleksibilitas)
-    if isinstance(df, dict):
-        df_list = []
-        for ticker, data in df.items():
-            temp = data.copy()
-            temp['Ticker'] = ticker
-            df_list.append(temp)
-        df = pd.concat(df_list)
+    def muat_semua_data(self):
+        daftar_berkas = glob.glob(os.path.join(self.folder_data, "*_clean.parquet"))
+        daftar_df = []
         
-    if 'Ticker' not in df.columns:
-        raise ValueError("DataFrame harus memiliki kolom 'Ticker' untuk membedakan tiap saham.")
-        
-    results = []
-    
-    for ticker, group in df.groupby('Ticker'):
-        group = group.sort_index()
-        
-        if len(group) < 2:
-            continue
+        for berkas in daftar_berkas:
+            nama_berkas = os.path.basename(berkas)
+            kode_saham = nama_berkas.split('_clean.parquet')[0]
             
-        group['Daily_Return'] = group['Close'].pct_change()
-        lookback = min(30, len(group) - 1)
-        close_today = group['Close'].iloc[-1]
-        close_past = group['Close'].iloc[-(lookback + 1)]
-        return_30d = (close_today - close_past) / close_past
-        
-        mean_return = group['Daily_Return'].mean()
-        std_return = group['Daily_Return'].std()
-        
-        if pd.isna(std_return) or std_return == 0:
-            sharpe_ratio = 0
-            volatility = 0
-        else:
-            sharpe_ratio = (mean_return / std_return) * np.sqrt(252)
-            volatility = std_return * np.sqrt(252)
+            try:
+                df = pd.read_parquet(berkas)
+                df['Kode_Saham'] = kode_saham
+                daftar_df.append(df)
+            except Exception as e:
+                print(f"Gagal memuat {nama_berkas}: {e}")
+                
+        if not daftar_df:
+            return pd.DataFrame()
             
-        results.append({
-            'Ticker': ticker,
-            'Return_30D': return_30d,
-            'Sharpe_Ratio': sharpe_ratio,
-            'Volatility': volatility
-        })
-        
-    results_df = pd.DataFrame(results)
-    
-    if results_df.empty:
-        return results_df
-        
-    for col in ['Return_30D', 'Sharpe_Ratio']:
-        min_val = results_df[col].min()
-        max_val = results_df[col].max()
-        if max_val != min_val:
-            results_df[col + '_Norm'] = (results_df[col] - min_val) / (max_val - min_val)
-        else:
-            results_df[col + '_Norm'] = 0.5
-            
-    # Untuk Volatilitas: semakin rendah semakin baik (Inverse Min-Max: 1 - Normalized)
-    min_vol = results_df['Volatility'].min()
-    max_vol = results_df['Volatility'].max()
-    if max_vol != min_vol:
-        results_df['Volatility_Norm'] = 1 - ((results_df['Volatility'] - min_vol) / (max_vol - min_vol))
-    else:
-        results_df['Volatility_Norm'] = 0.5
-        
-    results_df['Final_Score'] = (
-        results_df['Return_30D_Norm'] * 0.40 +
-        results_df['Sharpe_Ratio_Norm'] * 0.40 +
-        results_df['Volatility_Norm'] * 0.20
-    )
-    
-    results_df = results_df.sort_values(by='Final_Score', ascending=False).reset_index(drop=True)
+        return pd.concat(daftar_df)
 
-    return results_df.head(5)
+class PenilaiSaham:
+    def __init__(self, bobot_return=0.40, bobot_sharpe=0.40, bobot_volatilitas=0.20):
+        self.bobot_return = bobot_return
+        self.bobot_sharpe = bobot_sharpe
+        self.bobot_volatilitas = bobot_volatilitas
+
+    def evaluasi_saham(self, data_saham):
+        if isinstance(data_saham, dict):
+            daftar_df = []
+            for kode_saham, data in data_saham.items():
+                temp = data.copy()
+                temp['Kode_Saham'] = kode_saham
+                daftar_df.append(temp)
+            data_saham = pd.concat(daftar_df)
+            
+        daftar_hasil = []
+        
+        for kode_saham, grup in data_saham.groupby('Kode_Saham'):
+            grup = grup.sort_index()
+            
+            if len(grup) < 2:
+                continue
+                
+            grup['Profit_Harian'] = grup['Close'].pct_change()
+            lookback = min(30, len(grup) - 1)
+            harga_sekarang = grup['Close'].iloc[-1]
+            harga_lalu = grup['Close'].iloc[-(lookback + 1)]
+            profit_30h = (harga_sekarang - harga_lalu) / harga_lalu
+            
+            rata_rata_profit = grup['Profit_Harian'].mean()
+            std_profit = grup['Profit_Harian'].std()
+            
+            if pd.isna(std_profit) or std_profit == 0:
+                rasio_sharpe = 0
+                volatilitas = 0
+            else:
+                rasio_sharpe = (rata_rata_profit / std_profit) * np.sqrt(252)
+                volatilitas = std_profit * np.sqrt(252)
+                
+            daftar_hasil.append({
+                'Kode_Saham': kode_saham,
+                'Profit_30H': profit_30h,
+                'Rasio_Sharpe': rasio_sharpe,
+                'Volatilitas': volatilitas
+            })
+            
+        tabel_hasil = pd.DataFrame(daftar_hasil)
+        
+        if tabel_hasil.empty:
+            return tabel_hasil
+            
+        for kolom in ['Profit_30H', 'Rasio_Sharpe']:
+            nilai_min = tabel_hasil[kolom].min()
+            nilai_max = tabel_hasil[kolom].max()
+            if nilai_max != nilai_min:
+                tabel_hasil[kolom + '_Norm'] = (tabel_hasil[kolom] - nilai_min) / (nilai_max - nilai_min)
+            else:
+                tabel_hasil[kolom + '_Norm'] = 0.5
+                
+        vol_min = tabel_hasil['Volatilitas'].min()
+        vol_max = tabel_hasil['Volatilitas'].max()
+        if vol_max != vol_min:
+            tabel_hasil['Volatilitas_Norm'] = 1 - ((tabel_hasil['Volatilitas'] - vol_min) / (vol_max - vol_min))
+        else:
+            tabel_hasil['Volatilitas_Norm'] = 0.5
+            
+        tabel_hasil['Skor_Akhir'] = (
+            tabel_hasil['Profit_30H_Norm'] * self.bobot_return +
+            tabel_hasil['Rasio_Sharpe_Norm'] * self.bobot_sharpe +
+            tabel_hasil['Volatilitas_Norm'] * self.bobot_volatilitas
+        )
+        
+        tabel_hasil = tabel_hasil.sort_values(by='Skor_Akhir', ascending=False).reset_index(drop=True)
+
+        return tabel_hasil.head(5)
 
 if __name__ == "__main__":
-    print("Memuat data...")
-    df_all = load_all_cleaned_data('../data/processed')
-    if df_all.empty:
-        df_all = load_all_cleaned_data('data/processed')
+    print("Memuat data saham untuk evaluasi")
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    target_dir = os.path.join(base_dir, 'Data', 'Processed')
+    
+    pengelola = PengelolaDataSaham(folder_data=target_dir)
+    data_gabungan = pengelola.muat_semua_data()
+    
+    if not data_gabungan.empty:
+        print("Melakukan evaluasi saham")
+        penilai = PenilaiSaham()
+        saham_terbaik = penilai.evaluasi_saham(data_gabungan)
         
-    if not df_all.empty:
-        print("Data berhasil dimuat. Menghitung skor...")
-        top5 = calculate_score(df_all)
         print("\n=== TOP 5 SAHAM TERBAIK ===")
-        print(top5[['Ticker', 'Return_30D', 'Sharpe_Ratio', 'Volatility', 'Final_Score']])
+        print(saham_terbaik[['Kode_Saham', 'Profit_30H', 'Rasio_Sharpe', 'Volatilitas', 'Skor_Akhir']])
     else:
-        print("Tidak ada data yang dimuat.")
+        print(f"Tidak ada data saham yang dimuat dari {target_dir}.")
