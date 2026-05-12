@@ -107,12 +107,13 @@ class StockDataLoader:
     PERIOD_DAYS = {
         "1mo": 21, "3mo": 63, "6mo": 126,
         "1y": 252, "2y": 504, "5y": 1260,
+        "10y": 2520, "21y": 5292, "max": None
     }
 
     def __init__(self, period: str = "1y", verbose: bool = True):
         self.period  = period
         self.verbose = verbose
-        self.n_days  = self.PERIOD_DAYS.get(period, 252)
+        self.n_days  = self.PERIOD_DAYS.get(period, None)
 
     # Private methods 
     def _log(self, msg: str) -> None:
@@ -165,44 +166,33 @@ class StockDataLoader:
             df.index = df.index.tz_localize(None)
         return df
 
-    def _download(self, tickers: list) -> dict:
-        import yfinance as yf
+    def _load_from_parquet(self, tickers: list) -> dict:
+        import os
+        import pandas as pd
 
-        self._log(f"Mengunduh {len(tickers)} ticker dari Yahoo Finance...")
-
-        raw = yf.download(
-            tickers if len(tickers) > 1 else tickers[0],
-            period=self.period,
-            auto_adjust=True,
-            progress=False,
-            threads=True,
-        )
-
-        if raw.empty:
-            raise ValueError("Data kosong — kemungkinan tidak ada koneksi.")
-
-        raw = self._clean_tz(raw)
+        self._log(f"Memuat {len(tickers)} ticker dari file Parquet lokal...")
+        
+        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        raw_dir = os.path.join(base_dir, 'Data', 'Raw')
+        
         dfs = {}
-
-        if len(tickers) == 1:
-            raw = self._normalize(raw)
-            cols = [c for c in ["Open", "High", "Low", "Close", "Volume"]
-                    if c in raw.columns]
-            dfs[tickers[0]] = raw[cols].copy()
-        else:
-            for t in tickers:
-                try:
-                    df_t = raw.xs(t, axis=1, level=1).copy()
-                    df_t.columns.name = None
-                    cols = [c for c in ["Open", "High", "Low", "Close", "Volume"]
-                            if c in df_t.columns]
-                    dfs[t] = df_t[cols]
-                except Exception:
-                    self._log(f"    [SYNTHETIC] {t} (gagal di-split)")
-                    dfs[t] = self._generate_synthetic(t)
-
+        for t in tickers:
+            file_path = os.path.join(raw_dir, f"{t.upper()}.parquet")
+            if os.path.exists(file_path):
+                df = pd.read_parquet(file_path)
+                df = self._clean_tz(df)
+                
+                # Slicing berdasarkan periode (jika bukan max)
+                if self.period != 'max' and self.n_days is not None:
+                    df = df.tail(self.n_days)
+                    
+                dfs[t] = df
+            else:
+                self._log(f"    [TIDAK DITEMUKAN] File {t} tidak ada di folder Raw.")
+                raise FileNotFoundError(f"Data {t} belum di-pull oleh pipeline.")
+                
         ok = [t for t in tickers if t in dfs and not dfs[t].empty]
-        self._log(f"  Download OK: {ok}")
+        self._log(f"  Load OK: {ok}")
         return dfs
 
     # Public method 
@@ -211,7 +201,7 @@ class StockDataLoader:
             tickers = [tickers]
 
         try:
-            return self._download(tickers)
+            return self._load_from_parquet(tickers)
 
         except Exception as e:
             self._log(f"  Download gagal: {e}")
