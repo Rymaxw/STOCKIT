@@ -1,4 +1,5 @@
 import pandas as pd
+# pyrefly: ignore [missing-import]
 import yfinance as yf
 import os
 import concurrent.futures 
@@ -105,7 +106,6 @@ class OrkestratorPipeline:
                     
         print(f"Sukses {len(hasil_sukses)} | Gagal {len(hasil_gagal)}")
         return hasil_sukses, hasil_gagal
-
 if __name__ == "__main__":
     print("\n>>> MEMULAI PROSES PIPELINE <<<")
     folder_utama = os.path.dirname(os.path.abspath(__file__))
@@ -118,7 +118,6 @@ if __name__ == "__main__":
             data_json = json.load(berkas)        
     daftar_saham_tes = [item['yf_symbol'] for item in data_json['tickers']]
     print(f"Berhasil memuat {len(daftar_saham_tes)} kode saham dari JSON!")
-    
     # Inisialisasi Class
     pengambil = PengambilDataSaham()
     pemroses = PemrosesData()
@@ -131,7 +130,6 @@ if __name__ == "__main__":
         periode_antarmuka="21 Tahun Terakhir", 
         frekuensi_antarmuka="Harian Daily"
     )
-    
     print(f"Waktu Eksekusi {time.time() - waktu_mulai:.2f} detik\n")
     
     print(">>> INSPEKSI DATA PARQUET <<<")
@@ -160,7 +158,3 @@ if __name__ == "__main__":
                 print(data_agregasi.head(3))
             else:
                 print(f"\n[{label}] Berkas tidak ditemukan: {lokasi_agregasi}")
-                
-    else:
-        if kode_saham_cek:
-            print(f"Tidak bisa inspeksi, saham {kode_saham_cek} gagal ditarik atau input kosong.")
