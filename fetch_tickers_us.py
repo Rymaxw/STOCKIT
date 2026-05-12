@@ -51,7 +51,7 @@ TOP30_US = [
 
 def validate_ticker(symbol):
     try:
-        data = yf.download(symbol, period="10y", progress=False, auto_adjust=True)
+        data = yf.download(symbol, period="21y", progress=False, auto_adjust=True)
         available = not data.empty
         return {
             "ticker":     symbol,

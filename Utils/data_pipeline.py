@@ -1,4 +1,5 @@
 import pandas as pd
+# pyrefly: ignore [missing-import]
 import yfinance as yf
 import os
 import concurrent.futures 
@@ -9,7 +10,8 @@ MAP_PERIODE = {
     "1 Tahun Terakhir": "1y",
     "3 Tahun Terakhir": "3y",
     "5 Tahun Terakhir": "5y",
-    "Maksimal": "max"
+    "10 Tahun Terakhir": "10y",
+    "21 Tahun Terakhir": "21y",
 }
 
 MAP_FREKUENSI = {
@@ -27,22 +29,33 @@ def simpan_satu_saham(ticker, yf_period, yf_interval):
             return ticker, False, "Data kosong"
             
         kolom_wajib = ['Open', 'High', 'Low', 'Close', 'Volume']
-        df_ohlcv = df[kolom_wajib]
+        df_ohlcv = df[kolom_wajib].copy()
         
-      
         project_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        
         raw_dir = os.path.join(project_dir, 'Data', 'Raw')
         os.makedirs(raw_dir, exist_ok=True)
-        filepath = os.path.join(raw_dir, f"{ticker}.parquet")
-        df_ohlcv.to_parquet(filepath)
+        df_ohlcv.to_parquet(os.path.join(raw_dir, f"{ticker}.parquet"))
         
-        return ticker, True, filepath
+        resample_logic = {
+            'Open': 'first', 'High': 'max', 'Low': 'min', 'Close': 'last', 'Volume': 'sum'
+        }
+        
+        processed_dir = os.path.join(project_dir, 'Data', 'Processed')
+        os.makedirs(processed_dir, exist_ok=True)
+        
+        df_ohlcv.resample('W').agg(resample_logic).dropna().to_parquet(os.path.join(processed_dir, f"{ticker}_weekly.parquet"))
+        df_ohlcv.resample('M').agg(resample_logic).dropna().to_parquet(os.path.join(processed_dir, f"{ticker}_monthly.parquet"))
+        df_ohlcv.resample('Y').agg(resample_logic).dropna().to_parquet(os.path.join(processed_dir, f"{ticker}_yearly.parquet"))
+        
+        return ticker, True, "Raw & Processed Saved"
         
     except Exception as e:
+        print(f"Error on {ticker}: {str(e)}")
         return ticker, False, str(e)
 
-def uji_tarik_data_saham(daftar_ticker, ui_periode="1 Tahun Terakhir", ui_frekuensi="Harian Daily"):
-    yf_period = MAP_PERIODE.get(ui_periode, "1y")
+def uji_tarik_data_saham(daftar_ticker, ui_periode="21 Tahun Terakhir", ui_frekuensi="Harian Daily"):
+    yf_period = MAP_PERIODE.get(ui_periode, "21y")
     yf_interval = MAP_FREKUENSI.get(ui_frekuensi, "1d")
     
     hasil_sukses = []
@@ -84,7 +97,7 @@ if __name__ == "__main__":
     start_time = time.time()
     sukses, gagal = uji_tarik_data_saham(
         daftar_ticker=daftar_saham_tes, 
-        ui_periode="1 Tahun Terakhir", 
+        ui_periode="21 Tahun Terakhir", 
         ui_frekuensi="Harian Daily"
     )
     
@@ -103,5 +116,20 @@ if __name__ == "__main__":
         print(df_inspeksi.head())
         print("\nCek Missing Values (NaN):")
         print(df_inspeksi.isna().sum())
+        
+        processed_dir = os.path.join(project_dir, 'Data', 'Processed')
+        print("\n" + "="*40)
+        print(">>> VALIDASI BENTUK DATA RESAMPLING <<<")
+        print("="*40)
+        
+        for freq in ['weekly', 'monthly', 'yearly']:
+            resample_path = os.path.join(processed_dir, f"{ticker_cek}_{freq}.parquet")
+            if os.path.exists(resample_path):
+                df_resampled = pd.read_parquet(resample_path)
+                print(f"\n[{freq.upper()}] Total baris: {len(df_resampled)} | Kolom: {len(df_resampled.columns)}")
+                print(df_resampled.head(3))
+            else:
+                print(f"\n[{freq.upper()}] File tidak ditemukan: {resample_path}")
+                
     else:
         print(f"Tidak bisa inspeksi, saham {ticker_cek} gagal ditarik.")
