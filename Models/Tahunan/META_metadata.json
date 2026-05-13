@@ -1,0 +1,65 @@
+{
+  "kode_saham": "META",
+  "frekuensi": "tahunan",
+  "harga_terakhir": 599.8900146484375,
+  "jumlah_data_training": 14,
+  "model_terbaik": "Croston",
+  "metrik_top5": {
+    "Model": {
+      "croston": "Croston",
+      "grand_means": "Grand Means Forecaster",
+      "rf_cds_dt": "Random Forest w/ Cond. Deseasonalize & Detrending",
+      "ada_cds_dt": "AdaBoost w/ Cond. Deseasonalize & Detrending",
+      "ets": "ETS"
+    },
+    "MASE": {
+      "croston": 0.2139,
+      "grand_means": 0.3008,
+      "rf_cds_dt": 0.4404,
+      "ada_cds_dt": 0.4558,
+      "ets": 0.4932
+    },
+    "RMSSE": {
+      "croston": 0.1526,
+      "grand_means": 0.2118,
+      "rf_cds_dt": 0.309,
+      "ada_cds_dt": 0.3201,
+      "ets": 0.347
+    },
+    "MAE": {
+      "croston": 0.1325,
+      "grand_means": 0.1824,
+      "rf_cds_dt": 0.2655,
+      "ada_cds_dt": 0.2752,
+      "ets": 0.2987
+    },
+    "RMSE": {
+      "croston": 0.1325,
+      "grand_means": 0.1824,
+      "rf_cds_dt": 0.2655,
+      "ada_cds_dt": 0.2752,
+      "ets": 0.2987
+    },
+    "MAPE": {
+      "croston": 0.9812,
+      "grand_means": 0.6456,
+      "rf_cds_dt": 0.6602,
+      "ada_cds_dt": 0.7668,
+      "ets": 0.9876
+    },
+    "SMAPE": {
+      "croston": 0.5189,
+      "grand_means": 0.6403,
+      "rf_cds_dt": 1.0749,
+      "ada_cds_dt": 1.3103,
+      "ets": 1.2009
+    },
+    "TT (Sec)": {
+      "croston": 0.015,
+      "grand_means": 0.015,
+      "rf_cds_dt": 0.075,
+      "ada_cds_dt": 0.045,
+      "ets": 0.02
+    }
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "kode_saham": "JNJ",
+  "frekuensi": "mingguan",
+  "harga_terakhir": 225.71499633789062,
+  "jumlah_data_training": 784,
+  "model_terbaik": "BaseCdsDtForecaster",
+  "metrik_top5": {
+    "Model": {
+      "knn_cds_dt": "K Neighbors w/ Cond. Deseasonalize & Detrending",
+      "gbr_cds_dt": "Gradient Boosting w/ Cond. Deseasonalize & Detrending",
+      "huber_cds_dt": "Huber w/ Cond. Deseasonalize & Detrending",
+      "lasso_cds_dt": "Lasso w/ Cond. Deseasonalize & Detrending",
+      "arima": "ARIMA"
+    },
+    "MASE": {
+      "knn_cds_dt": 0.8108,
+      "gbr_cds_dt": 0.8912,
+      "huber_cds_dt": 0.892,
+      "lasso_cds_dt": 0.8967,
+      "arima": 0.8946
+    },
+    "RMSSE": {
+      "knn_cds_dt": 0.766,
+      "gbr_cds_dt": 0.7978,
+      "huber_cds_dt": 0.7885,
+      "lasso_cds_dt": 0.7909,
+      "arima": 0.7881
+    },
+    "MAE": {
+      "knn_cds_dt": 0.0198,
+      "gbr_cds_dt": 0.0218,
+      "huber_cds_dt": 0.0218,
+      "lasso_cds_dt": 0.0219,
+      "arima": 0.0219
+    },
+    "RMSE": {
+      "knn_cds_dt": 0.0244,
+      "gbr_cds_dt": 0.0254,
+      "huber_cds_dt": 0.0251,
+      "lasso_cds_dt": 0.0252,
+      "arima": 0.0251
+    },
+    "MAPE": {
+      "knn_cds_dt": 0.864,
+      "gbr_cds_dt": 0.9631,
+      "huber_cds_dt": 0.974,
+      "lasso_cds_dt": 0.979,
+      "arima": 0.984
+    },
+    "SMAPE": {
+      "knn_cds_dt": 1.3419,
+      "gbr_cds_dt": 1.5306,
+      "huber_cds_dt": 1.6572,
+      "lasso_cds_dt": 1.7056,
+      "arima": 1.7033
+    },
+    "R2": {
+      "knn_cds_dt": -0.331,
+      "gbr_cds_dt": -0.4084,
+      "huber_cds_dt": -0.396,
+      "lasso_cds_dt": -0.4069,
+      "arima": -0.3961
+    },
+    "TT (Sec)": {
+      "knn_cds_dt": 0.0367,
+      "gbr_cds_dt": 0.0267,
+      "huber_cds_dt": 0.02,
+      "lasso_cds_dt": 0.0233,
+      "arima": 0.0333
+    }
+  }
+}

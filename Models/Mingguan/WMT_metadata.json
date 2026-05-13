@@ -1,0 +1,72 @@
+{
+  "kode_saham": "WMT",
+  "frekuensi": "mingguan",
+  "harga_terakhir": 130.09500122070312,
+  "jumlah_data_training": 784,
+  "model_terbaik": "Croston",
+  "metrik_top5": {
+    "Model": {
+      "croston": "Croston",
+      "huber_cds_dt": "Huber w/ Cond. Deseasonalize & Detrending",
+      "omp_cds_dt": "Orthogonal Matching Pursuit w/ Cond. Deseasonalize & Detrending",
+      "lr_cds_dt": "Linear w/ Cond. Deseasonalize & Detrending",
+      "br_cds_dt": "Bayesian Ridge w/ Cond. Deseasonalize & Detrending"
+    },
+    "MASE": {
+      "croston": 1.0912,
+      "huber_cds_dt": 1.1101,
+      "omp_cds_dt": 1.1086,
+      "lr_cds_dt": 1.1086,
+      "br_cds_dt": 1.1154
+    },
+    "RMSSE": {
+      "croston": 1.0205,
+      "huber_cds_dt": 0.9828,
+      "omp_cds_dt": 0.9773,
+      "lr_cds_dt": 0.9773,
+      "br_cds_dt": 0.9813
+    },
+    "MAE": {
+      "croston": 0.0321,
+      "huber_cds_dt": 0.0326,
+      "omp_cds_dt": 0.0326,
+      "lr_cds_dt": 0.0326,
+      "br_cds_dt": 0.0328
+    },
+    "RMSE": {
+      "croston": 0.0415,
+      "huber_cds_dt": 0.0399,
+      "omp_cds_dt": 0.0397,
+      "lr_cds_dt": 0.0397,
+      "br_cds_dt": 0.0399
+    },
+    "MAPE": {
+      "croston": 0.8723,
+      "huber_cds_dt": 0.7265,
+      "omp_cds_dt": 0.746,
+      "lr_cds_dt": 0.746,
+      "br_cds_dt": 0.753
+    },
+    "SMAPE": {
+      "croston": 0.9415,
+      "huber_cds_dt": 1.2115,
+      "omp_cds_dt": 1.2513,
+      "lr_cds_dt": 1.2513,
+      "br_cds_dt": 1.2644
+    },
+    "R2": {
+      "croston": -0.1748,
+      "huber_cds_dt": -0.2565,
+      "omp_cds_dt": -0.2501,
+      "lr_cds_dt": -0.2501,
+      "br_cds_dt": -0.2742
+    },
+    "TT (Sec)": {
+      "croston": 0.0067,
+      "huber_cds_dt": 0.02,
+      "omp_cds_dt": 0.0233,
+      "lr_cds_dt": 0.02,
+      "br_cds_dt": 0.02
+    }
+  }
+}

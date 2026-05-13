@@ -1,0 +1,65 @@
+{
+  "kode_saham": "ABBV",
+  "frekuensi": "tahunan",
+  "harga_terakhir": 208.55499267578125,
+  "jumlah_data_training": 13,
+  "model_terbaik": "BaseCdsDtForecaster",
+  "metrik_top5": {
+    "Model": {
+      "knn_cds_dt": "K Neighbors w/ Cond. Deseasonalize & Detrending",
+      "lr_cds_dt": "Linear w/ Cond. Deseasonalize & Detrending",
+      "omp_cds_dt": "Orthogonal Matching Pursuit w/ Cond. Deseasonalize & Detrending",
+      "ridge_cds_dt": "Ridge w/ Cond. Deseasonalize & Detrending",
+      "auto_arima": "Auto ARIMA"
+    },
+    "MASE": {
+      "knn_cds_dt": 0.0415,
+      "lr_cds_dt": 0.221,
+      "omp_cds_dt": 0.221,
+      "ridge_cds_dt": 0.27,
+      "auto_arima": 0.2684
+    },
+    "RMSSE": {
+      "knn_cds_dt": 0.0336,
+      "lr_cds_dt": 0.178,
+      "omp_cds_dt": 0.178,
+      "ridge_cds_dt": 0.218,
+      "auto_arima": 0.2186
+    },
+    "MAE": {
+      "knn_cds_dt": 0.0084,
+      "lr_cds_dt": 0.0436,
+      "omp_cds_dt": 0.0436,
+      "ridge_cds_dt": 0.054,
+      "auto_arima": 0.0558
+    },
+    "RMSE": {
+      "knn_cds_dt": 0.0084,
+      "lr_cds_dt": 0.0436,
+      "omp_cds_dt": 0.0436,
+      "ridge_cds_dt": 0.054,
+      "auto_arima": 0.0558
+    },
+    "MAPE": {
+      "knn_cds_dt": 0.0385,
+      "lr_cds_dt": 0.16,
+      "omp_cds_dt": 0.16,
+      "ridge_cds_dt": 0.2192,
+      "auto_arima": 0.2945
+    },
+    "SMAPE": {
+      "knn_cds_dt": 0.0393,
+      "lr_cds_dt": 0.1829,
+      "omp_cds_dt": 0.1829,
+      "ridge_cds_dt": 0.2492,
+      "auto_arima": 0.3765
+    },
+    "TT (Sec)": {
+      "knn_cds_dt": 0.045,
+      "lr_cds_dt": 0.025,
+      "omp_cds_dt": 0.025,
+      "ridge_cds_dt": 0.025,
+      "auto_arima": 0.275
+    }
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "kode_saham": "PG",
+  "frekuensi": "bulanan",
+  "harga_terakhir": 144.7279052734375,
+  "jumlah_data_training": 192,
+  "model_terbaik": "NaiveForecaster",
+  "metrik_top5": {
+    "Model": {
+      "grand_means": "Grand Means Forecaster",
+      "arima": "ARIMA",
+      "polytrend": "Polynomial Trend Forecaster",
+      "exp_smooth": "Exponential Smoothing",
+      "ets": "ETS"
+    },
+    "MASE": {
+      "grand_means": 0.8295,
+      "arima": 0.8307,
+      "polytrend": 0.8357,
+      "exp_smooth": 0.8359,
+      "ets": 0.8356
+    },
+    "RMSSE": {
+      "grand_means": 0.8326,
+      "arima": 0.8351,
+      "polytrend": 0.8331,
+      "exp_smooth": 0.8332,
+      "ets": 0.8331
+    },
+    "MAE": {
+      "grand_means": 0.0394,
+      "arima": 0.0395,
+      "polytrend": 0.0397,
+      "exp_smooth": 0.0397,
+      "ets": 0.0397
+    },
+    "RMSE": {
+      "grand_means": 0.0488,
+      "arima": 0.049,
+      "polytrend": 0.0488,
+      "exp_smooth": 0.0488,
+      "ets": 0.0488
+    },
+    "MAPE": {
+      "grand_means": 1.3778,
+      "arima": 1.3804,
+      "polytrend": 1.638,
+      "exp_smooth": 1.6401,
+      "ets": 1.6377
+    },
+    "SMAPE": {
+      "grand_means": 1.5069,
+      "arima": 1.5165,
+      "polytrend": 1.4593,
+      "exp_smooth": 1.4595,
+      "ets": 1.4588
+    },
+    "R2": {
+      "grand_means": -0.0172,
+      "arima": -0.0268,
+      "polytrend": -0.0182,
+      "exp_smooth": -0.0183,
+      "ets": -0.0181
+    },
+    "TT (Sec)": {
+      "grand_means": 0.012,
+      "arima": 0.024,
+      "polytrend": 0.01,
+      "exp_smooth": 0.016,
+      "ets": 0.016
+    }
+  }
+}

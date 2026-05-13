@@ -1,0 +1,65 @@
+{
+  "kode_saham": "PEP",
+  "frekuensi": "tahunan",
+  "harga_terakhir": 151.74000549316406,
+  "jumlah_data_training": 16,
+  "model_terbaik": "NaiveForecaster",
+  "metrik_top5": {
+    "Model": {
+      "naive": "Naive Forecaster",
+      "polytrend": "Polynomial Trend Forecaster",
+      "exp_smooth": "Exponential Smoothing",
+      "ets": "ETS",
+      "theta": "Theta Forecaster"
+    },
+    "MASE": {
+      "naive": 0.4685,
+      "polytrend": 0.8639,
+      "exp_smooth": 0.8639,
+      "ets": 0.8639,
+      "theta": 0.8639
+    },
+    "RMSSE": {
+      "naive": 0.39,
+      "polytrend": 0.714,
+      "exp_smooth": 0.714,
+      "ets": 0.714,
+      "theta": 0.714
+    },
+    "MAE": {
+      "naive": 0.053,
+      "polytrend": 0.0969,
+      "exp_smooth": 0.0969,
+      "ets": 0.0969,
+      "theta": 0.0969
+    },
+    "RMSE": {
+      "naive": 0.053,
+      "polytrend": 0.0969,
+      "exp_smooth": 0.0969,
+      "ets": 0.0969,
+      "theta": 0.0969
+    },
+    "MAPE": {
+      "naive": 1.9117,
+      "polytrend": 1.9107,
+      "exp_smooth": 1.9107,
+      "ets": 1.9109,
+      "theta": 1.9107
+    },
+    "SMAPE": {
+      "naive": 1.0241,
+      "polytrend": 2.0,
+      "exp_smooth": 2.0,
+      "ets": 2.0,
+      "theta": 2.0
+    },
+    "TT (Sec)": {
+      "naive": 0.02,
+      "polytrend": 0.015,
+      "exp_smooth": 0.02,
+      "ets": 0.02,
+      "theta": 0.015
+    }
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "kode_saham": "JPM",
+  "frekuensi": "mingguan",
+  "harga_terakhir": 304.9800109863281,
+  "jumlah_data_training": 784,
+  "model_terbaik": "ARIMA",
+  "metrik_top5": {
+    "Model": {
+      "arima": "ARIMA",
+      "huber_cds_dt": "Huber w/ Cond. Deseasonalize & Detrending",
+      "omp_cds_dt": "Orthogonal Matching Pursuit w/ Cond. Deseasonalize & Detrending",
+      "lr_cds_dt": "Linear w/ Cond. Deseasonalize & Detrending",
+      "ridge_cds_dt": "Ridge w/ Cond. Deseasonalize & Detrending"
+    },
+    "MASE": {
+      "arima": 0.8157,
+      "huber_cds_dt": 0.8157,
+      "omp_cds_dt": 0.8145,
+      "lr_cds_dt": 0.8145,
+      "ridge_cds_dt": 0.8178
+    },
+    "RMSSE": {
+      "arima": 0.6773,
+      "huber_cds_dt": 0.6815,
+      "omp_cds_dt": 0.6792,
+      "lr_cds_dt": 0.6792,
+      "ridge_cds_dt": 0.6809
+    },
+    "MAE": {
+      "arima": 0.0315,
+      "huber_cds_dt": 0.0315,
+      "omp_cds_dt": 0.0315,
+      "lr_cds_dt": 0.0315,
+      "ridge_cds_dt": 0.0316
+    },
+    "RMSE": {
+      "arima": 0.0359,
+      "huber_cds_dt": 0.0361,
+      "omp_cds_dt": 0.036,
+      "lr_cds_dt": 0.036,
+      "ridge_cds_dt": 0.0361
+    },
+    "MAPE": {
+      "arima": 1.0014,
+      "huber_cds_dt": 1.148,
+      "omp_cds_dt": 1.0492,
+      "lr_cds_dt": 1.0492,
+      "ridge_cds_dt": 1.0543
+    },
+    "SMAPE": {
+      "arima": 1.68,
+      "huber_cds_dt": 1.5757,
+      "omp_cds_dt": 1.6287,
+      "lr_cds_dt": 1.6287,
+      "ridge_cds_dt": 1.6367
+    },
+    "R2": {
+      "arima": -0.6358,
+      "huber_cds_dt": -0.7282,
+      "omp_cds_dt": -0.675,
+      "lr_cds_dt": -0.675,
+      "ridge_cds_dt": -0.6851
+    },
+    "TT (Sec)": {
+      "arima": 0.0167,
+      "huber_cds_dt": 0.02,
+      "omp_cds_dt": 0.02,
+      "lr_cds_dt": 0.02,
+      "ridge_cds_dt": 0.02
+    }
+  }
+}

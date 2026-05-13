@@ -1,6 +1,0 @@
-streamlit
-pandas
-numpy
-yfinance
-pycaret==3.3.2
-pyarrow

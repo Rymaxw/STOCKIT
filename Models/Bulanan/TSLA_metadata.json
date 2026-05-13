@@ -1,0 +1,72 @@
+{
+  "kode_saham": "TSLA",
+  "frekuensi": "bulanan",
+  "harga_terakhir": 428.9849853515625,
+  "jumlah_data_training": 191,
+  "model_terbaik": "AutoARIMA",
+  "metrik_top5": {
+    "Model": {
+      "auto_arima": "Auto ARIMA",
+      "ada_cds_dt": "AdaBoost w/ Cond. Deseasonalize & Detrending",
+      "huber_cds_dt": "Huber w/ Cond. Deseasonalize & Detrending",
+      "arima": "ARIMA",
+      "grand_means": "Grand Means Forecaster"
+    },
+    "MASE": {
+      "auto_arima": 0.8953,
+      "ada_cds_dt": 0.9144,
+      "huber_cds_dt": 0.921,
+      "arima": 0.9235,
+      "grand_means": 0.9246
+    },
+    "RMSSE": {
+      "auto_arima": 0.8683,
+      "ada_cds_dt": 0.8744,
+      "huber_cds_dt": 0.8731,
+      "arima": 0.8732,
+      "grand_means": 0.8747
+    },
+    "MAE": {
+      "auto_arima": 0.1502,
+      "ada_cds_dt": 0.1536,
+      "huber_cds_dt": 0.1546,
+      "arima": 0.155,
+      "grand_means": 0.1552
+    },
+    "RMSE": {
+      "auto_arima": 0.1877,
+      "ada_cds_dt": 0.189,
+      "huber_cds_dt": 0.1887,
+      "arima": 0.1887,
+      "grand_means": 0.1891
+    },
+    "MAPE": {
+      "auto_arima": 1.8971,
+      "ada_cds_dt": 1.1163,
+      "huber_cds_dt": 1.1715,
+      "arima": 1.2759,
+      "grand_means": 1.2817
+    },
+    "SMAPE": {
+      "auto_arima": 1.4723,
+      "ada_cds_dt": 1.7099,
+      "huber_cds_dt": 1.6297,
+      "arima": 1.5808,
+      "grand_means": 1.5716
+    },
+    "R2": {
+      "auto_arima": -0.0583,
+      "ada_cds_dt": -0.0661,
+      "huber_cds_dt": -0.0635,
+      "arima": -0.0641,
+      "grand_means": -0.0676
+    },
+    "TT (Sec)": {
+      "auto_arima": 0.29,
+      "ada_cds_dt": 0.086,
+      "huber_cds_dt": 0.052,
+      "arima": 0.02,
+      "grand_means": 0.014
+    }
+  }
+}

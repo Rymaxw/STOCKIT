@@ -1,0 +1,72 @@
+{
+  "kode_saham": "MRK",
+  "frekuensi": "bulanan",
+  "harga_terakhir": 113.06430053710938,
+  "jumlah_data_training": 192,
+  "model_terbaik": "ARIMA",
+  "metrik_top5": {
+    "Model": {
+      "arima": "ARIMA",
+      "grand_means": "Grand Means Forecaster",
+      "auto_arima": "Auto ARIMA",
+      "br_cds_dt": "Bayesian Ridge w/ Cond. Deseasonalize & Detrending",
+      "omp_cds_dt": "Orthogonal Matching Pursuit w/ Cond. Deseasonalize & Detrending"
+    },
+    "MASE": {
+      "arima": 0.8324,
+      "grand_means": 0.8348,
+      "auto_arima": 0.8458,
+      "br_cds_dt": 0.8569,
+      "omp_cds_dt": 0.8563
+    },
+    "RMSSE": {
+      "arima": 0.8145,
+      "grand_means": 0.8159,
+      "auto_arima": 0.8279,
+      "br_cds_dt": 0.8332,
+      "omp_cds_dt": 0.8327
+    },
+    "MAE": {
+      "arima": 0.0504,
+      "grand_means": 0.0506,
+      "auto_arima": 0.0514,
+      "br_cds_dt": 0.052,
+      "omp_cds_dt": 0.052
+    },
+    "RMSE": {
+      "arima": 0.062,
+      "grand_means": 0.0621,
+      "auto_arima": 0.0633,
+      "br_cds_dt": 0.0635,
+      "omp_cds_dt": 0.0635
+    },
+    "MAPE": {
+      "arima": 1.3595,
+      "grand_means": 1.4205,
+      "auto_arima": 1.6749,
+      "br_cds_dt": 1.4248,
+      "omp_cds_dt": 1.413
+    },
+    "SMAPE": {
+      "arima": 1.6659,
+      "grand_means": 1.6717,
+      "auto_arima": 1.6187,
+      "br_cds_dt": 1.7195,
+      "omp_cds_dt": 1.7177
+    },
+    "R2": {
+      "arima": -0.2517,
+      "grand_means": -0.2562,
+      "auto_arima": -0.3451,
+      "br_cds_dt": -0.3453,
+      "omp_cds_dt": -0.3439
+    },
+    "TT (Sec)": {
+      "arima": 0.03,
+      "grand_means": 0.016,
+      "auto_arima": 0.4,
+      "br_cds_dt": 0.048,
+      "omp_cds_dt": 0.05
+    }
+  }
+}

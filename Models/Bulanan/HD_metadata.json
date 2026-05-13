@@ -1,0 +1,72 @@
+{
+  "kode_saham": "HD",
+  "frekuensi": "bulanan",
+  "harga_terakhir": 312.010009765625,
+  "jumlah_data_training": 192,
+  "model_terbaik": "BaseCdsDtForecaster",
+  "metrik_top5": {
+    "Model": {
+      "en_cds_dt": "Elastic Net w/ Cond. Deseasonalize & Detrending",
+      "ridge_cds_dt": "Ridge w/ Cond. Deseasonalize & Detrending",
+      "lasso_cds_dt": "Lasso w/ Cond. Deseasonalize & Detrending",
+      "llar_cds_dt": "Lasso Least Angular Regressor w/ Cond. Deseasonalize & Detrending",
+      "br_cds_dt": "Bayesian Ridge w/ Cond. Deseasonalize & Detrending"
+    },
+    "MASE": {
+      "en_cds_dt": 0.8244,
+      "ridge_cds_dt": 0.8238,
+      "lasso_cds_dt": 0.8244,
+      "llar_cds_dt": 0.8244,
+      "br_cds_dt": 0.8243
+    },
+    "RMSSE": {
+      "en_cds_dt": 0.8025,
+      "ridge_cds_dt": 0.8024,
+      "lasso_cds_dt": 0.8025,
+      "llar_cds_dt": 0.8025,
+      "br_cds_dt": 0.8025
+    },
+    "MAE": {
+      "en_cds_dt": 0.0534,
+      "ridge_cds_dt": 0.0534,
+      "lasso_cds_dt": 0.0534,
+      "llar_cds_dt": 0.0534,
+      "br_cds_dt": 0.0534
+    },
+    "RMSE": {
+      "en_cds_dt": 0.0668,
+      "ridge_cds_dt": 0.0668,
+      "lasso_cds_dt": 0.0668,
+      "llar_cds_dt": 0.0668,
+      "br_cds_dt": 0.0668
+    },
+    "MAPE": {
+      "en_cds_dt": 1.05,
+      "ridge_cds_dt": 1.0492,
+      "lasso_cds_dt": 1.05,
+      "llar_cds_dt": 1.05,
+      "br_cds_dt": 1.0501
+    },
+    "SMAPE": {
+      "en_cds_dt": 1.553,
+      "ridge_cds_dt": 1.5508,
+      "lasso_cds_dt": 1.553,
+      "llar_cds_dt": 1.553,
+      "br_cds_dt": 1.5527
+    },
+    "R2": {
+      "en_cds_dt": -0.0199,
+      "ridge_cds_dt": -0.0197,
+      "lasso_cds_dt": -0.0199,
+      "llar_cds_dt": -0.0199,
+      "br_cds_dt": -0.0199
+    },
+    "TT (Sec)": {
+      "en_cds_dt": 0.048,
+      "ridge_cds_dt": 0.05,
+      "lasso_cds_dt": 0.058,
+      "llar_cds_dt": 0.048,
+      "br_cds_dt": 0.05
+    }
+  }
+}

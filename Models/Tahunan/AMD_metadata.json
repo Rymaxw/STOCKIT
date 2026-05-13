@@ -1,0 +1,65 @@
+{
+  "kode_saham": "AMD",
+  "frekuensi": "tahunan",
+  "harga_terakhir": 437.4800109863281,
+  "jumlah_data_training": 16,
+  "model_terbaik": "ARIMA",
+  "metrik_top5": {
+    "Model": {
+      "arima": "ARIMA",
+      "croston": "Croston",
+      "grand_means": "Grand Means Forecaster",
+      "auto_arima": "Auto ARIMA",
+      "et_cds_dt": "Extra Trees w/ Cond. Deseasonalize & Detrending"
+    },
+    "MASE": {
+      "arima": 0.3017,
+      "croston": 0.4054,
+      "grand_means": 0.4376,
+      "auto_arima": 0.4392,
+      "et_cds_dt": 0.4553
+    },
+    "RMSSE": {
+      "arima": 0.2612,
+      "croston": 0.3512,
+      "grand_means": 0.3801,
+      "auto_arima": 0.3842,
+      "et_cds_dt": 0.3936
+    },
+    "MAE": {
+      "arima": 0.258,
+      "croston": 0.3472,
+      "grand_means": 0.3776,
+      "auto_arima": 0.3859,
+      "et_cds_dt": 0.3878
+    },
+    "RMSE": {
+      "arima": 0.258,
+      "croston": 0.3472,
+      "grand_means": 0.3776,
+      "auto_arima": 0.3859,
+      "et_cds_dt": 0.3878
+    },
+    "MAPE": {
+      "arima": 1.0502,
+      "croston": 1.3819,
+      "grand_means": 1.3497,
+      "auto_arima": 1.0,
+      "et_cds_dt": 1.6636
+    },
+    "SMAPE": {
+      "arima": 1.1505,
+      "croston": 1.2388,
+      "grand_means": 1.411,
+      "auto_arima": 2.0,
+      "et_cds_dt": 1.1782
+    },
+    "TT (Sec)": {
+      "arima": 0.025,
+      "croston": 0.015,
+      "grand_means": 0.015,
+      "auto_arima": 0.08,
+      "et_cds_dt": 0.07
+    }
+  }
+}

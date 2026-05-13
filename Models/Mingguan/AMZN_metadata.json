@@ -1,0 +1,72 @@
+{
+  "kode_saham": "AMZN",
+  "frekuensi": "mingguan",
+  "harga_terakhir": 263.94500732421875,
+  "jumlah_data_training": 784,
+  "model_terbaik": "AutoETS",
+  "metrik_top5": {
+    "Model": {
+      "ets": "ETS",
+      "omp_cds_dt": "Orthogonal Matching Pursuit w/ Cond. Deseasonalize & Detrending",
+      "lr_cds_dt": "Linear w/ Cond. Deseasonalize & Detrending",
+      "exp_smooth": "Exponential Smoothing",
+      "llar_cds_dt": "Lasso Least Angular Regressor w/ Cond. Deseasonalize & Detrending"
+    },
+    "MASE": {
+      "ets": 1.0164,
+      "omp_cds_dt": 1.0187,
+      "lr_cds_dt": 1.0187,
+      "exp_smooth": 1.0196,
+      "llar_cds_dt": 1.0197
+    },
+    "RMSSE": {
+      "ets": 0.9209,
+      "omp_cds_dt": 0.9228,
+      "lr_cds_dt": 0.9228,
+      "exp_smooth": 0.9226,
+      "llar_cds_dt": 0.9228
+    },
+    "MAE": {
+      "ets": 0.0463,
+      "omp_cds_dt": 0.0464,
+      "lr_cds_dt": 0.0464,
+      "exp_smooth": 0.0465,
+      "llar_cds_dt": 0.0465
+    },
+    "RMSE": {
+      "ets": 0.0557,
+      "omp_cds_dt": 0.0558,
+      "lr_cds_dt": 0.0558,
+      "exp_smooth": 0.0558,
+      "llar_cds_dt": 0.0558
+    },
+    "MAPE": {
+      "ets": 1.4252,
+      "omp_cds_dt": 1.4605,
+      "lr_cds_dt": 1.4605,
+      "exp_smooth": 1.5853,
+      "llar_cds_dt": 1.5875
+    },
+    "SMAPE": {
+      "ets": 1.8978,
+      "omp_cds_dt": 1.8581,
+      "lr_cds_dt": 1.8581,
+      "exp_smooth": 1.8576,
+      "llar_cds_dt": 1.8575
+    },
+    "R2": {
+      "ets": -0.3884,
+      "omp_cds_dt": -0.4191,
+      "lr_cds_dt": -0.4191,
+      "exp_smooth": -0.4192,
+      "llar_cds_dt": -0.4201
+    },
+    "TT (Sec)": {
+      "ets": 0.0133,
+      "omp_cds_dt": 0.0233,
+      "lr_cds_dt": 0.0233,
+      "exp_smooth": 0.0133,
+      "llar_cds_dt": 0.02
+    }
+  }
+}

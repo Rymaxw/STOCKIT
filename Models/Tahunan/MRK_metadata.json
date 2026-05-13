@@ -1,0 +1,65 @@
+{
+  "kode_saham": "MRK",
+  "frekuensi": "tahunan",
+  "harga_terakhir": 113.06430053710938,
+  "jumlah_data_training": 16,
+  "model_terbaik": "NaiveForecaster",
+  "metrik_top5": {
+    "Model": {
+      "grand_means": "Grand Means Forecaster",
+      "croston": "Croston",
+      "theta": "Theta Forecaster",
+      "lasso_cds_dt": "Lasso w/ Cond. Deseasonalize & Detrending",
+      "en_cds_dt": "Elastic Net w/ Cond. Deseasonalize & Detrending"
+    },
+    "MASE": {
+      "grand_means": 0.5098,
+      "croston": 0.5518,
+      "theta": 0.5545,
+      "lasso_cds_dt": 0.5546,
+      "en_cds_dt": 0.5546
+    },
+    "RMSSE": {
+      "grand_means": 0.439,
+      "croston": 0.4758,
+      "theta": 0.478,
+      "lasso_cds_dt": 0.4781,
+      "en_cds_dt": 0.4781
+    },
+    "MAE": {
+      "grand_means": 0.1016,
+      "croston": 0.1102,
+      "theta": 0.1107,
+      "lasso_cds_dt": 0.1107,
+      "en_cds_dt": 0.1107
+    },
+    "RMSE": {
+      "grand_means": 0.1016,
+      "croston": 0.1102,
+      "theta": 0.1107,
+      "lasso_cds_dt": 0.1107,
+      "en_cds_dt": 0.1107
+    },
+    "MAPE": {
+      "grand_means": 1.5325,
+      "croston": 1.6176,
+      "theta": 1.63,
+      "lasso_cds_dt": 1.6361,
+      "en_cds_dt": 1.6361
+    },
+    "SMAPE": {
+      "grand_means": 1.0817,
+      "croston": 1.1628,
+      "theta": 1.2265,
+      "lasso_cds_dt": 1.2064,
+      "en_cds_dt": 1.2064
+    },
+    "TT (Sec)": {
+      "grand_means": 0.015,
+      "croston": 0.005,
+      "theta": 0.015,
+      "lasso_cds_dt": 0.035,
+      "en_cds_dt": 0.03
+    }
+  }
+}

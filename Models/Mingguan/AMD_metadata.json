@@ -1,0 +1,72 @@
+{
+  "kode_saham": "AMD",
+  "frekuensi": "mingguan",
+  "harga_terakhir": 437.4800109863281,
+  "jumlah_data_training": 784,
+  "model_terbaik": "NaiveForecaster",
+  "metrik_top5": {
+    "Model": {
+      "grand_means": "Grand Means Forecaster",
+      "auto_arima": "Auto ARIMA",
+      "arima": "ARIMA",
+      "knn_cds_dt": "K Neighbors w/ Cond. Deseasonalize & Detrending",
+      "gbr_cds_dt": "Gradient Boosting w/ Cond. Deseasonalize & Detrending"
+    },
+    "MASE": {
+      "grand_means": 0.6914,
+      "auto_arima": 0.6914,
+      "arima": 0.6923,
+      "knn_cds_dt": 0.7035,
+      "gbr_cds_dt": 0.7116
+    },
+    "RMSSE": {
+      "grand_means": 0.6287,
+      "auto_arima": 0.6287,
+      "arima": 0.6295,
+      "knn_cds_dt": 0.5873,
+      "gbr_cds_dt": 0.6014
+    },
+    "MAE": {
+      "grand_means": 0.0559,
+      "auto_arima": 0.0559,
+      "arima": 0.056,
+      "knn_cds_dt": 0.0569,
+      "gbr_cds_dt": 0.0576
+    },
+    "RMSE": {
+      "grand_means": 0.0679,
+      "auto_arima": 0.0679,
+      "arima": 0.068,
+      "knn_cds_dt": 0.0635,
+      "gbr_cds_dt": 0.065
+    },
+    "MAPE": {
+      "grand_means": 1.9484,
+      "auto_arima": 1.9484,
+      "arima": 1.8703,
+      "knn_cds_dt": 2.9555,
+      "gbr_cds_dt": 4.7415
+    },
+    "SMAPE": {
+      "grand_means": 1.6095,
+      "auto_arima": 1.6095,
+      "arima": 1.6123,
+      "knn_cds_dt": 1.7127,
+      "gbr_cds_dt": 1.6556
+    },
+    "R2": {
+      "grand_means": -1.5183,
+      "auto_arima": -1.5183,
+      "arima": -1.5246,
+      "knn_cds_dt": -1.207,
+      "gbr_cds_dt": -1.3603
+    },
+    "TT (Sec)": {
+      "grand_means": 0.01,
+      "auto_arima": 0.1467,
+      "arima": 0.0267,
+      "knn_cds_dt": 0.0367,
+      "gbr_cds_dt": 0.03
+    }
+  }
+}

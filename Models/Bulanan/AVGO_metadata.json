@@ -1,0 +1,72 @@
+{
+  "kode_saham": "AVGO",
+  "frekuensi": "bulanan",
+  "harga_terakhir": 413.6499938964844,
+  "jumlah_data_training": 192,
+  "model_terbaik": "BaseCdsDtForecaster",
+  "metrik_top5": {
+    "Model": {
+      "lightgbm_cds_dt": "Light Gradient Boosting w/ Cond. Deseasonalize & Detrending",
+      "grand_means": "Grand Means Forecaster",
+      "arima": "ARIMA",
+      "polytrend": "Polynomial Trend Forecaster",
+      "exp_smooth": "Exponential Smoothing"
+    },
+    "MASE": {
+      "lightgbm_cds_dt": 0.7534,
+      "grand_means": 0.7586,
+      "arima": 0.7664,
+      "polytrend": 0.7765,
+      "exp_smooth": 0.7765
+    },
+    "RMSSE": {
+      "lightgbm_cds_dt": 0.75,
+      "grand_means": 0.7621,
+      "arima": 0.769,
+      "polytrend": 0.7751,
+      "exp_smooth": 0.7751
+    },
+    "MAE": {
+      "lightgbm_cds_dt": 0.0706,
+      "grand_means": 0.0711,
+      "arima": 0.0719,
+      "polytrend": 0.0728,
+      "exp_smooth": 0.0728
+    },
+    "RMSE": {
+      "lightgbm_cds_dt": 0.0919,
+      "grand_means": 0.0934,
+      "arima": 0.0943,
+      "polytrend": 0.095,
+      "exp_smooth": 0.095
+    },
+    "MAPE": {
+      "lightgbm_cds_dt": 1.7253,
+      "grand_means": 1.7027,
+      "arima": 1.7136,
+      "polytrend": 1.6989,
+      "exp_smooth": 1.6988
+    },
+    "SMAPE": {
+      "lightgbm_cds_dt": 1.2245,
+      "grand_means": 1.2152,
+      "arima": 1.234,
+      "polytrend": 1.3129,
+      "exp_smooth": 1.3129
+    },
+    "R2": {
+      "lightgbm_cds_dt": 0.0132,
+      "grand_means": -0.0452,
+      "arima": -0.0765,
+      "polytrend": -0.1039,
+      "exp_smooth": -0.1039
+    },
+    "TT (Sec)": {
+      "lightgbm_cds_dt": 0.08,
+      "grand_means": 0.012,
+      "arima": 0.026,
+      "polytrend": 0.01,
+      "exp_smooth": 0.018
+    }
+  }
+}

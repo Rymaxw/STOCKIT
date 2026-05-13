@@ -1,0 +1,65 @@
+{
+  "kode_saham": "LLY",
+  "frekuensi": "tahunan",
+  "harga_terakhir": 990.1099853515625,
+  "jumlah_data_training": 16,
+  "model_terbaik": "Croston",
+  "metrik_top5": {
+    "Model": {
+      "croston": "Croston",
+      "arima": "ARIMA",
+      "theta": "Theta Forecaster",
+      "grand_means": "Grand Means Forecaster",
+      "auto_arima": "Auto ARIMA"
+    },
+    "MASE": {
+      "croston": 0.2382,
+      "arima": 0.2438,
+      "theta": 0.3285,
+      "grand_means": 0.3388,
+      "auto_arima": 0.3388
+    },
+    "RMSSE": {
+      "croston": 0.225,
+      "arima": 0.2313,
+      "theta": 0.3033,
+      "grand_means": 0.3187,
+      "auto_arima": 0.3187
+    },
+    "MAE": {
+      "croston": 0.0474,
+      "arima": 0.0489,
+      "theta": 0.0628,
+      "grand_means": 0.067,
+      "auto_arima": 0.067
+    },
+    "RMSE": {
+      "croston": 0.0474,
+      "arima": 0.0489,
+      "theta": 0.0628,
+      "grand_means": 0.067,
+      "auto_arima": 0.067
+    },
+    "MAPE": {
+      "croston": 0.146,
+      "arima": 0.1481,
+      "theta": 0.2106,
+      "grand_means": 0.2095,
+      "auto_arima": 0.2095
+    },
+    "SMAPE": {
+      "croston": 0.1605,
+      "arima": 0.1666,
+      "theta": 0.1851,
+      "grand_means": 0.2362,
+      "auto_arima": 0.2362
+    },
+    "TT (Sec)": {
+      "croston": 0.015,
+      "arima": 0.04,
+      "theta": 0.025,
+      "grand_means": 0.02,
+      "auto_arima": 0.135
+    }
+  }
+}

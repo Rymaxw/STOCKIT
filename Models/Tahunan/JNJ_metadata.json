@@ -1,0 +1,65 @@
+{
+  "kode_saham": "JNJ",
+  "frekuensi": "tahunan",
+  "harga_terakhir": 225.71499633789062,
+  "jumlah_data_training": 16,
+  "model_terbaik": "Croston",
+  "metrik_top5": {
+    "Model": {
+      "croston": "Croston",
+      "grand_means": "Grand Means Forecaster",
+      "auto_arima": "Auto ARIMA",
+      "theta": "Theta Forecaster",
+      "naive": "Naive Forecaster"
+    },
+    "MASE": {
+      "croston": 1.8106,
+      "grand_means": 1.8672,
+      "auto_arima": 1.8672,
+      "theta": 1.9541,
+      "naive": 1.9783
+    },
+    "RMSSE": {
+      "croston": 1.5248,
+      "grand_means": 1.5732,
+      "auto_arima": 1.5732,
+      "theta": 1.6525,
+      "naive": 1.6747
+    },
+    "MAE": {
+      "croston": 0.2175,
+      "grand_means": 0.2244,
+      "auto_arima": 0.2244,
+      "theta": 0.2359,
+      "naive": 0.2391
+    },
+    "RMSE": {
+      "croston": 0.2175,
+      "grand_means": 0.2244,
+      "auto_arima": 0.2244,
+      "theta": 0.2359,
+      "naive": 0.2391
+    },
+    "MAPE": {
+      "croston": 1.9495,
+      "grand_means": 1.9023,
+      "auto_arima": 1.9023,
+      "theta": 1.1917,
+      "naive": 0.9729
+    },
+    "SMAPE": {
+      "croston": 1.5572,
+      "grand_means": 1.6263,
+      "auto_arima": 1.6263,
+      "theta": 2.0,
+      "naive": 1.2905
+    },
+    "TT (Sec)": {
+      "croston": 0.015,
+      "grand_means": 0.015,
+      "auto_arima": 0.14,
+      "theta": 0.015,
+      "naive": 0.02
+    }
+  }
+}

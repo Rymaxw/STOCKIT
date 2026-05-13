@@ -1,0 +1,72 @@
+{
+  "kode_saham": "NFLX",
+  "frekuensi": "bulanan",
+  "harga_terakhir": 87.3499984741211,
+  "jumlah_data_training": 192,
+  "model_terbaik": "NaiveForecaster",
+  "metrik_top5": {
+    "Model": {
+      "grand_means": "Grand Means Forecaster",
+      "arima": "ARIMA",
+      "croston": "Croston",
+      "huber_cds_dt": "Huber w/ Cond. Deseasonalize & Detrending",
+      "ets": "ETS"
+    },
+    "MASE": {
+      "grand_means": 0.5997,
+      "arima": 0.6007,
+      "croston": 0.6049,
+      "huber_cds_dt": 0.6355,
+      "ets": 0.6446
+    },
+    "RMSSE": {
+      "grand_means": 0.6106,
+      "arima": 0.6109,
+      "croston": 0.6206,
+      "huber_cds_dt": 0.6586,
+      "ets": 0.669
+    },
+    "MAE": {
+      "grand_means": 0.0883,
+      "arima": 0.0884,
+      "croston": 0.0894,
+      "huber_cds_dt": 0.0935,
+      "ets": 0.0947
+    },
+    "RMSE": {
+      "grand_means": 0.1181,
+      "arima": 0.1181,
+      "croston": 0.1204,
+      "huber_cds_dt": 0.1273,
+      "ets": 0.1292
+    },
+    "MAPE": {
+      "grand_means": 1.3398,
+      "arima": 1.3416,
+      "croston": 2.1063,
+      "huber_cds_dt": 1.2002,
+      "ets": 1.1948
+    },
+    "SMAPE": {
+      "grand_means": 1.4599,
+      "arima": 1.4677,
+      "croston": 1.2628,
+      "huber_cds_dt": 1.5278,
+      "ets": 1.4705
+    },
+    "R2": {
+      "grand_means": -0.1148,
+      "arima": -0.1174,
+      "croston": -0.1797,
+      "huber_cds_dt": -0.2965,
+      "ets": -0.3402
+    },
+    "TT (Sec)": {
+      "grand_means": 0.012,
+      "arima": 0.03,
+      "croston": 0.01,
+      "huber_cds_dt": 0.05,
+      "ets": 0.016
+    }
+  }
+}

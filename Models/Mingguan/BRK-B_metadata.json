@@ -1,0 +1,72 @@
+{
+  "kode_saham": "BRK-B",
+  "frekuensi": "mingguan",
+  "harga_terakhir": 486.0799865722656,
+  "jumlah_data_training": 784,
+  "model_terbaik": "PolynomialTrendForecaster",
+  "metrik_top5": {
+    "Model": {
+      "polytrend": "Polynomial Trend Forecaster",
+      "exp_smooth": "Exponential Smoothing",
+      "ets": "ETS",
+      "theta": "Theta Forecaster",
+      "ridge_cds_dt": "Ridge w/ Cond. Deseasonalize & Detrending"
+    },
+    "MASE": {
+      "polytrend": 0.6366,
+      "exp_smooth": 0.635,
+      "ets": 0.6366,
+      "theta": 0.6366,
+      "ridge_cds_dt": 0.6366
+    },
+    "RMSSE": {
+      "polytrend": 0.5804,
+      "exp_smooth": 0.5814,
+      "ets": 0.5804,
+      "theta": 0.5805,
+      "ridge_cds_dt": 0.5832
+    },
+    "MAE": {
+      "polytrend": 0.0172,
+      "exp_smooth": 0.0172,
+      "ets": 0.0172,
+      "theta": 0.0172,
+      "ridge_cds_dt": 0.0172
+    },
+    "RMSE": {
+      "polytrend": 0.0214,
+      "exp_smooth": 0.0214,
+      "ets": 0.0214,
+      "theta": 0.0214,
+      "ridge_cds_dt": 0.0215
+    },
+    "MAPE": {
+      "polytrend": 0.9318,
+      "exp_smooth": 0.9213,
+      "ets": 0.9318,
+      "theta": 0.9318,
+      "ridge_cds_dt": 0.9148
+    },
+    "SMAPE": {
+      "polytrend": 1.548,
+      "exp_smooth": 1.5183,
+      "ets": 1.5485,
+      "theta": 1.548,
+      "ridge_cds_dt": 1.5225
+    },
+    "R2": {
+      "polytrend": -0.2992,
+      "exp_smooth": -0.2993,
+      "ets": -0.2988,
+      "theta": -0.2993,
+      "ridge_cds_dt": -0.3125
+    },
+    "TT (Sec)": {
+      "polytrend": 0.01,
+      "exp_smooth": 0.0133,
+      "ets": 0.0133,
+      "theta": 0.01,
+      "ridge_cds_dt": 0.0167
+    }
+  }
+}

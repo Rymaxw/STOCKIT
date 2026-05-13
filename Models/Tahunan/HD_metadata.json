@@ -1,0 +1,65 @@
+{
+  "kode_saham": "HD",
+  "frekuensi": "tahunan",
+  "harga_terakhir": 312.010009765625,
+  "jumlah_data_training": 16,
+  "model_terbaik": "BaseCdsDtForecaster",
+  "metrik_top5": {
+    "Model": {
+      "huber_cds_dt": "Huber w/ Cond. Deseasonalize & Detrending",
+      "omp_cds_dt": "Orthogonal Matching Pursuit w/ Cond. Deseasonalize & Detrending",
+      "lr_cds_dt": "Linear w/ Cond. Deseasonalize & Detrending",
+      "br_cds_dt": "Bayesian Ridge w/ Cond. Deseasonalize & Detrending",
+      "ridge_cds_dt": "Ridge w/ Cond. Deseasonalize & Detrending"
+    },
+    "MASE": {
+      "huber_cds_dt": 0.3759,
+      "omp_cds_dt": 0.3801,
+      "lr_cds_dt": 0.3801,
+      "br_cds_dt": 0.392,
+      "ridge_cds_dt": 0.4079
+    },
+    "RMSSE": {
+      "huber_cds_dt": 0.2937,
+      "omp_cds_dt": 0.2955,
+      "lr_cds_dt": 0.2955,
+      "br_cds_dt": 0.3043,
+      "ridge_cds_dt": 0.3159
+    },
+    "MAE": {
+      "huber_cds_dt": 0.0935,
+      "omp_cds_dt": 0.0939,
+      "lr_cds_dt": 0.0939,
+      "br_cds_dt": 0.0967,
+      "ridge_cds_dt": 0.1003
+    },
+    "RMSE": {
+      "huber_cds_dt": 0.0935,
+      "omp_cds_dt": 0.0939,
+      "lr_cds_dt": 0.0939,
+      "br_cds_dt": 0.0967,
+      "ridge_cds_dt": 0.1003
+    },
+    "MAPE": {
+      "huber_cds_dt": 0.7994,
+      "omp_cds_dt": 0.8358,
+      "lr_cds_dt": 0.8358,
+      "br_cds_dt": 0.8706,
+      "ridge_cds_dt": 0.9199
+    },
+    "SMAPE": {
+      "huber_cds_dt": 1.3436,
+      "omp_cds_dt": 1.4056,
+      "lr_cds_dt": 1.4056,
+      "br_cds_dt": 1.3743,
+      "ridge_cds_dt": 1.3206
+    },
+    "TT (Sec)": {
+      "huber_cds_dt": 0.025,
+      "omp_cds_dt": 0.025,
+      "lr_cds_dt": 0.03,
+      "br_cds_dt": 0.03,
+      "ridge_cds_dt": 0.025
+    }
+  }
+}

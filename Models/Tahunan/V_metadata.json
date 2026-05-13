@@ -1,0 +1,65 @@
+{
+  "kode_saham": "V",
+  "frekuensi": "tahunan",
+  "harga_terakhir": 327.2513122558594,
+  "jumlah_data_training": 16,
+  "model_terbaik": "NaiveForecaster",
+  "metrik_top5": {
+    "Model": {
+      "grand_means": "Grand Means Forecaster",
+      "auto_arima": "Auto ARIMA",
+      "arima": "ARIMA",
+      "naive": "Naive Forecaster",
+      "theta": "Theta Forecaster"
+    },
+    "MASE": {
+      "grand_means": 0.323,
+      "auto_arima": 0.323,
+      "arima": 0.3515,
+      "naive": 0.3839,
+      "theta": 0.4312
+    },
+    "RMSSE": {
+      "grand_means": 0.265,
+      "auto_arima": 0.265,
+      "arima": 0.2884,
+      "naive": 0.315,
+      "theta": 0.354
+    },
+    "MAE": {
+      "grand_means": 0.0515,
+      "auto_arima": 0.0515,
+      "arima": 0.056,
+      "naive": 0.0612,
+      "theta": 0.0688
+    },
+    "RMSE": {
+      "grand_means": 0.0515,
+      "auto_arima": 0.0515,
+      "arima": 0.056,
+      "naive": 0.0612,
+      "theta": 0.0688
+    },
+    "MAPE": {
+      "grand_means": 0.4369,
+      "auto_arima": 0.4369,
+      "arima": 0.4633,
+      "naive": 0.4857,
+      "theta": 0.4028
+    },
+    "SMAPE": {
+      "grand_means": 0.3193,
+      "auto_arima": 0.3193,
+      "arima": 0.3401,
+      "naive": 0.3626,
+      "theta": 0.5208
+    },
+    "TT (Sec)": {
+      "grand_means": 0.015,
+      "auto_arima": 0.095,
+      "arima": 0.035,
+      "naive": 0.02,
+      "theta": 0.015
+    }
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "kode_saham": "COST",
+  "frekuensi": "bulanan",
+  "harga_terakhir": 1020.1201171875,
+  "jumlah_data_training": 192,
+  "model_terbaik": "Croston",
+  "metrik_top5": {
+    "Model": {
+      "croston": "Croston",
+      "huber_cds_dt": "Huber w/ Cond. Deseasonalize & Detrending",
+      "auto_arima": "Auto ARIMA",
+      "lasso_cds_dt": "Lasso w/ Cond. Deseasonalize & Detrending",
+      "en_cds_dt": "Elastic Net w/ Cond. Deseasonalize & Detrending"
+    },
+    "MASE": {
+      "croston": 0.8914,
+      "huber_cds_dt": 0.8956,
+      "auto_arima": 0.9059,
+      "lasso_cds_dt": 0.9082,
+      "en_cds_dt": 0.9082
+    },
+    "RMSSE": {
+      "croston": 0.8947,
+      "huber_cds_dt": 0.8748,
+      "auto_arima": 0.8825,
+      "lasso_cds_dt": 0.8764,
+      "en_cds_dt": 0.8764
+    },
+    "MAE": {
+      "croston": 0.0534,
+      "huber_cds_dt": 0.0538,
+      "auto_arima": 0.0544,
+      "lasso_cds_dt": 0.0546,
+      "en_cds_dt": 0.0546
+    },
+    "RMSE": {
+      "croston": 0.0669,
+      "huber_cds_dt": 0.0655,
+      "auto_arima": 0.0661,
+      "lasso_cds_dt": 0.0656,
+      "en_cds_dt": 0.0656
+    },
+    "MAPE": {
+      "croston": 1.2527,
+      "huber_cds_dt": 1.0539,
+      "auto_arima": 1.0051,
+      "lasso_cds_dt": 1.0326,
+      "en_cds_dt": 1.0326
+    },
+    "SMAPE": {
+      "croston": 1.1073,
+      "huber_cds_dt": 1.2577,
+      "auto_arima": 1.3524,
+      "lasso_cds_dt": 1.3318,
+      "en_cds_dt": 1.3318
+    },
+    "R2": {
+      "croston": -0.0746,
+      "huber_cds_dt": -0.0438,
+      "auto_arima": -0.0765,
+      "lasso_cds_dt": -0.055,
+      "en_cds_dt": -0.055
+    },
+    "TT (Sec)": {
+      "croston": 0.014,
+      "huber_cds_dt": 0.056,
+      "auto_arima": 0.38,
+      "lasso_cds_dt": 0.048,
+      "en_cds_dt": 0.054
+    }
+  }
+}
