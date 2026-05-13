@@ -21,21 +21,16 @@ PETA_PERIODE = {
 
 KOLOM_URUTAN = ["Skor_Akhir", "Return_30H", "Rasio_Sharpe", "Volatilitas", "Harga"]
 
+def render_sidebar_filter(
+    tickers_default: list = None,
+    period_map: dict = None,
+) -> dict:
+    tickers_default = tickers_default or TICKERS_DEFAULT
+    period_map      = period_map or PERIOD_MAP
 
-class FilterSidebar:
-
-    def __init__(
-        self,
-        daftar_ticker: list = None,
-        peta_periode: dict = None,
-    ):
-        self.daftar_ticker = daftar_ticker or TICKER_BAWAAN
-        self.peta_periode = peta_periode or PETA_PERIODE
-
-    def tampilkan(self) -> dict:
-        with st.sidebar:
-            st.markdown("## Panel Filter")
-            st.markdown("---")
+    with st.sidebar:
+        st.markdown("##Panel Filter")
+        st.markdown("---")
 
             st.markdown("**Periode Data**")
             periode_terpilih = st.selectbox(
