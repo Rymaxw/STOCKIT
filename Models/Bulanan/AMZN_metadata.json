@@ -1,0 +1,72 @@
+{
+  "kode_saham": "AMZN",
+  "frekuensi": "bulanan",
+  "harga_terakhir": 263.94500732421875,
+  "jumlah_data_training": 192,
+  "model_terbaik": "NaiveForecaster",
+  "metrik_top5": {
+    "Model": {
+      "grand_means": "Grand Means Forecaster",
+      "arima": "ARIMA",
+      "auto_arima": "Auto ARIMA",
+      "theta": "Theta Forecaster",
+      "ets": "ETS"
+    },
+    "MASE": {
+      "grand_means": 0.7349,
+      "arima": 0.7346,
+      "auto_arima": 0.7349,
+      "theta": 0.7537,
+      "ets": 0.7552
+    },
+    "RMSSE": {
+      "grand_means": 0.7187,
+      "arima": 0.7199,
+      "auto_arima": 0.7187,
+      "theta": 0.7333,
+      "ets": 0.7345
+    },
+    "MAE": {
+      "grand_means": 0.0718,
+      "arima": 0.0718,
+      "auto_arima": 0.0718,
+      "theta": 0.0738,
+      "ets": 0.0739
+    },
+    "RMSE": {
+      "grand_means": 0.0877,
+      "arima": 0.0879,
+      "auto_arima": 0.0877,
+      "theta": 0.0896,
+      "ets": 0.0898
+    },
+    "MAPE": {
+      "grand_means": 2.8903,
+      "arima": 2.8957,
+      "auto_arima": 2.8903,
+      "theta": 2.3329,
+      "ets": 2.3241
+    },
+    "SMAPE": {
+      "grand_means": 1.3877,
+      "arima": 1.3872,
+      "auto_arima": 1.3877,
+      "theta": 1.6741,
+      "ets": 1.6762
+    },
+    "R2": {
+      "grand_means": -0.0754,
+      "arima": -0.0822,
+      "auto_arima": -0.0754,
+      "theta": -0.1509,
+      "ets": -0.1561
+    },
+    "TT (Sec)": {
+      "grand_means": 0.01,
+      "arima": 0.02,
+      "auto_arima": 0.078,
+      "theta": 0.012,
+      "ets": 0.018
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "kode_saham": "KO",
+  "frekuensi": "tahunan",
+  "harga_terakhir": 80.01000213623047,
+  "jumlah_data_training": 16,
+  "model_terbaik": "Croston",
+  "metrik_top5": {
+    "Model": {
+      "croston": "Croston",
+      "grand_means": "Grand Means Forecaster",
+      "knn_cds_dt": "K Neighbors w/ Cond. Deseasonalize & Detrending",
+      "br_cds_dt": "Bayesian Ridge w/ Cond. Deseasonalize & Detrending",
+      "huber_cds_dt": "Huber w/ Cond. Deseasonalize & Detrending"
+    },
+    "MASE": {
+      "croston": 0.4061,
+      "grand_means": 0.4288,
+      "knn_cds_dt": 0.4638,
+      "br_cds_dt": 0.5273,
+      "huber_cds_dt": 0.5959
+    },
+    "RMSSE": {
+      "croston": 0.3569,
+      "grand_means": 0.3758,
+      "knn_cds_dt": 0.4049,
+      "br_cds_dt": 0.4626,
+      "huber_cds_dt": 0.5211
+    },
+    "MAE": {
+      "croston": 0.0376,
+      "grand_means": 0.0394,
+      "knn_cds_dt": 0.0422,
+      "br_cds_dt": 0.0486,
+      "huber_cds_dt": 0.0544
+    },
+    "RMSE": {
+      "croston": 0.0376,
+      "grand_means": 0.0394,
+      "knn_cds_dt": 0.0422,
+      "br_cds_dt": 0.0486,
+      "huber_cds_dt": 0.0544
+    },
+    "MAPE": {
+      "croston": 0.2675,
+      "grand_means": 0.2945,
+      "knn_cds_dt": 0.3377,
+      "br_cds_dt": 0.357,
+      "huber_cds_dt": 0.4233
+    },
+    "SMAPE": {
+      "croston": 0.3491,
+      "grand_means": 0.3734,
+      "knn_cds_dt": 0.4172,
+      "br_cds_dt": 0.4933,
+      "huber_cds_dt": 0.5482
+    },
+    "TT (Sec)": {
+      "croston": 0.015,
+      "grand_means": 0.015,
+      "knn_cds_dt": 0.04,
+      "br_cds_dt": 0.03,
+      "huber_cds_dt": 0.035
+    }
+  }
+}

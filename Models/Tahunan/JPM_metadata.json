@@ -1,0 +1,65 @@
+{
+  "kode_saham": "JPM",
+  "frekuensi": "tahunan",
+  "harga_terakhir": 304.9800109863281,
+  "jumlah_data_training": 16,
+  "model_terbaik": "NaiveForecaster",
+  "metrik_top5": {
+    "Model": {
+      "naive": "Naive Forecaster",
+      "croston": "Croston",
+      "grand_means": "Grand Means Forecaster",
+      "llar_cds_dt": "Lasso Least Angular Regressor w/ Cond. Deseasonalize & Detrending",
+      "lightgbm_cds_dt": "Light Gradient Boosting w/ Cond. Deseasonalize & Detrending"
+    },
+    "MASE": {
+      "naive": 0.2823,
+      "croston": 0.553,
+      "grand_means": 0.7018,
+      "llar_cds_dt": 0.719,
+      "lightgbm_cds_dt": 0.719
+    },
+    "RMSSE": {
+      "naive": 0.2388,
+      "croston": 0.4681,
+      "grand_means": 0.5933,
+      "llar_cds_dt": 0.6066,
+      "lightgbm_cds_dt": 0.6066
+    },
+    "MAE": {
+      "naive": 0.0747,
+      "croston": 0.147,
+      "grand_means": 0.1847,
+      "llar_cds_dt": 0.1864,
+      "lightgbm_cds_dt": 0.1864
+    },
+    "RMSE": {
+      "naive": 0.0747,
+      "croston": 0.147,
+      "grand_means": 0.1847,
+      "llar_cds_dt": 0.1864,
+      "lightgbm_cds_dt": 0.1864
+    },
+    "MAPE": {
+      "naive": 0.2144,
+      "croston": 0.4199,
+      "grand_means": 0.5332,
+      "llar_cds_dt": 0.5468,
+      "lightgbm_cds_dt": 0.5468
+    },
+    "SMAPE": {
+      "naive": 0.2299,
+      "croston": 0.5516,
+      "grand_means": 0.7399,
+      "llar_cds_dt": 0.7529,
+      "lightgbm_cds_dt": 0.7529
+    },
+    "TT (Sec)": {
+      "naive": 0.035,
+      "croston": 0.02,
+      "grand_means": 0.02,
+      "llar_cds_dt": 0.045,
+      "lightgbm_cds_dt": 0.04
+    }
+  }
+}

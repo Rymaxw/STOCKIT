@@ -1,0 +1,72 @@
+{
+  "kode_saham": "ABBV",
+  "frekuensi": "bulanan",
+  "harga_terakhir": 208.55499267578125,
+  "jumlah_data_training": 160,
+  "model_terbaik": "NaiveForecaster",
+  "metrik_top5": {
+    "Model": {
+      "grand_means": "Grand Means Forecaster",
+      "auto_arima": "Auto ARIMA",
+      "arima": "ARIMA",
+      "theta": "Theta Forecaster",
+      "polytrend": "Polynomial Trend Forecaster"
+    },
+    "MASE": {
+      "grand_means": 0.595,
+      "auto_arima": 0.595,
+      "arima": 0.5978,
+      "theta": 0.5994,
+      "polytrend": 0.5998
+    },
+    "RMSSE": {
+      "grand_means": 0.5984,
+      "auto_arima": 0.5984,
+      "arima": 0.6001,
+      "theta": 0.6072,
+      "polytrend": 0.6079
+    },
+    "MAE": {
+      "grand_means": 0.052,
+      "auto_arima": 0.052,
+      "arima": 0.0523,
+      "theta": 0.0524,
+      "polytrend": 0.0525
+    },
+    "RMSE": {
+      "grand_means": 0.0661,
+      "auto_arima": 0.0661,
+      "arima": 0.0662,
+      "theta": 0.0671,
+      "polytrend": 0.0671
+    },
+    "MAPE": {
+      "grand_means": 1.322,
+      "auto_arima": 1.322,
+      "arima": 1.3285,
+      "theta": 1.3944,
+      "polytrend": 1.3963
+    },
+    "SMAPE": {
+      "grand_means": 1.4268,
+      "auto_arima": 1.4268,
+      "arima": 1.4335,
+      "theta": 1.4591,
+      "polytrend": 1.4623
+    },
+    "R2": {
+      "grand_means": -0.0216,
+      "auto_arima": -0.0216,
+      "arima": -0.0274,
+      "theta": -0.0543,
+      "polytrend": -0.0569
+    },
+    "TT (Sec)": {
+      "grand_means": 0.016,
+      "auto_arima": 0.11,
+      "arima": 0.024,
+      "theta": 0.018,
+      "polytrend": 0.01
+    }
+  }
+}

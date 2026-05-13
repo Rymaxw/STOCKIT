@@ -1,0 +1,65 @@
+{
+  "kode_saham": "NVDA",
+  "frekuensi": "tahunan",
+  "harga_terakhir": 218.2696990966797,
+  "jumlah_data_training": 16,
+  "model_terbaik": "BaseCdsDtForecaster",
+  "metrik_top5": {
+    "Model": {
+      "rf_cds_dt": "Random Forest w/ Cond. Deseasonalize & Detrending",
+      "ada_cds_dt": "AdaBoost w/ Cond. Deseasonalize & Detrending",
+      "knn_cds_dt": "K Neighbors w/ Cond. Deseasonalize & Detrending",
+      "et_cds_dt": "Extra Trees w/ Cond. Deseasonalize & Detrending",
+      "grand_means": "Grand Means Forecaster"
+    },
+    "MASE": {
+      "rf_cds_dt": 0.355,
+      "ada_cds_dt": 0.5536,
+      "knn_cds_dt": 0.5769,
+      "et_cds_dt": 0.5828,
+      "grand_means": 0.5946
+    },
+    "RMSSE": {
+      "rf_cds_dt": 0.264,
+      "ada_cds_dt": 0.4155,
+      "knn_cds_dt": 0.4269,
+      "et_cds_dt": 0.4371,
+      "grand_means": 0.4382
+    },
+    "MAE": {
+      "rf_cds_dt": 0.2273,
+      "ada_cds_dt": 0.3582,
+      "knn_cds_dt": 0.3674,
+      "et_cds_dt": 0.3768,
+      "grand_means": 0.377
+    },
+    "RMSE": {
+      "rf_cds_dt": 0.2273,
+      "ada_cds_dt": 0.3582,
+      "knn_cds_dt": 0.3674,
+      "et_cds_dt": 0.3768,
+      "grand_means": 0.377
+    },
+    "MAPE": {
+      "rf_cds_dt": 0.4766,
+      "ada_cds_dt": 1.0252,
+      "knn_cds_dt": 0.6268,
+      "et_cds_dt": 1.0545,
+      "grand_means": 0.517
+    },
+    "SMAPE": {
+      "rf_cds_dt": 0.3887,
+      "ada_cds_dt": 0.5311,
+      "knn_cds_dt": 0.5961,
+      "et_cds_dt": 0.5495,
+      "grand_means": 0.62
+    },
+    "TT (Sec)": {
+      "rf_cds_dt": 0.08,
+      "ada_cds_dt": 0.055,
+      "knn_cds_dt": 0.045,
+      "et_cds_dt": 0.075,
+      "grand_means": 0.02
+    }
+  }
+}

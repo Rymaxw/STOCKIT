@@ -1,0 +1,72 @@
+{
+  "kode_saham": "PEP",
+  "frekuensi": "bulanan",
+  "harga_terakhir": 151.74000549316406,
+  "jumlah_data_training": 192,
+  "model_terbaik": "PolynomialTrendForecaster",
+  "metrik_top5": {
+    "Model": {
+      "polytrend": "Polynomial Trend Forecaster",
+      "exp_smooth": "Exponential Smoothing",
+      "lr_cds_dt": "Linear w/ Cond. Deseasonalize & Detrending",
+      "ets": "ETS",
+      "theta": "Theta Forecaster"
+    },
+    "MASE": {
+      "polytrend": 0.7268,
+      "exp_smooth": 0.7268,
+      "lr_cds_dt": 0.7259,
+      "ets": 0.7268,
+      "theta": 0.7269
+    },
+    "RMSSE": {
+      "polytrend": 0.7211,
+      "exp_smooth": 0.7211,
+      "lr_cds_dt": 0.7216,
+      "ets": 0.7211,
+      "theta": 0.7212
+    },
+    "MAE": {
+      "polytrend": 0.0351,
+      "exp_smooth": 0.0351,
+      "lr_cds_dt": 0.0351,
+      "ets": 0.0351,
+      "theta": 0.0351
+    },
+    "RMSE": {
+      "polytrend": 0.0434,
+      "exp_smooth": 0.0434,
+      "lr_cds_dt": 0.0435,
+      "ets": 0.0434,
+      "theta": 0.0434
+    },
+    "MAPE": {
+      "polytrend": 1.6345,
+      "exp_smooth": 1.6345,
+      "lr_cds_dt": 1.7774,
+      "ets": 1.6347,
+      "theta": 1.6335
+    },
+    "SMAPE": {
+      "polytrend": 1.5471,
+      "exp_smooth": 1.5471,
+      "lr_cds_dt": 1.536,
+      "ets": 1.547,
+      "theta": 1.5464
+    },
+    "R2": {
+      "polytrend": -0.1372,
+      "exp_smooth": -0.1372,
+      "lr_cds_dt": -0.1394,
+      "ets": -0.1374,
+      "theta": -0.1379
+    },
+    "TT (Sec)": {
+      "polytrend": 0.01,
+      "exp_smooth": 0.016,
+      "lr_cds_dt": 0.054,
+      "ets": 0.02,
+      "theta": 0.014
+    }
+  }
+}

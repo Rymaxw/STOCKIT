@@ -1,0 +1,65 @@
+{
+  "kode_saham": "AAPL",
+  "frekuensi": "tahunan",
+  "harga_terakhir": 294.0400085449219,
+  "jumlah_data_training": 16,
+  "model_terbaik": "NaiveForecaster",
+  "metrik_top5": {
+    "Model": {
+      "grand_means": "Grand Means Forecaster",
+      "auto_arima": "Auto ARIMA",
+      "llar_cds_dt": "Lasso Least Angular Regressor w/ Cond. Deseasonalize & Detrending",
+      "lightgbm_cds_dt": "Light Gradient Boosting w/ Cond. Deseasonalize & Detrending",
+      "en_cds_dt": "Elastic Net w/ Cond. Deseasonalize & Detrending"
+    },
+    "MASE": {
+      "grand_means": 0.265,
+      "auto_arima": 0.265,
+      "llar_cds_dt": 0.2692,
+      "lightgbm_cds_dt": 0.2692,
+      "en_cds_dt": 0.2692
+    },
+    "RMSSE": {
+      "grand_means": 0.2256,
+      "auto_arima": 0.2256,
+      "llar_cds_dt": 0.2298,
+      "lightgbm_cds_dt": 0.2298,
+      "en_cds_dt": 0.2298
+    },
+    "MAE": {
+      "grand_means": 0.0921,
+      "auto_arima": 0.0921,
+      "llar_cds_dt": 0.0939,
+      "lightgbm_cds_dt": 0.0939,
+      "en_cds_dt": 0.0939
+    },
+    "RMSE": {
+      "grand_means": 0.0921,
+      "auto_arima": 0.0921,
+      "llar_cds_dt": 0.0939,
+      "lightgbm_cds_dt": 0.0939,
+      "en_cds_dt": 0.0939
+    },
+    "MAPE": {
+      "grand_means": 0.9128,
+      "auto_arima": 0.9128,
+      "llar_cds_dt": 1.0598,
+      "lightgbm_cds_dt": 1.0598,
+      "en_cds_dt": 1.0598
+    },
+    "SMAPE": {
+      "grand_means": 0.5341,
+      "auto_arima": 0.5341,
+      "llar_cds_dt": 0.5232,
+      "lightgbm_cds_dt": 0.5232,
+      "en_cds_dt": 0.5232
+    },
+    "TT (Sec)": {
+      "grand_means": 1.095,
+      "auto_arima": 0.09,
+      "llar_cds_dt": 0.035,
+      "lightgbm_cds_dt": 0.075,
+      "en_cds_dt": 0.165
+    }
+  }
+}

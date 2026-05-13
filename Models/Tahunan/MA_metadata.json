@@ -1,0 +1,65 @@
+{
+  "kode_saham": "MA",
+  "frekuensi": "tahunan",
+  "harga_terakhir": 502.8299865722656,
+  "jumlah_data_training": 16,
+  "model_terbaik": "NaiveForecaster",
+  "metrik_top5": {
+    "Model": {
+      "naive": "Naive Forecaster",
+      "grand_means": "Grand Means Forecaster",
+      "auto_arima": "Auto ARIMA",
+      "arima": "ARIMA",
+      "polytrend": "Polynomial Trend Forecaster"
+    },
+    "MASE": {
+      "naive": 0.3433,
+      "grand_means": 0.3465,
+      "auto_arima": 0.3465,
+      "arima": 0.3475,
+      "polytrend": 0.4209
+    },
+    "RMSSE": {
+      "naive": 0.2854,
+      "grand_means": 0.289,
+      "auto_arima": 0.289,
+      "arima": 0.2898,
+      "polytrend": 0.3641
+    },
+    "MAE": {
+      "naive": 0.0681,
+      "grand_means": 0.0691,
+      "auto_arima": 0.0691,
+      "arima": 0.0693,
+      "polytrend": 0.0895
+    },
+    "RMSE": {
+      "naive": 0.0681,
+      "grand_means": 0.0691,
+      "auto_arima": 0.0691,
+      "arima": 0.0693,
+      "polytrend": 0.0895
+    },
+    "MAPE": {
+      "naive": 0.7656,
+      "grand_means": 0.7454,
+      "auto_arima": 0.7454,
+      "arima": 0.7483,
+      "polytrend": 0.5335
+    },
+    "SMAPE": {
+      "naive": 0.4435,
+      "grand_means": 0.4496,
+      "auto_arima": 0.4496,
+      "arima": 0.4503,
+      "polytrend": 0.6664
+    },
+    "TT (Sec)": {
+      "naive": 0.02,
+      "grand_means": 0.015,
+      "auto_arima": 0.09,
+      "arima": 0.025,
+      "polytrend": 0.015
+    }
+  }
+}

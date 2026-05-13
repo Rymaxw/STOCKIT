@@ -1,0 +1,72 @@
+{
+  "kode_saham": "AMD",
+  "frekuensi": "bulanan",
+  "harga_terakhir": 437.4800109863281,
+  "jumlah_data_training": 192,
+  "model_terbaik": "ARIMA",
+  "metrik_top5": {
+    "Model": {
+      "arima": "ARIMA",
+      "grand_means": "Grand Means Forecaster",
+      "lightgbm_cds_dt": "Light Gradient Boosting w/ Cond. Deseasonalize & Detrending",
+      "auto_arima": "Auto ARIMA",
+      "ada_cds_dt": "AdaBoost w/ Cond. Deseasonalize & Detrending"
+    },
+    "MASE": {
+      "arima": 0.7192,
+      "grand_means": 0.7196,
+      "lightgbm_cds_dt": 0.7352,
+      "auto_arima": 0.7354,
+      "ada_cds_dt": 0.7352
+    },
+    "RMSSE": {
+      "arima": 0.6479,
+      "grand_means": 0.6474,
+      "lightgbm_cds_dt": 0.6596,
+      "auto_arima": 0.6479,
+      "ada_cds_dt": 0.6738
+    },
+    "MAE": {
+      "arima": 0.1238,
+      "grand_means": 0.1239,
+      "lightgbm_cds_dt": 0.1265,
+      "auto_arima": 0.1265,
+      "ada_cds_dt": 0.1266
+    },
+    "RMSE": {
+      "arima": 0.1445,
+      "grand_means": 0.1444,
+      "lightgbm_cds_dt": 0.1469,
+      "auto_arima": 0.1445,
+      "ada_cds_dt": 0.1502
+    },
+    "MAPE": {
+      "arima": 1.2027,
+      "grand_means": 1.2063,
+      "lightgbm_cds_dt": 1.3989,
+      "auto_arima": 1.3524,
+      "ada_cds_dt": 1.4651
+    },
+    "SMAPE": {
+      "arima": 1.6831,
+      "grand_means": 1.6815,
+      "lightgbm_cds_dt": 1.6419,
+      "auto_arima": 1.7159,
+      "ada_cds_dt": 1.4763
+    },
+    "R2": {
+      "arima": -0.1166,
+      "grand_means": -0.1168,
+      "lightgbm_cds_dt": -0.1048,
+      "auto_arima": -0.1177,
+      "ada_cds_dt": -0.1978
+    },
+    "TT (Sec)": {
+      "arima": 0.016,
+      "grand_means": 0.01,
+      "lightgbm_cds_dt": 0.118,
+      "auto_arima": 0.338,
+      "ada_cds_dt": 0.078
+    }
+  }
+}

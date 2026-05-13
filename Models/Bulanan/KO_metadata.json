@@ -1,0 +1,72 @@
+{
+  "kode_saham": "KO",
+  "frekuensi": "bulanan",
+  "harga_terakhir": 80.01000213623047,
+  "jumlah_data_training": 192,
+  "model_terbaik": "AutoARIMA",
+  "metrik_top5": {
+    "Model": {
+      "auto_arima": "Auto ARIMA",
+      "grand_means": "Grand Means Forecaster",
+      "arima": "ARIMA",
+      "lightgbm_cds_dt": "Light Gradient Boosting w/ Cond. Deseasonalize & Detrending",
+      "huber_cds_dt": "Huber w/ Cond. Deseasonalize & Detrending"
+    },
+    "MASE": {
+      "auto_arima": 0.7089,
+      "grand_means": 0.712,
+      "arima": 0.711,
+      "lightgbm_cds_dt": 0.7167,
+      "huber_cds_dt": 0.7191
+    },
+    "RMSSE": {
+      "auto_arima": 0.7031,
+      "grand_means": 0.7015,
+      "arima": 0.7014,
+      "lightgbm_cds_dt": 0.7118,
+      "huber_cds_dt": 0.7092
+    },
+    "MAE": {
+      "auto_arima": 0.0371,
+      "grand_means": 0.0372,
+      "arima": 0.0372,
+      "lightgbm_cds_dt": 0.0376,
+      "huber_cds_dt": 0.0376
+    },
+    "RMSE": {
+      "auto_arima": 0.0478,
+      "grand_means": 0.0477,
+      "arima": 0.0477,
+      "lightgbm_cds_dt": 0.0485,
+      "huber_cds_dt": 0.0483
+    },
+    "MAPE": {
+      "auto_arima": 66687155381.5475,
+      "grand_means": 526660765898.6982,
+      "arima": 524486900341.4725,
+      "lightgbm_cds_dt": 911741981472.5577,
+      "huber_cds_dt": 1099660706724.1667
+    },
+    "SMAPE": {
+      "auto_arima": 1.437,
+      "grand_means": 1.4669,
+      "arima": 1.462,
+      "lightgbm_cds_dt": 1.5211,
+      "huber_cds_dt": 1.3738
+    },
+    "R2": {
+      "auto_arima": -0.0269,
+      "grand_means": -0.0213,
+      "arima": -0.0214,
+      "lightgbm_cds_dt": -0.0772,
+      "huber_cds_dt": -0.0474
+    },
+    "TT (Sec)": {
+      "auto_arima": 0.29,
+      "grand_means": 0.01,
+      "arima": 0.02,
+      "lightgbm_cds_dt": 0.098,
+      "huber_cds_dt": 0.05
+    }
+  }
+}

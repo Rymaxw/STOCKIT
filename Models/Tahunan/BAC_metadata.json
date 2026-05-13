@@ -1,0 +1,65 @@
+{
+  "kode_saham": "BAC",
+  "frekuensi": "tahunan",
+  "harga_terakhir": 50.90010070800781,
+  "jumlah_data_training": 16,
+  "model_terbaik": "Croston",
+  "metrik_top5": {
+    "Model": {
+      "croston": "Croston",
+      "auto_arima": "Auto ARIMA",
+      "arima": "ARIMA",
+      "grand_means": "Grand Means Forecaster",
+      "naive": "Naive Forecaster"
+    },
+    "MASE": {
+      "croston": 0.1772,
+      "auto_arima": 0.2158,
+      "arima": 0.3012,
+      "grand_means": 0.3084,
+      "naive": 0.3136
+    },
+    "RMSSE": {
+      "croston": 0.1563,
+      "auto_arima": 0.1797,
+      "arima": 0.2561,
+      "grand_means": 0.2521,
+      "naive": 0.252
+    },
+    "MAE": {
+      "croston": 0.0677,
+      "auto_arima": 0.0932,
+      "arima": 0.1246,
+      "grand_means": 0.1378,
+      "naive": 0.1444
+    },
+    "RMSE": {
+      "croston": 0.0677,
+      "auto_arima": 0.0932,
+      "arima": 0.1246,
+      "grand_means": 0.1378,
+      "naive": 0.1444
+    },
+    "MAPE": {
+      "croston": 0.2677,
+      "auto_arima": 0.3414,
+      "arima": 0.4687,
+      "grand_means": 0.4946,
+      "naive": 0.509
+    },
+    "SMAPE": {
+      "croston": 0.2252,
+      "auto_arima": 0.4142,
+      "arima": 0.6181,
+      "grand_means": 0.7086,
+      "naive": 0.8041
+    },
+    "TT (Sec)": {
+      "croston": 0.015,
+      "auto_arima": 0.125,
+      "arima": 0.03,
+      "grand_means": 0.015,
+      "naive": 0.02
+    }
+  }
+}

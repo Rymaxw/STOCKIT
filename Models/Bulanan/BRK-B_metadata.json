@@ -1,0 +1,72 @@
+{
+  "kode_saham": "BRK-B",
+  "frekuensi": "bulanan",
+  "harga_terakhir": 486.0799865722656,
+  "jumlah_data_training": 192,
+  "model_terbaik": "AutoARIMA",
+  "metrik_top5": {
+    "Model": {
+      "auto_arima": "Auto ARIMA",
+      "grand_means": "Grand Means Forecaster",
+      "arima": "ARIMA",
+      "ada_cds_dt": "AdaBoost w/ Cond. Deseasonalize & Detrending",
+      "croston": "Croston"
+    },
+    "MASE": {
+      "auto_arima": 0.9674,
+      "grand_means": 0.9696,
+      "arima": 0.9683,
+      "ada_cds_dt": 0.9726,
+      "croston": 0.9767
+    },
+    "RMSSE": {
+      "auto_arima": 0.8608,
+      "grand_means": 0.8616,
+      "arima": 0.8616,
+      "ada_cds_dt": 0.8745,
+      "croston": 0.8864
+    },
+    "MAE": {
+      "auto_arima": 0.0494,
+      "grand_means": 0.0495,
+      "arima": 0.0495,
+      "ada_cds_dt": 0.0497,
+      "croston": 0.0498
+    },
+    "RMSE": {
+      "auto_arima": 0.0568,
+      "grand_means": 0.0569,
+      "arima": 0.0569,
+      "ada_cds_dt": 0.0578,
+      "croston": 0.0585
+    },
+    "MAPE": {
+      "auto_arima": 1.1632,
+      "grand_means": 1.1972,
+      "arima": 1.1935,
+      "ada_cds_dt": 1.1748,
+      "croston": 1.9076
+    },
+    "SMAPE": {
+      "auto_arima": 1.5884,
+      "grand_means": 1.5896,
+      "arima": 1.5872,
+      "ada_cds_dt": 1.5592,
+      "croston": 1.2709
+    },
+    "R2": {
+      "auto_arima": -0.0766,
+      "grand_means": -0.0787,
+      "arima": -0.0764,
+      "ada_cds_dt": -0.1298,
+      "croston": -0.1314
+    },
+    "TT (Sec)": {
+      "auto_arima": 0.29,
+      "grand_means": 0.012,
+      "arima": 0.02,
+      "ada_cds_dt": 0.092,
+      "croston": 0.01
+    }
+  }
+}

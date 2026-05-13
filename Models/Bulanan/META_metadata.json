@@ -1,0 +1,72 @@
+{
+  "kode_saham": "META",
+  "frekuensi": "bulanan",
+  "harga_terakhir": 599.8900146484375,
+  "jumlah_data_training": 168,
+  "model_terbaik": "ARIMA",
+  "metrik_top5": {
+    "Model": {
+      "arima": "ARIMA",
+      "grand_means": "Grand Means Forecaster",
+      "croston": "Croston",
+      "lr_cds_dt": "Linear w/ Cond. Deseasonalize & Detrending",
+      "omp_cds_dt": "Orthogonal Matching Pursuit w/ Cond. Deseasonalize & Detrending"
+    },
+    "MASE": {
+      "arima": 0.9589,
+      "grand_means": 0.9612,
+      "croston": 0.9729,
+      "lr_cds_dt": 0.9793,
+      "omp_cds_dt": 0.9793
+    },
+    "RMSSE": {
+      "arima": 0.917,
+      "grand_means": 0.9181,
+      "croston": 0.9344,
+      "lr_cds_dt": 0.9165,
+      "omp_cds_dt": 0.9165
+    },
+    "MAE": {
+      "arima": 0.0896,
+      "grand_means": 0.0898,
+      "croston": 0.091,
+      "lr_cds_dt": 0.0914,
+      "omp_cds_dt": 0.0914
+    },
+    "RMSE": {
+      "arima": 0.1165,
+      "grand_means": 0.1166,
+      "croston": 0.1186,
+      "lr_cds_dt": 0.1167,
+      "omp_cds_dt": 0.1167
+    },
+    "MAPE": {
+      "arima": 1.331,
+      "grand_means": 1.335,
+      "croston": 2.3337,
+      "lr_cds_dt": 1.0872,
+      "omp_cds_dt": 1.0872
+    },
+    "SMAPE": {
+      "arima": 1.4748,
+      "grand_means": 1.4839,
+      "croston": 1.2554,
+      "lr_cds_dt": 1.6497,
+      "omp_cds_dt": 1.6497
+    },
+    "R2": {
+      "arima": -0.1061,
+      "grand_means": -0.1099,
+      "croston": -0.1499,
+      "lr_cds_dt": -0.1142,
+      "omp_cds_dt": -0.1142
+    },
+    "TT (Sec)": {
+      "arima": 0.02,
+      "grand_means": 0.01,
+      "croston": 0.006,
+      "lr_cds_dt": 0.064,
+      "omp_cds_dt": 0.046
+    }
+  }
+}

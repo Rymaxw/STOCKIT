@@ -1,0 +1,65 @@
+{
+  "kode_saham": "MSFT",
+  "frekuensi": "tahunan",
+  "harga_terakhir": 408.4150085449219,
+  "jumlah_data_training": 16,
+  "model_terbaik": "Croston",
+  "metrik_top5": {
+    "Model": {
+      "croston": "Croston",
+      "arima": "ARIMA",
+      "grand_means": "Grand Means Forecaster",
+      "auto_arima": "Auto ARIMA",
+      "knn_cds_dt": "K Neighbors w/ Cond. Deseasonalize & Detrending"
+    },
+    "MASE": {
+      "croston": 0.2097,
+      "arima": 0.3191,
+      "grand_means": 0.3633,
+      "auto_arima": 0.4806,
+      "knn_cds_dt": 0.5039
+    },
+    "RMSSE": {
+      "croston": 0.1522,
+      "arima": 0.2346,
+      "grand_means": 0.2623,
+      "auto_arima": 0.349,
+      "knn_cds_dt": 0.3651
+    },
+    "MAE": {
+      "croston": 0.0542,
+      "arima": 0.0843,
+      "grand_means": 0.093,
+      "auto_arima": 0.1243,
+      "knn_cds_dt": 0.1298
+    },
+    "RMSE": {
+      "croston": 0.0542,
+      "arima": 0.0843,
+      "grand_means": 0.093,
+      "auto_arima": 0.1243,
+      "knn_cds_dt": 0.1298
+    },
+    "MAPE": {
+      "croston": 0.4031,
+      "arima": 0.5945,
+      "grand_means": 0.7069,
+      "auto_arima": 0.9228,
+      "knn_cds_dt": 0.9721
+    },
+    "SMAPE": {
+      "croston": 0.335,
+      "arima": 0.4118,
+      "grand_means": 0.5202,
+      "auto_arima": 0.6293,
+      "knn_cds_dt": 0.654
+    },
+    "TT (Sec)": {
+      "croston": 0.015,
+      "arima": 0.035,
+      "grand_means": 0.015,
+      "auto_arima": 0.12,
+      "knn_cds_dt": 0.045
+    }
+  }
+}
