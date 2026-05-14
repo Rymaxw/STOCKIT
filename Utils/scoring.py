@@ -5,7 +5,6 @@ import glob
 
 
 class PengelolaDataSaham:
-
     def __init__(self, folder_data: str = None):
         if folder_data is None:
             folder_utama = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
