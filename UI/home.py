@@ -1,6 +1,8 @@
 import streamlit as st
 import streamlit.components.v1 as components
+import os
 from utils.sidebar import get_sidebar_html
+from Utils.st_dataloader import inisialisasi_sistem
 
 class HomePage:
     def __init__(self):
@@ -10,6 +12,9 @@ class HomePage:
             layout="wide",
             initial_sidebar_state="collapsed"
         )
+        
+        folder_utama = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        inisialisasi_sistem(folder_utama)
 
     def render(self):
         # Hide default Streamlit elements to make the custom HTML full-screen
