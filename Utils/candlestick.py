@@ -483,18 +483,10 @@ def buat_grafik_komparasi(
         tanggal_sampai=tanggal_sampai,
     ).bangun()
 
-
-# ── Alias nama lama (Bahasa Inggris) — dipertahankan agar file lain tetap berjalan ──
-
 def load_stock_data(tickers, period: str = "1y", periode: str = None,
                     verbose: bool = True) -> dict:
-    """
-    Alias dari muat_data_saham().
-    Menerima 'period' (Inggris, dipakai demo_filter.py)
-    maupun 'periode' (Indonesia, dipakai modul baru).
-    """
     return muat_data_saham(tickers, periode=periode or period, verbose=verbose)
 
 
 plot_candlestick            = buat_grafik_candlestick
-plot_candlestick_comparison = buat_grafik_komparasi
+plot_candlestick_comparison = buat_grafik_komparasi
