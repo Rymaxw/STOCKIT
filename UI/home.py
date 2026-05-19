@@ -1,6 +1,9 @@
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import streamlit as st
 import streamlit.components.v1 as components
-import os
 from utils.sidebar import get_sidebar_html
 from Utils.st_dataloader import inisialisasi_sistem
 

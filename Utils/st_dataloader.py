@@ -28,3 +28,4 @@ def inisialisasi_sistem(folder_proyek: str):
             st.session_state['data_tersedia'] = saham_sukses
         else:
             st.session_state['data_tersedia'] = []
+        return st.session_state['data_tersedia']
