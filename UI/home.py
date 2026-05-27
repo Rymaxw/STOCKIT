@@ -43,7 +43,7 @@ class HomePage:
         .stApp {
             background-color: #0e0e0e;
             background-image: linear-gradient(to right, rgba(0, 240, 255, 0.03) 1px, transparent 1px),
-                              linear-gradient(to bottom, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+                                linear-gradient(to bottom, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
             background-size: 32px 32px;
             color: #e5e2e1;
             font-family: 'Geist', sans-serif;
