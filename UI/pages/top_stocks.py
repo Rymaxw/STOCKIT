@@ -3,8 +3,8 @@ warnings.filterwarnings("ignore")
 
 import streamlit as st
 import streamlit.components.v1 as components
-from utils.data_handler import PengelolaDataSahamUI
-from utils.sidebar import dapatkan_html_sidebar
+from UI.utils.data_handler import PengelolaDataSahamUI
+from UI.utils.sidebar import dapatkan_html_sidebar
 
 
 class HalamanSahamTerbaik:
@@ -35,44 +35,21 @@ class HalamanSahamTerbaik:
     def render(self):
         st.markdown(dapatkan_html_sidebar("Top Stocks"), unsafe_allow_html=True)
         self._suntik_gaya()
-        self._render_bilah_atas()
+
         self._render_header_halaman()
         self._render_konten_utama()
 
-    def _render_bilah_atas(self):
-        st.markdown("""
-        <header style="display: flex; justify-content: space-between; align-items: center; width: 100%; border-bottom: 0.5px solid rgba(255,255,255,0.1); background-color: rgba(17,19,29,0.1); backdrop-filter: blur(12px); padding: 16px 0; margin-top: -16px; z-index: 40; position: relative; margin-bottom: 32px;">
-            <div style="display: flex; align-items: center; gap: 16px;">
-                <div style="position: relative; display: flex; align-items: center;">
-                    <span class="material-symbols-outlined" style="position: absolute; left: 12px; color: rgba(187,201,207,0.5); font-size: 20px;">search</span>
-                    <input type="text" placeholder="Search parameters..." style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 9999px; padding: 6px 16px 6px 40px; color: #e2e1f0; font-family: 'Space Grotesk', sans-serif; font-size: 14px; width: 250px; outline: none; transition: border-color 0.3s;" onfocus="this.style.borderColor='rgba(164,230,255,0.5)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
-                </div>
-            </div>
-            <div style="display: flex; align-items: center; gap: 24px;">
-                <button style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; color: #a4e6ff; background: transparent; border: none; cursor: pointer; transition: color 0.3s;" onmouseover="this.style.color='#4cd6ff'" onmouseout="this.style.color='#a4e6ff'">
-                    Deploy Strategy
-                </button>
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <button style="background: transparent; border: none; color: #bbc9cf; cursor: pointer; padding: 8px; border-radius: 50%; display: flex; transition: all 0.5s;" onmouseover="this.style.color='#a4e6ff'; this.style.backgroundColor='rgba(164,230,255,0.1)'" onmouseout="this.style.color='#bbc9cf'; this.style.backgroundColor='transparent'">
-                        <span class="material-symbols-outlined">notifications</span>
-                    </button>
-                    <button style="background: transparent; border: none; color: #bbc9cf; cursor: pointer; padding: 8px; border-radius: 50%; display: flex; transition: all 0.5s;" onmouseover="this.style.color='#a4e6ff'; this.style.backgroundColor='rgba(164,230,255,0.1)'" onmouseout="this.style.color='#bbc9cf'; this.style.backgroundColor='transparent'">
-                        <span class="material-symbols-outlined">account_circle</span>
-                    </button>
-                </div>
-            </div>
-        </header>
-        """.replace('\n', ''), unsafe_allow_html=True)
+
 
     def _render_header_halaman(self):
         st.markdown("""
         <div style="margin-bottom: 48px; display: flex; flex-direction: column; gap: 16px;">
             <div style="display: flex; align-items: center; gap: 12px;">
                 <div style="width: 6px; height: 32px; background-color: #a4e6ff; border-radius: 9999px; box-shadow: 0 0 10px rgba(164,230,255,0.5);"></div>
-                <h1 style="font-family: 'Space Grotesk', sans-serif; font-size: 48px; color: #e2e1f0; font-weight: 600; line-height: 1.1; letter-spacing: -0.02em; margin: 0;">Top 5 Saham Pilihan</h1>
+                <h1 style="font-family: 'Space Grotesk', sans-serif; font-size: 48px; color: #e2e1f0; font-weight: 600; line-height: 1.1; letter-spacing: -0.02em; margin: 0; text-shadow: 0 0 20px rgba(164,230,255,0.4);">Top 5 Saham Pilihan</h1>
             </div>
             <p style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; color: #bbc9cf; max-width: 42rem; margin: 0; line-height: 1.6; letter-spacing: 0.01em;">
-                Algorithmic selection based on institutional-grade composite scoring, balancing momentum, value, and volatility metrics over a 30-day trailing window.
+                Pemilihan saham secara otomatis melalui sistem perankingan algoritma yang menyeimbangkan pergerakan harga, valuasi, serta tingkat risiko selama 30 hari ke belakang.
             </p>
         </div>
         """.replace('\n', ''), unsafe_allow_html=True)

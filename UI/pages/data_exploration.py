@@ -4,8 +4,8 @@ warnings.filterwarnings("ignore")
 import streamlit as st
 import datetime
 import plotly.express as px
-from utils.data_handler import PengelolaDataSahamUI
-from utils.sidebar import dapatkan_html_sidebar
+from UI.utils.data_handler import PengelolaDataSahamUI
+from UI.utils.sidebar import dapatkan_html_sidebar
 
 
 class HalamanEksplorasiData:
@@ -43,29 +43,19 @@ class HalamanEksplorasiData:
     def render(self):
         st.markdown(dapatkan_html_sidebar("Data"), unsafe_allow_html=True)
         self._suntik_gaya()
-        self._render_bilah_atas()
+
         self._render_header_halaman()
         self._render_filter_dan_grafik()
 
-    def _render_bilah_atas(self):
-        st.markdown("""
-        <header style="display: flex; justify-content: space-between; align-items: center; width: 100%; border-bottom: 1px solid rgba(255,255,255,0.05); padding: 16px 0; margin-top: -16px; z-index: 40; position: relative; margin-bottom: 32px;">
-            <div style="display: flex; align-items: center; gap: 8px; font-family: 'Inter', sans-serif; font-size: 12px; color: #bbc9cf;">
-                <span style="width: 6px; height: 6px; border-radius: 50%; background-color: #4ade80; box-shadow: 0 0 5px rgba(74,222,128,0.5);"></span>
-                <span>System Status: Optimal</span>
-            </div>
-            <div style="display: flex; align-items: center; gap: 20px; color: #bbc9cf;">
-                <span class="material-symbols-outlined" style="cursor: pointer; font-size: 20px; transition: color 0.3s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#bbc9cf'">notifications</span>
-                <span class="material-symbols-outlined" style="cursor: pointer; font-size: 20px; transition: color 0.3s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#bbc9cf'">settings</span>
-            </div>
-        </header>
-        """.replace('\n', ''), unsafe_allow_html=True)
+
 
     def _render_header_halaman(self):
         st.markdown("""
-        <div style="margin-bottom: 32px;">
-            <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 30px; font-weight: 300; color: white; letter-spacing: -0.02em; margin-bottom: 4px; margin-top: 0;">Eksplorasi Data Saham</h2>
-            <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; color: rgba(187, 201, 207, 0.7); margin: 0;">QUERY // DATA_PASAR_US // HISTORIS</p>
+        <div style="margin-bottom: 32px; display: flex; justify-content: space-between; align-items: flex-end;">
+            <div>
+                <h1 style="font-family: 'Space Grotesk', sans-serif; font-size: 48px; color: #e2e1f0; font-weight: 600; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 8px; margin-top: 0; text-shadow: 0 0 20px rgba(164,230,255,0.4);">Eksplorasi Data Saham</h1>
+                <p style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; color: #bbc9cf; margin: 0; line-height: 1.6;">Lakukan pencarian dan analisis visual data historis pergerakan harga saham pilihan Anda.</p>
+            </div>
         </div>
         """.replace('\n', ''), unsafe_allow_html=True)
 

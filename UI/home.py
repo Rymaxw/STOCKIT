@@ -85,35 +85,15 @@ class HalamanBeranda:
 
         st.markdown(dapatkan_html_sidebar("Home"), unsafe_allow_html=True)
 
-        # Header Section
-        st.markdown("""
-        <header style="display: flex; justify-content: space-between; align-items: center; width: 100%; border-bottom: 1px solid rgba(255, 255, 255, 0.1); background-color: rgba(17, 19, 29, 0.1); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 16px 0; margin-top: -16px; z-index: 40; position: relative; margin-bottom: 32px;">
-            <div style="display: flex; align-items: center; gap: 12px;">
-                <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 700; color: #00d1ff; text-transform: uppercase; letter-spacing: 0.1em; margin: 0;">Overview</h2>
-            </div>
-            <div style="display: flex; align-items: center; gap: 16px;">
-                <button style="color: #bbc9cf; background: transparent; border: none; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.3s; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.backgroundColor='rgba(0, 209, 255, 0.1)'; this.style.color='#00d1ff'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#bbc9cf'">
-                    <span class="material-symbols-outlined">notifications</span>
-                </button>
-                <button style="color: #bbc9cf; background: transparent; border: none; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.3s; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.backgroundColor='rgba(0, 209, 255, 0.1)'; this.style.color='#00d1ff'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#bbc9cf'">
-                    <span class="material-symbols-outlined">account_circle</span>
-                </button>
-                <button style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 600; padding: 8px 16px; border: 1px solid rgba(0, 209, 255, 0.3); color: #00d1ff; background: rgba(0, 209, 255, 0.05); cursor: pointer; border-radius: 9999px; transition: all 0.3s; margin-left: 8px;" onmouseover="this.style.background='rgba(0, 209, 255, 0.1)'" onmouseout="this.style.background='rgba(0, 209, 255, 0.05)'">
-                    Deploy Strategy
-                </button>
-            </div>
-        </header>
-        """.replace('\n', ''), unsafe_allow_html=True)
-
         # Title Hero
         st.markdown("""
         <div style="margin-bottom: 48px;">
-            <h1 style="font-family: 'Space Grotesk', sans-serif; font-size: 48px; font-weight: 600; color: #e2e1f0; margin-bottom: 12px; display: flex; align-items: center; gap: 16px; letter-spacing: -0.02em; margin-top: 0;">
+            <h1 style="font-family: 'Space Grotesk', sans-serif; font-size: 48px; font-weight: 600; color: #e2e1f0; margin-bottom: 12px; display: flex; align-items: center; gap: 16px; letter-spacing: -0.02em; margin-top: 0; text-shadow: 0 0 20px rgba(164,230,255,0.4);">
                 STOCKIT
-                <span class="material-symbols-outlined" style="color: #00d1ff; font-size: 40px;">dataset</span>
+                <span class="material-symbols-outlined" style="color: #00d1ff; font-size: 40px; text-shadow: none;">dataset</span>
             </h1>
             <p style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; color: #bbc9cf; margin: 0; font-weight: 400;">
-                Precision Data Science for Stock Portfolio Optimization
+                Platform analisis data sains untuk mengoptimalkan keuntungan portofolio saham Anda.
             </p>
         </div>
         """.replace('\n', ''), unsafe_allow_html=True)

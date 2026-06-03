@@ -2,7 +2,7 @@ import warnings
 warnings.filterwarnings("ignore")
 import streamlit as st
 import streamlit.components.v1 as components
-from utils.sidebar import dapatkan_html_sidebar
+from UI.utils.sidebar import dapatkan_html_sidebar
 
 class HalamanTentang:
     def __init__(self):

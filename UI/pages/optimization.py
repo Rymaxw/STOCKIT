@@ -3,8 +3,8 @@ warnings.filterwarnings("ignore")
 
 import streamlit as st
 import streamlit.components.v1 as components
-from utils.portfolio_model import OptimasiPortofolio
-from utils.sidebar import dapatkan_html_sidebar
+from UI.utils.portfolio_model import OptimasiPortofolio
+from UI.utils.sidebar import dapatkan_html_sidebar
 
 
 class HalamanOptimasi:
@@ -51,37 +51,18 @@ class HalamanOptimasi:
     def render(self):
         st.markdown(dapatkan_html_sidebar("Optimize"), unsafe_allow_html=True)
         self._suntik_gaya()
-        self._render_bilah_atas()
+
         self._render_header_halaman()
         self._render_parameter_dan_hasil()
 
-    def _render_bilah_atas(self):
-        st.markdown("""
-        <header style="display: flex; justify-content: space-between; align-items: center; width: 100%; border-bottom: 1px solid rgba(255,255,255,0.1); background-color: rgba(17,19,29,0.1); backdrop-filter: blur(12px); padding: 16px 0; margin-top: -16px; z-index: 40; position: relative; margin-bottom: 32px;">
-            <div style="display: flex; align-items: center; gap: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 600; color: #bbc9cf;">
-                <span style="width: 6px; height: 6px; border-radius: 50%; background-color: #4ade80; box-shadow: 0 0 5px rgba(74,222,128,0.5);"></span>
-                <span>System Status: Optimal</span>
-            </div>
-            <div style="display: flex; align-items: center; gap: 16px;">
-                <button style="background: transparent; border: none; color: #bbc9cf; cursor: pointer; transition: color 0.3s; padding: 0; display: flex;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#bbc9cf'">
-                    <span class="material-symbols-outlined" style="font-size: 20px;">notifications</span>
-                </button>
-                <button style="background: transparent; border: none; color: #bbc9cf; cursor: pointer; transition: color 0.3s; padding: 0; display: flex;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#bbc9cf'">
-                    <span class="material-symbols-outlined" style="font-size: 20px;">account_circle</span>
-                </button>
-                <button style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 600; text-transform: uppercase; padding: 8px 24px; border: 1px solid #a4e6ff; color: #a4e6ff; background: transparent; border-radius: 0.5rem; cursor: pointer; letter-spacing: 0.05em; transition: all 0.3s; margin-left: 16px;" onmouseover="this.style.backgroundColor='rgba(164,230,255,0.1)'" onmouseout="this.style.backgroundColor='transparent'">
-                    Deploy Strategy
-                </button>
-            </div>
-        </header>
-        """.replace('\n', ''), unsafe_allow_html=True)
+
 
     def _render_header_halaman(self):
         st.markdown("""
         <div style="margin-bottom: 32px; display: flex; justify-content: space-between; align-items: flex-end;">
             <div>
-                <h1 style="font-family: 'Space Grotesk', sans-serif; font-size: 48px; color: #e2e1f0; font-weight: 600; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 8px; margin-top: 0; text-shadow: 0 0 20px rgba(164,230,255,0.4);">Optimization Results</h1>
-                <p style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; color: #bbc9cf; margin: 0; line-height: 1.6;">Global Equities Core - Mean Variance Model</p>
+                <h1 style="font-family: 'Space Grotesk', sans-serif; font-size: 48px; color: #e2e1f0; font-weight: 600; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 8px; margin-top: 0; text-shadow: 0 0 20px rgba(164,230,255,0.4);">Optimasi Portofolio</h1>
+                <p style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; color: #bbc9cf; margin: 0; line-height: 1.6;">Temukan alokasi investasi saham cerdas terbaik menggunakan model matematika Markowitz.</p>
             </div>
             <div style="display: flex; gap: 16px;">
                 <span style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 600; color: #a4e7f6; display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.04); backdrop-filter: blur(12px); border: 0.5px solid rgba(255,255,255,0.1); padding: 8px 16px; border-radius: 9999px;">

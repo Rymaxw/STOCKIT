@@ -2,9 +2,9 @@ import warnings
 warnings.filterwarnings("ignore")
 
 import streamlit as st
-from utils.sidebar import dapatkan_html_sidebar
-from utils.prediction_engine import PrediksiHargaSaham, PerbandinganInvestasi
-from utils.data_handler import PengelolaDataSahamUI
+from UI.utils.sidebar import dapatkan_html_sidebar
+from UI.utils.prediction_engine import PrediksiHargaSaham, PerbandinganInvestasi
+from UI.utils.data_handler import PengelolaDataSahamUI
 
 
 class HalamanPrediksi:
