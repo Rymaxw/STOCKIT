@@ -1,7 +1,5 @@
 # 🏆 Ringkasan Model AI Terbaik per Saham
 
-Dokumen ini dibuat secara otomatis untuk memudahkan pembacaan algoritma pemenang dari proses *training* PyCaret untuk setiap emiten dan frekuensi.
-
 ## 📅 Frekuensi Mingguan
 | No | Kode Saham | Model Pemenang | MAE (Error) | R-Squared (R²) |
 |---|---|---|---|---|
