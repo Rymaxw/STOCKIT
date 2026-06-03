@@ -1,3 +1,6 @@
+import warnings
+warnings.filterwarnings("ignore")
+
 import yfinance as yf
 import json
 import time

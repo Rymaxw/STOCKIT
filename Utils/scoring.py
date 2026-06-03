@@ -8,16 +8,16 @@ class PengelolaDataSaham:
     def __init__(self, folder_data: str = None):
         if folder_data is None:
             folder_utama = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-            folder_data = os.path.join(folder_utama, 'Data', 'Processed')
+            folder_data = os.path.join(folder_utama, 'Data', 'Raw')
         self.folder_data = folder_data
 
     def muat_semua_data(self) -> pd.DataFrame:
-        daftar_berkas = glob.glob(os.path.join(self.folder_data, "*_harian_clean.parquet"))
+        daftar_berkas = glob.glob(os.path.join(self.folder_data, "*.parquet"))
         daftar_df = []
 
         for berkas in daftar_berkas:
             nama_berkas = os.path.basename(berkas)
-            kode_saham = nama_berkas.split('_harian_clean.parquet')[0]
+            kode_saham = nama_berkas.split('.parquet')[0]
             try:
                 df = pd.read_parquet(berkas)
                 df['Kode_Saham'] = kode_saham

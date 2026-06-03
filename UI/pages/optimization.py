@@ -1,9 +1,14 @@
+import warnings
+warnings.filterwarnings("ignore")
+
 import streamlit as st
 import streamlit.components.v1 as components
-from utils.portfolio_model import PortfolioOptimizer
-from utils.sidebar import get_sidebar_html
+from utils.portfolio_model import OptimasiPortofolio
+from utils.sidebar import dapatkan_html_sidebar
 
-class OptimizationPage:
+
+class HalamanOptimasi:
+
     def __init__(self):
         st.set_page_config(
             page_title="Optimization",
@@ -12,260 +17,166 @@ class OptimizationPage:
             initial_sidebar_state="collapsed"
         )
 
+    def _suntik_gaya(self):
+        st.markdown('<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>', unsafe_allow_html=True)
+        st.markdown('<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>', unsafe_allow_html=True)
+        
+        # Ambient Orbs Background & Main App background
+        st.markdown("""<style>.stApp{background-color:#11131d;color:#e2e1f0;font-family:'Space Grotesk',sans-serif;}.stApp::before{content:'';position:fixed;top:0;left:0;width:40vw;height:40vw;background:radial-gradient(circle, rgba(0, 209, 255, 0.15) 0%, transparent 70%);border-radius:50%;z-index:-1;pointer-events:none;}.stApp::after{content:'';position:fixed;bottom:0;right:0;width:50vw;height:50vw;background:radial-gradient(circle, rgba(192, 193, 255, 0.1) 0%, transparent 70%);border-radius:50%;z-index:-1;pointer-events:none;}[data-testid="stHeader"]{display:none!important}.block-container{padding-top:2rem!important; padding-bottom:2rem!important;}</style>""", unsafe_allow_html=True)
+        
+        # Glass Cards
+        st.markdown("""<style>[data-testid="stHorizontalBlock"],[data-testid="stArrowVegaLiteChart"],[data-testid="stDataFrame"],[data-testid="stTabs"]{background:linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(192,193,255,0.05) 100%);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:0.5px solid rgba(255,255,255,0.1);border-top-color:rgba(255,255,255,0.2);border-left-color:rgba(255,255,255,0.2);box-shadow:0 20px 40px rgba(0,0,0,0.3);border-radius:0.75rem;padding:24px;margin-bottom:24px;position:relative}</style>""", unsafe_allow_html=True)
+        
+        # Glass Inputs
+        st.markdown("""<style>.stTextInput input,.stNumberInput input{background:rgba(255,255,255,0.04)!important;border:0.5px solid rgba(255,255,255,0.1)!important;color:#e2e1f0!important;border-radius:0.5rem!important;font-family:'Space Grotesk',sans-serif!important;padding:12px!important;transition:all 0.3s ease!important}.stTextInput input:focus,.stNumberInput input:focus{border-color:rgba(0,209,255,0.5)!important;box-shadow:0 0 15px rgba(0,209,255,0.1)!important;background:rgba(255,255,255,0.08)!important}</style>""", unsafe_allow_html=True)
+        
+        # MultiSelect & SelectBox
+        st.markdown("""<style>.stMultiSelect div[data-baseweb="select"]{background:rgba(255,255,255,0.04)!important;border:0.5px solid rgba(255,255,255,0.1)!important;border-radius:0.5rem!important}.stMultiSelect span[data-baseweb="tag"]{background-color:rgba(0,209,255,0.1)!important;border:1px solid rgba(0,209,255,0.3)!important;color:#00d1ff!important;border-radius:0.25rem!important;font-family:'Space Grotesk',sans-serif!important}</style>""", unsafe_allow_html=True)
+        
+        # Radio & Labels
+        st.markdown("""<style>.stRadio label div{color:#bbc9cf!important;font-family:'Space Grotesk',sans-serif!important;font-size:14px!important}[data-testid="stWidgetLabel"]{font-family:'Space Grotesk',sans-serif!important;text-transform:uppercase!important;letter-spacing:0.05em!important;color:#bbc9cf!important;font-size:12px!important;font-weight:600!important}[data-testid="stWidgetLabel"] p{font-size:12px!important;font-weight:600!important}</style>""", unsafe_allow_html=True)
+        
+        # Glass Buttons
+        st.markdown("""<style>[data-testid="stButton"] button{background:rgba(255,255,255,0.04)!important;backdrop-filter:blur(12px)!important;border:0.5px solid rgba(255,255,255,0.1)!important;border-top-color:rgba(255,255,255,0.2)!important;color:#e2e1f0!important;border-radius:0.5rem!important;font-family:'Space Grotesk',sans-serif!important;text-transform:uppercase!important;letter-spacing:0.05em!important;font-weight:600!important;padding:12px 24px!important;height:auto!important;transition:all 0.3s ease!important;margin-top:28px!important}[data-testid="stButton"] button:hover{background:rgba(255,255,255,0.1)!important;border-color:rgba(0,209,255,0.5)!important;color:#00d1ff!important;box-shadow:0 0 15px rgba(0,209,255,0.2)!important}</style>""", unsafe_allow_html=True)
+        
+        # Metrics
+        st.markdown("""<style>[data-testid="metric-container"]{border:none;padding:16px}[data-testid="stMetricValue"]{font-family:'Space Grotesk',sans-serif!important;font-size:48px!important;color:#a4e6ff!important;font-weight:600!important;line-height:1.1!important;letter-spacing:-0.02em!important;text-shadow:0 0 20px rgba(164,230,255,0.4)!important}[data-testid="stMetricLabel"]{font-family:'Space Grotesk',sans-serif!important;color:#bbc9cf!important;text-transform:uppercase!important;letter-spacing:0.05em!important;font-size:12px!important;font-weight:600!important}</style>""", unsafe_allow_html=True)
+        
+        # Tabs
+        st.markdown("""<style>button[data-baseweb="tab"]{font-family:'Space Grotesk',sans-serif!important;text-transform:uppercase!important;letter-spacing:0.05em!important;color:#bbc9cf!important;background-color:transparent!important;font-weight:600!important;font-size:14px!important}button[data-baseweb="tab"][aria-selected="true"]{color:#00d1ff!important;border-bottom-color:#00d1ff!important}</style>""", unsafe_allow_html=True)
+        
+        # Scrollbars
+        st.markdown("""<style>::-webkit-scrollbar{width:4px;height:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:4px}::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,0.2)}</style>""", unsafe_allow_html=True)
+
     def render(self):
-        # Inject custom sidebar
-        st.markdown(get_sidebar_html("Optimize"), unsafe_allow_html=True)
-        
-        # Inject Custom CSS for native Streamlit widgets to match the cyber design
+        st.markdown(dapatkan_html_sidebar("Optimize"), unsafe_allow_html=True)
+        self._suntik_gaya()
+        self._render_bilah_atas()
+        self._render_header_halaman()
+        self._render_parameter_dan_hasil()
+
+    def _render_bilah_atas(self):
         st.markdown("""
-        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-        <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Space+Grotesk:wght@600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
-        <style>
-        .stApp {
-            background-color: #0e0e0e;
-            background-image: linear-gradient(to right, rgba(0, 240, 255, 0.03) 1px, transparent 1px),
-                              linear-gradient(to bottom, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
-            background-size: 32px 32px;
-            color: #e5e2e1;
-            font-family: 'Geist', sans-serif;
-        }
-        [data-testid="stHeader"] { display: none !important; }
-        .block-container { padding-top: 2rem !important; }
-        
-        /* Cyber Panel styling */
-        [data-testid="stHorizontalBlock"],
-        [data-testid="stArrowVegaLiteChart"],
-        [data-testid="stDataFrame"],
-        [data-testid="stTabs"] {
-            background-color: #131313;
-            border-top: 1px solid rgba(0, 240, 255, 0.3);
-            border-left: 1px solid rgba(0, 240, 255, 0.3);
-            box-shadow: inset 1px 1px 0px 0px rgba(255,255,255,0.05);
-            padding: 24px;
-            margin-bottom: 24px;
-            position: relative;
-        }
-        
-        /* Inputs */
-        .stTextInput input, .stNumberInput input {
-            background-color: #1c1b1b !important;
-            border: 1px solid #3b494b !important;
-            color: #dbfcff !important;
-            border-radius: 0 !important;
-            font-family: 'Space Mono', monospace !important;
-        }
-        .stTextInput input:focus, .stNumberInput input:focus {
-            border-color: #00f0ff !important;
-            box-shadow: 0 0 8px rgba(0, 240, 255, 0.4) !important;
-        }
-        
-        /* MultiSelect */
-        .stMultiSelect div[data-baseweb="select"] {
-            background-color: #1c1b1b !important;
-            border: 1px solid #3b494b !important;
-            border-radius: 0 !important;
-        }
-        .stMultiSelect span[data-baseweb="tag"] {
-            background-color: rgba(255, 180, 171, 0.1) !important;
-            border: 1px solid rgba(255, 180, 171, 0.3) !important;
-            color: #ffb4ab !important;
-            border-radius: 0 !important;
-            font-family: 'Space Mono', monospace !important;
-        }
-
-        /* Radio */
-        .stRadio label div {
-            color: #b9cacb !important;
-            font-family: 'Space Mono', monospace !important;
-            font-size: 13px !important;
-        }
-
-        /* Labels */
-        [data-testid="stWidgetLabel"] {
-            font-family: 'Space Mono', monospace !important;
-            text-transform: uppercase !important;
-            letter-spacing: 0.1em !important;
-            color: #b9cacb !important;
-            font-size: 11px !important;
-        }
-        
-        /* Button */
-        [data-testid="stButton"] button {
-            border: 1px solid #00f0ff !important;
-            color: #00f0ff !important;
-            background: transparent !important;
-            border-radius: 0 !important;
-            font-family: 'Space Mono', monospace !important;
-            text-transform: uppercase !important;
-            letter-spacing: 0.2em !important;
-            padding: 12px 24px !important;
-            height: auto !important;
-            transition: all 0.2s ease-in-out !important;
-            margin-top: 28px !important;
-        }
-        [data-testid="stButton"] button:hover {
-            background-color: rgba(0, 240, 255, 0.1) !important;
-            box-shadow: 0 0 8px rgba(0, 240, 255, 0.6) !important;
-            text-shadow: 0 0 4px rgba(0, 240, 255, 0.8) !important;
-        }
-        
-        /* Metrics */
-        [data-testid="metric-container"] {
-            border-left: 2px solid #00f0ff;
-            padding-left: 16px;
-        }
-        [data-testid="stMetricValue"] {
-            font-family: 'Space Grotesk', sans-serif !important;
-            font-size: 36px !important;
-            color: #dbfcff !important;
-            font-weight: 700 !important;
-        }
-        [data-testid="stMetricLabel"] {
-            font-family: 'Space Mono', monospace !important;
-            color: #b9cacb !important;
-            text-transform: uppercase !important;
-            letter-spacing: 0.1em !important;
-            font-size: 11px !important;
-        }
-
-        /* Tabs */
-        button[data-baseweb="tab"] {
-            font-family: 'Space Mono', monospace !important;
-            text-transform: uppercase !important;
-            letter-spacing: 0.1em !important;
-            color: #b9cacb !important;
-            background-color: transparent !important;
-        }
-        button[data-baseweb="tab"][aria-selected="true"] {
-            color: #00f0ff !important;
-            border-bottom-color: #00f0ff !important;
-        }
-        
-        /* Custom scrollbar */
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: #0e0e0e; }
-        ::-webkit-scrollbar-thumb { background: #3b494b; border: 1px solid #131313; }
-        ::-webkit-scrollbar-thumb:hover { background: #00f0ff; }
-        </style>
-        """.replace('\n', ''), unsafe_allow_html=True)
-
-        # TopAppBar
-        st.markdown("""
-        <header style="display: flex; justify-content: space-between; align-items: center; width: 100%; border-bottom: 1px solid rgba(59, 73, 75, 0.3); background-color: rgba(19, 19, 19, 0.8); backdrop-filter: blur(12px); padding: 16px 0; margin-top: -32px; z-index: 40; position: relative; margin-bottom: 32px;">
-            <div style="display: flex; align-items: center; gap: 16px; color: #b9cacb; text-transform: uppercase; letter-spacing: 0.1em; font-family: 'Space Mono', monospace; font-size: 13px;">
-                <span>STATUS SISTEM: <span style="color: #7df4ff;">NOMINAL</span></span>
+        <header style="display: flex; justify-content: space-between; align-items: center; width: 100%; border-bottom: 1px solid rgba(255,255,255,0.1); background-color: rgba(17,19,29,0.1); backdrop-filter: blur(12px); padding: 16px 0; margin-top: -16px; z-index: 40; position: relative; margin-bottom: 32px;">
+            <div style="display: flex; align-items: center; gap: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 600; color: #bbc9cf;">
+                <span style="width: 6px; height: 6px; border-radius: 50%; background-color: #4ade80; box-shadow: 0 0 5px rgba(74,222,128,0.5);"></span>
+                <span>System Status: Optimal</span>
             </div>
-            <div style="display: flex; align-items: center; gap: 24px;">
-                <div style="display: flex; align-items: center; gap: 16px; color: #b9cacb;">
-                    <span class="material-symbols-outlined" style="cursor: pointer;">sensors</span>
-                    <span class="material-symbols-outlined" style="cursor: pointer;">wifi_tethering</span>
-                    <span class="material-symbols-outlined" style="cursor: pointer;">account_circle</span>
-                </div>
-                <button style="font-family: 'Space Mono', monospace; font-size: 11px; text-transform: uppercase; padding: 6px 16px; border: 1px solid #00f0ff; color: #00f0ff; background: transparent; cursor: pointer; letter-spacing: 0.1em; transition: all 0.3s;" onmouseover="this.style.backgroundColor='rgba(0,240,255,0.1)'" onmouseout="this.style.backgroundColor='transparent'">
-                    Deploy
+            <div style="display: flex; align-items: center; gap: 16px;">
+                <button style="background: transparent; border: none; color: #bbc9cf; cursor: pointer; transition: color 0.3s; padding: 0; display: flex;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#bbc9cf'">
+                    <span class="material-symbols-outlined" style="font-size: 20px;">notifications</span>
+                </button>
+                <button style="background: transparent; border: none; color: #bbc9cf; cursor: pointer; transition: color 0.3s; padding: 0; display: flex;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#bbc9cf'">
+                    <span class="material-symbols-outlined" style="font-size: 20px;">account_circle</span>
+                </button>
+                <button style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 600; text-transform: uppercase; padding: 8px 24px; border: 1px solid #a4e6ff; color: #a4e6ff; background: transparent; border-radius: 0.5rem; cursor: pointer; letter-spacing: 0.05em; transition: all 0.3s; margin-left: 16px;" onmouseover="this.style.backgroundColor='rgba(164,230,255,0.1)'" onmouseout="this.style.backgroundColor='transparent'">
+                    Deploy Strategy
                 </button>
             </div>
         </header>
         """.replace('\n', ''), unsafe_allow_html=True)
 
-        # Page Header
+    def _render_header_halaman(self):
         st.markdown("""
         <div style="margin-bottom: 32px; display: flex; justify-content: space-between; align-items: flex-end;">
             <div>
-                <h1 style="font-family: 'Space Grotesk', sans-serif; font-size: 40px; color: #dbfcff; text-transform: uppercase; letter-spacing: -0.02em; font-weight: 700; margin-bottom: 8px; text-shadow: 0 0 8px rgba(0,240,255,0.3); margin-top: 0;">Dasbor Optimasi Portofolio</h1>
-                <p style="font-family: 'Space Mono', monospace; font-size: 13px; color: #b9cacb; text-transform: uppercase; letter-spacing: 0.1em; margin: 0;">Sistem siap. Menunggu parameter simulasi.</p>
+                <h1 style="font-family: 'Space Grotesk', sans-serif; font-size: 48px; color: #e2e1f0; font-weight: 600; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 8px; margin-top: 0; text-shadow: 0 0 20px rgba(164,230,255,0.4);">Optimization Results</h1>
+                <p style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; color: #bbc9cf; margin: 0; line-height: 1.6;">Global Equities Core - Mean Variance Model</p>
             </div>
             <div style="display: flex; gap: 16px;">
-                <button style="font-family: 'Space Mono', monospace; font-size: 11px; text-transform: uppercase; color: #b9cacb; background: transparent; border: none; cursor: pointer; display: flex; align-items: center; gap: 8px;" onmouseover="this.style.color='#00f0ff'" onmouseout="this.style.color='#b9cacb'">
-                    <span class="material-symbols-outlined" style="font-size: 18px;">download</span> Ekspor
-                </button>
-                <button style="font-family: 'Space Mono', monospace; font-size: 11px; text-transform: uppercase; color: #b9cacb; background: transparent; border: none; cursor: pointer; display: flex; align-items: center; gap: 8px;" onmouseover="this.style.color='#00f0ff'" onmouseout="this.style.color='#b9cacb'">
-                    <span class="material-symbols-outlined" style="font-size: 18px;">share</span> Bagikan
-                </button>
+                <span style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 600; color: #a4e7f6; display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.04); backdrop-filter: blur(12px); border: 0.5px solid rgba(255,255,255,0.1); padding: 8px 16px; border-radius: 9999px;">
+                    <span class="material-symbols-outlined" style="font-size: 16px;">check_circle</span> Converged
+                </span>
             </div>
         </div>
         """.replace('\n', ''), unsafe_allow_html=True)
 
-        # Parameter Header
+    def _render_parameter_dan_hasil(self):
         st.markdown("""
         <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
-            <span class="material-symbols-outlined" style="color: #00f0ff; font-size: 20px;">tune</span>
-            <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; color: #00f0ff; text-transform: uppercase; margin: 0; letter-spacing: 0.05em;">Parameter Input</h3>
+            <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 500; color: #e2e1f0; letter-spacing: -0.01em; margin: 0;">Parameter Input</h3>
         </div>
         """.replace('\n', ''), unsafe_allow_html=True)
 
-        # Filter Bar Layout
-        col1, col2, col3, col4 = st.columns([3, 2, 2, 2])
-        with col1:
-            tickers = st.multiselect(
+        kolom_saham, kolom_metode, kolom_modal, kolom_tombol = st.columns([3, 2, 2, 2])
+
+        with kolom_saham:
+            daftar_tersedia = st.session_state.get('data_tersedia', ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'NVDA', 'META', 'TSLA'])
+            if not daftar_tersedia:
+                daftar_tersedia = ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'NVDA']
+
+            daftar_ticker = st.multiselect(
                 "Pilih Saham",
-                ['BBCA.JK', 'TLKM.JK', 'BMRI.JK', 'ASII.JK', 'UNVR.JK'],
-                default=['BBCA.JK', 'TLKM.JK']
+                daftar_tersedia,
+                default=daftar_tersedia[:2] if len(daftar_tersedia) >= 2 else daftar_tersedia
             )
-        with col2:
-            method = st.radio("Metode", ('Maximize Sharpe Ratio', 'Minimize Risk'))
-        with col3:
-            capital = st.number_input("Modal Awal (Rp)", min_value=1000000, value=10000000, step=1000000)
-        with col4:
-            run_opt = st.button("Jalankan Optimasi", type="primary", use_container_width=True)
+        with kolom_metode:
+            metode = st.radio("Metode", ('Maximize Sharpe Ratio', 'Minimize Risk'))
+        with kolom_modal:
+            modal = st.number_input("Modal Awal (Rp)", min_value=1000000, value=10000000, step=1000000)
+        with kolom_tombol:
+            jalankan = st.button("Jalankan Optimasi", type="primary", use_container_width=True)
 
-        if run_opt:
-            if not tickers:
-                st.warning("Pilih minimal 1 saham untuk dioptimasi.")
-                return
+        if not jalankan:
+            return
 
-            optimizer = PortfolioOptimizer(tickers, capital)
-            metrics = optimizer.get_kpi_metrics()
-            
-            # Metrics Header
+        if not daftar_ticker:
+            st.warning("Pilih minimal 1 saham untuk dioptimasi.")
+            return
+
+        optimasi = OptimasiPortofolio(daftar_ticker, modal)
+        metrik = optimasi.ambil_metrik_kpi()
+
+        self._render_metrik(metrik)
+        self._render_tab_hasil(optimasi)
+        self._render_tabel_rekomendasi(optimasi)
+
+    def _render_metrik(self, metrik: dict):
+        st.markdown("""
+        <div style="display: flex; align-items: center; gap: 8px; margin-top: 32px; margin-bottom: 16px;">
+            <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 500; color: #e2e1f0; letter-spacing: -0.01em; margin: 0;">Ringkasan Metrik</h3>
+        </div>
+        """.replace('\n', ''), unsafe_allow_html=True)
+
+        kolom1, kolom2, kolom3 = st.columns(3)
+        kolom1.metric("Proyeksi Keuntungan", metrik["proyeksi_return"])
+        kolom2.metric("Volatilitas", metrik["volatilitas"])
+        kolom3.metric("Rasio Sharpe", metrik["rasio_sharpe"])
+
+    def _render_tab_hasil(self, optimasi: OptimasiPortofolio):
+        tab_alokasi, tab_kinerja, tab_frontier = st.tabs(["Alokasi", "Kinerja", "Efficient Frontier"])
+
+        with tab_alokasi:
             st.markdown("""
-            <div style="display: flex; align-items: center; gap: 8px; margin-top: 32px; margin-bottom: 16px;">
-                <span class="material-symbols-outlined" style="color: #00f0ff; font-size: 20px;">analytics</span>
-                <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; color: #00f0ff; text-transform: uppercase; margin: 0; letter-spacing: 0.05em;">Ringkasan Metrik</h3>
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 16px; margin-bottom: 24px;">
+                <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 500; color: #e2e1f0; letter-spacing: -0.01em; margin: 0;">Target Asset Allocation</h3>
             </div>
             """.replace('\n', ''), unsafe_allow_html=True)
-            
-            # Metrics Section
-            col1, col2, col3 = st.columns(3)
-            col1.metric("Proyeksi Keuntungan", metrics["expected_return"])
-            col2.metric("Volatilitas", metrics["volatility"])
-            col3.metric("Rasio Sharpe", metrics["sharpe_ratio"])
-            
-            t_alloc, t_hist, t_front = st.tabs(["Alokasi", "Kinerja", "Efficient Frontier"])
-            
-            with t_alloc:
-                st.markdown("""
-                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(59, 73, 75, 0.3); padding-bottom: 8px; margin-bottom: 16px;">
-                    <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; color: #7df4ff; text-transform: uppercase; margin: 0; letter-spacing: 0.05em;">Bobot Alokasi</h3>
-                </div>
-                """.replace('\n', ''), unsafe_allow_html=True)
-                
-                weights_df = optimizer.calculate_optimal_weights()
-                st.bar_chart(weights_df.set_index('Saham'))
-                
-            with t_hist:
-                st.write("Visualisasi Backtesting Portofolio.")
-                
-            with t_front:
-                st.write("Visualisasi Efficient Frontier.")
-                
-            # Raw Data Table Header
-            st.markdown("""
-            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(59, 73, 75, 0.3); padding-bottom: 8px; margin-top: 32px; margin-bottom: 16px;">
-                <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 20px; color: #7df4ff; text-transform: uppercase; margin: 0; letter-spacing: 0.05em; display: flex; align-items: center; gap: 8px;">
-                    <span class="material-symbols-outlined" style="font-size: 24px;">view_list</span>
-                    Detail Rekomendasi
-                </h3>
-            </div>
-            """.replace('\n', ''), unsafe_allow_html=True)
-            
-            report_df = optimizer.generate_allocation_report()
-            
-            st.dataframe(
-                report_df.style.format({'Alokasi (Rp)': 'Rp {:,.0f}'}), 
-                use_container_width=True, 
-                hide_index=True
-            )
+
+            df_bobot = optimasi.hitung_bobot_optimal()
+            st.bar_chart(df_bobot.set_index('Saham'))
+
+        with tab_kinerja:
+            st.write("Visualisasi Backtesting Portofolio.")
+
+        with tab_frontier:
+            st.write("Visualisasi Efficient Frontier.")
+
+    def _render_tabel_rekomendasi(self, optimasi: OptimasiPortofolio):
+        st.markdown("""
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 16px; margin-top: 32px; margin-bottom: 24px;">
+            <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 500; color: #e2e1f0; letter-spacing: -0.01em; margin: 0;">Action Plan (Rekomendasi)</h3>
+        </div>
+        """.replace('\n', ''), unsafe_allow_html=True)
+
+        df_laporan = optimasi.buat_laporan_alokasi()
+
+        st.dataframe(
+            df_laporan.style.format({'Alokasi (Rp)': 'Rp {:,.0f}'}),
+            width='stretch',
+            hide_index=True
+        )
+
 
 if __name__ == "__main__":
-    OptimizationPage().render()
+    HalamanOptimasi().render()

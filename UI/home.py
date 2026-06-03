@@ -1,13 +1,18 @@
+import warnings
+warnings.filterwarnings("ignore")
+
 import os
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import streamlit as st
 import streamlit.components.v1 as components
-from utils.sidebar import get_sidebar_html
+from utils.sidebar import dapatkan_html_sidebar
 from Utils.st_dataloader import inisialisasi_sistem
 
-class HomePage:
+
+class HalamanBeranda:
+
     def __init__(self):
         st.set_page_config(
             page_title="STOCKIT - Stock Portfolio",
@@ -15,167 +20,193 @@ class HomePage:
             layout="wide",
             initial_sidebar_state="collapsed"
         )
-        
+
         folder_utama = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         inisialisasi_sistem(folder_utama)
 
-    def render(self):
-        # Hide default Streamlit elements to make the custom HTML full-screen
-        hide_st_style = """
-            <style>
-            #MainMenu {visibility: hidden;}
-            footer {visibility: hidden;}
-            header {visibility: hidden;}
-            .block-container {
-                padding: 0 !important;
-                margin: 0 !important;
-                max-width: 100% !important;
-            }
-            </style>
-            """
-        st.markdown(hide_st_style, unsafe_allow_html=True)
-
-        # Inject the native Streamlit DOM sidebar
-        st.markdown(get_sidebar_html("Home"), unsafe_allow_html=True)
-
-        # Inject Custom CSS
-        st.markdown("""
-        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-        <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Space+Mono:wght@400;700&family=Geist:wght@400&display=swap" rel="stylesheet"/>
-        <style>
-        .stApp {
-            background-color: #0e0e0e;
-            background-image: linear-gradient(to right, rgba(0, 240, 255, 0.03) 1px, transparent 1px),
-                              linear-gradient(to bottom, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
-            background-size: 32px 32px;
-            color: #e5e2e1;
-            font-family: 'Geist', sans-serif;
-        }
-        [data-testid="stHeader"] { display: none !important; }
-        .block-container { padding-top: 2rem !important; }
-
-        /* Custom buttons styling to match cyber theme */
-        [data-testid="stButton"] button {
-            border: 1px solid #00f0ff !important;
-            color: #00f0ff !important;
-            background: transparent !important;
-            border-radius: 0 !important;
-            font-family: 'Space Mono', monospace !important;
-            text-transform: uppercase !important;
-            letter-spacing: 0.1em !important;
-            padding: 16px 24px !important;
-            height: auto !important;
-            transition: all 0.2s ease-in-out !important;
-            box-shadow: inset 0 0 10px rgba(0,240,255,0.1) !important;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        [data-testid="stButton"] button:hover {
-            background-color: rgba(0, 240, 255, 0.1) !important;
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4), inset 0 0 10px rgba(0,240,255,0.2) !important;
-            text-shadow: 0 0 4px rgba(0, 240, 255, 0.8) !important;
-        }
+    def _suntik_gaya(self):
+        st.markdown('<style>#MainMenu{visibility:hidden}footer{visibility:hidden}</style>', unsafe_allow_html=True)
+        st.markdown('<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>', unsafe_allow_html=True)
+        st.markdown('<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>', unsafe_allow_html=True)
         
-        /* Custom scrollbar */
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: #0e0e0e; }
-        ::-webkit-scrollbar-thumb { background: #3b494b; border: 1px solid #131313; }
-        ::-webkit-scrollbar-thumb:hover { background: #00f0ff; }
-        </style>
-        """.replace('\n', ''), unsafe_allow_html=True)
-
-        # TopAppBar
+        # Base Theme Styles
         st.markdown("""
-        <header style="display: flex; justify-content: space-between; align-items: center; width: 100%; border-bottom: 1px solid rgba(59, 73, 75, 0.3); background-color: rgba(19, 19, 19, 0.8); backdrop-filter: blur(12px); padding: 16px 0; margin-top: -32px; z-index: 40; position: relative; margin-bottom: 32px; box-shadow: inset 0 0.5px 0 0 rgba(0,240,255,0.3);">
-            <div style="display: flex; align-items: center; gap: 8px; font-family: 'Space Mono', monospace; font-size: 13px;">
-                <span style="color: #b9cacb;">SYS</span>
-                <span style="color: #00f0ff;">/</span>
-                <span style="color: #00f0ff; font-weight: bold;">HOME</span>
+        <style>
+            .stApp {
+                background-color: #11131d;
+                background-image: 
+                    radial-gradient(circle at 15% 50%, rgba(0, 209, 255, 0.05) 0%, transparent 50%),
+                    radial-gradient(circle at 85% 30%, rgba(192, 193, 255, 0.05) 0%, transparent 50%);
+                background-attachment: fixed;
+                color: #e2e1f0;
+                font-family: 'Space Grotesk', sans-serif;
+                min-height: 100vh;
+            }
+            [data-testid="stHeader"] {display:none!important}
+            .block-container {padding-top:2rem!important; padding-bottom:2rem!important;}
+        </style>
+        """, unsafe_allow_html=True)
+
+        # Button Styles (Glow Button)
+        st.markdown("""
+        <style>
+            [data-testid="stButton"] button {
+                background: linear-gradient(135deg, #a4e6ff, #b7eaff) !important;
+                color: #001f28 !important;
+                border: none !important;
+                border-radius: 8px !important;
+                font-family: 'Space Grotesk', sans-serif !important;
+                font-weight: 600 !important;
+                padding: 12px 24px !important;
+                height: auto !important;
+                transition: all 0.3s ease !important;
+                box-shadow: 0 0 20px rgba(0, 209, 255, 0.2) !important;
+            }
+            [data-testid="stButton"] button p {
+                font-size: 14px !important;
+                margin: 0 !important;
+                color: #001f28 !important;
+                font-weight: 600 !important;
+            }
+            [data-testid="stButton"] button:hover {
+                box-shadow: 0 0 30px rgba(0, 209, 255, 0.4) !important;
+                transform: translateY(-1px) !important;
+                background: linear-gradient(135deg, #b7eaff, #a4e6ff) !important;
+            }
+            ::-webkit-scrollbar {width: 8px; height: 8px;}
+            ::-webkit-scrollbar-track {background: #11131d;}
+            ::-webkit-scrollbar-thumb {background: #3c494e; border-radius: 4px;}
+            ::-webkit-scrollbar-thumb:hover {background: #4cd6ff;}
+        </style>
+        """, unsafe_allow_html=True)
+
+    def render(self):
+        self._suntik_gaya()
+
+        st.markdown(dapatkan_html_sidebar("Home"), unsafe_allow_html=True)
+
+        # Header Section
+        st.markdown("""
+        <header style="display: flex; justify-content: space-between; align-items: center; width: 100%; border-bottom: 1px solid rgba(255, 255, 255, 0.1); background-color: rgba(17, 19, 29, 0.1); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 16px 0; margin-top: -16px; z-index: 40; position: relative; margin-bottom: 32px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 700; color: #00d1ff; text-transform: uppercase; letter-spacing: 0.1em; margin: 0;">Overview</h2>
             </div>
-            <div style="display: flex; align-items: center; gap: 24px;">
-                <div style="display: flex; align-items: center; gap: 16px; color: #00f0ff;">
-                    <span class="material-symbols-outlined" style="cursor: pointer;">sensors</span>
-                    <span class="material-symbols-outlined" style="cursor: pointer;">wifi_tethering</span>
-                    <span class="material-symbols-outlined" style="cursor: pointer;">account_circle</span>
-                </div>
-                <button style="font-family: 'Space Mono', monospace; font-size: 11px; text-transform: uppercase; padding: 6px 16px; border: 1px solid #3b494b; color: #e5e2e1; background: #1c1b1b; cursor: pointer; letter-spacing: 0.1em; transition: all 0.3s; display: flex; items-center; gap: 8px;" onmouseover="this.style.borderColor='#00f0ff'; this.style.color='#00f0ff'" onmouseout="this.style.borderColor='#3b494b'; this.style.color='#e5e2e1'">
-                    <span class="material-symbols-outlined" style="font-size: 14px;">cloud_upload</span> Deploy
+            <div style="display: flex; align-items: center; gap: 16px;">
+                <button style="color: #bbc9cf; background: transparent; border: none; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.3s; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.backgroundColor='rgba(0, 209, 255, 0.1)'; this.style.color='#00d1ff'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#bbc9cf'">
+                    <span class="material-symbols-outlined">notifications</span>
+                </button>
+                <button style="color: #bbc9cf; background: transparent; border: none; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.3s; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.backgroundColor='rgba(0, 209, 255, 0.1)'; this.style.color='#00d1ff'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#bbc9cf'">
+                    <span class="material-symbols-outlined">account_circle</span>
+                </button>
+                <button style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 600; padding: 8px 16px; border: 1px solid rgba(0, 209, 255, 0.3); color: #00d1ff; background: rgba(0, 209, 255, 0.05); cursor: pointer; border-radius: 9999px; transition: all 0.3s; margin-left: 8px;" onmouseover="this.style.background='rgba(0, 209, 255, 0.1)'" onmouseout="this.style.background='rgba(0, 209, 255, 0.05)'">
+                    Deploy Strategy
                 </button>
             </div>
         </header>
         """.replace('\n', ''), unsafe_allow_html=True)
 
-        # Hero Section
+        # Title Hero
         st.markdown("""
-        <div style="margin-bottom: 48px; border-left: 4px solid #00f0ff; padding-left: 24px;">
-            <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 48px; color: #e5e2e1; margin-bottom: 8px; display: flex; align-items: center; gap: 16px;">
-                STOCKIT 
-                <span class="material-symbols-outlined" style="color: #00f0ff; font-size: 48px; font-variation-settings: 'FILL' 1;">dataset</span>
-            </h2>
-            <p style="font-family: 'Space Grotesk', sans-serif; font-size: 24px; color: #b9cacb; margin: 0; padding-top: 8px;">
-                Data Science App for Stock Portfolio Optimization
+        <div style="margin-bottom: 48px;">
+            <h1 style="font-family: 'Space Grotesk', sans-serif; font-size: 48px; font-weight: 600; color: #e2e1f0; margin-bottom: 12px; display: flex; align-items: center; gap: 16px; letter-spacing: -0.02em; margin-top: 0;">
+                STOCKIT
+                <span class="material-symbols-outlined" style="color: #00d1ff; font-size: 40px;">dataset</span>
+            </h1>
+            <p style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; color: #bbc9cf; margin: 0; font-weight: 400;">
+                Precision Data Science for Stock Portfolio Optimization
             </p>
         </div>
         """.replace('\n', ''), unsafe_allow_html=True)
 
-        col1, col2 = st.columns([2, 1])
+        # Layout Columns
+        # Padding applied via columns in streamlit
+        st.markdown('<div>', unsafe_allow_html=True)
+        kolom_kiri, spacer, kolom_kanan = st.columns([5, 0.2, 4])
 
-        with col1:
-            # Quick Start Box replacing the non-functional parameter input
-            st.markdown("""
-            <div style="background-color: rgba(42, 42, 42, 0.4); border: 1px solid rgba(0, 240, 255, 0.5); padding: 24px; margin-bottom: 24px; position: relative; box-shadow: 0 0 15px rgba(0,240,255,0.05); transition: all 0.3s;" onmouseover="this.style.borderColor='#00f0ff'" onmouseout="this.style.borderColor='rgba(0, 240, 255, 0.5)'">
-                <div style="display: flex; align-items: center; gap: 12px; border-bottom: 1px solid rgba(59, 73, 75, 0.3); padding-bottom: 16px; margin-bottom: 16px;">
-                    <span class="material-symbols-outlined" style="color: #00f0ff;">rocket_launch</span>
-                    <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 24px; color: #e5e2e1; text-transform: uppercase; margin: 0; letter-spacing: 0.05em;">Mulai Cepat</h3>
-                </div>
-                <p style="font-family: 'Geist', sans-serif; font-size: 14px; color: #b9cacb; margin-bottom: 24px; line-height: 1.6;">
-                    Aplikasi ini membantu merancang portofolio saham menggunakan pendekatan kuantitatif modern. 
-                    Klik tombol di bawah untuk masuk ke dasbor optimasi dan mengatur parameter simulasi Anda.
-                </p>
-            </div>
-            """.replace('\n', ''), unsafe_allow_html=True)
+        with kolom_kiri:
+            self._render_kotak_mulai_cepat()
+
+        with kolom_kanan:
+            self._render_kartu_eksplorasi()
             
-            if st.button("Buka Dasbor Optimasi", use_container_width=True):
-                st.switch_page("pages/optimization.py")
+        st.markdown('</div>', unsafe_allow_html=True)
+        
+        # Render status at the bottom corner
+        st.markdown('<div style="margin-top: 48px;">', unsafe_allow_html=True)
+        self._render_status_sistem()
+        st.markdown('</div>', unsafe_allow_html=True)
 
-            # System Status Block
-            st.markdown("""
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px;">
-                <div style="background-color: #201f1f; border: 1px solid rgba(59, 73, 75, 0.2); padding: 16px; display: flex; flex-direction: column; gap: 8px;">
-                    <span style="font-family: 'Space Mono', monospace; font-size: 11px; color: #b9cacb; text-transform: uppercase;">Status Mesin</span>
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <div style="width: 8px; height: 8px; background-color: #00f0ff; border-radius: 50%; box-shadow: 0 0 8px #00f0ff;"></div>
-                        <span style="font-family: 'Space Mono', monospace; font-size: 13px; color: #00f0ff;">ONLINE</span>
-                    </div>
-                </div>
-                <div style="background-color: #201f1f; border: 1px solid rgba(59, 73, 75, 0.2); padding: 16px; display: flex; flex-direction: column; gap: 8px;">
-                    <span style="font-family: 'Space Mono', monospace; font-size: 11px; color: #b9cacb; text-transform: uppercase;">Data Feed</span>
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <span class="material-symbols-outlined" style="font-size: 16px; color: #849495;">sync</span>
-                        <span style="font-family: 'Space Mono', monospace; font-size: 13px; color: #e5e2e1;">SINKRON</span>
-                    </div>
-                </div>
-            </div>
-            """.replace('\n', ''), unsafe_allow_html=True)
-
-        with col2:
-            st.markdown("""
-            <div style="background-color: #201f1f; border: 1px solid rgba(0, 240, 255, 0.8); padding: 32px 24px; text-align: center; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(0,240,255,0.15); cursor: pointer; transition: all 0.3s;" onmouseover="this.style.boxShadow='0 0 30px rgba(0,240,255,0.3)'; this.style.backgroundColor='rgba(0,240,255,0.05)'" onmouseout="this.style.boxShadow='0 0 20px rgba(0,240,255,0.15)'; this.style.backgroundColor='#201f1f'">
-                <span class="material-symbols-outlined" style="font-size: 64px; color: #00f0ff; margin-bottom: 24px; text-shadow: 0 0 12px rgba(0,240,255,0.8);">query_stats</span>
-                <p style="font-family: 'Space Grotesk', sans-serif; font-size: 24px; color: #00f0ff; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 32px;">Eksplorasi Data</p>
-                <div style="display: flex; gap: 8px;">
-                    <div style="width: 6px; height: 6px; background-color: rgba(0,240,255,0.4); border-radius: 50%;"></div>
-                    <div style="width: 6px; height: 6px; background-color: rgba(0,240,255,0.6); border-radius: 50%;"></div>
-                    <div style="width: 6px; height: 6px; background-color: #00f0ff; border-radius: 50%; box-shadow: 0 0 8px #00f0ff;"></div>
-                </div>
-            </div>
-            """.replace('\n', ''), unsafe_allow_html=True)
+    def _render_kotak_mulai_cepat(self):
+        st.markdown("""
+        <div style="background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); border-top: 1px solid rgba(255, 255, 255, 0.2); border-left: 1px solid rgba(255, 255, 255, 0.2); border-radius: 12px; padding: 32px; margin-bottom: 24px; position: relative; overflow: hidden; height: 100%;">
+            <div style="position: absolute; top: -50px; right: -50px; width: 150px; height: 150px; background: rgba(0, 209, 255, 0.1); border-radius: 50%; filter: blur(40px); pointer-events: none;"></div>
             
-            # Invisible button over the box to make it clickable
-            if st.button("Eksplorasi Market Data Sekarang", use_container_width=True):
-                st.switch_page("pages/data_exploration.py")
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
+                <span class="material-symbols-outlined" style="color: #00d1ff; font-size: 28px;">tune</span>
+                <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 500; color: #e2e1f0; margin: 0;">Mulai Cepat</h3>
+            </div>
+            
+            <p style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; color: #bbc9cf; margin-bottom: 32px; line-height: 1.6; font-weight: 400;">
+                Aplikasi ini membantu merancang portofolio saham menggunakan pendekatan kuantitatif modern. 
+                Masuk ke dasbor optimasi untuk mengatur parameter simulasi algoritma Anda.
+            </p>
+            
+            <div style="margin-top: 16px; display: flex; justify-content: flex-end;">
+            </div>
+        </div>
+        <style>
+        /* CSS to hide streamlit button default padding issues and position it correctly */
+        </style>
+        """.replace('\n', ''), unsafe_allow_html=True)
+
+        # Place the button
+        if st.button("Buka Dasbor Optimasi", use_container_width=False):
+            st.switch_page("pages/optimization.py")
+
+    def _render_kartu_eksplorasi(self):
+        st.markdown("""
+        <div style="background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); border-top: 1px solid rgba(255, 255, 255, 0.2); border-left: 1px solid rgba(255, 255, 255, 0.2); border-radius: 12px; padding: 24px; display: flex; flex-direction: column; height: 100%;">
+            <p style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 600; color: #bbc9cf; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px;">Tersedia</p>
+            
+            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-left: 2px solid #00d1ff; border-radius: 8px; padding: 20px; display: flex; align-items: flex-start; gap: 16px; cursor: pointer; transition: all 0.3s; margin-bottom: 24px;" onmouseover="this.style.backgroundColor='rgba(255, 255, 255, 0.08)'" onmouseout="this.style.backgroundColor='rgba(255, 255, 255, 0.03)'">
+                <div style="padding: 12px; background: rgba(0, 209, 255, 0.1); border-radius: 8px; color: #00d1ff; display: flex; align-items: center; justify-content: center;">
+                    <span class="material-symbols-outlined" style="font-size: 24px;">timeline</span>
+                </div>
+                <div style="flex: 1;">
+                    <h4 style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 600; color: #e2e1f0; margin: 0 0 4px 0;">Eksplorasi Data</h4>
+                    <p style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 400; color: #bbc9cf; margin: 0;">Analisis pergerakan harga saham secara mendalam dan visual.</p>
+                </div>
+            </div>
+            
+            <div style="flex: 1;"></div>
+        </div>
+        """.replace('\n', ''), unsafe_allow_html=True)
+
+        if st.button("Eksplorasi Market Data Sekarang", use_container_width=True):
+            st.switch_page("pages/data_exploration.py")
+
+    def _render_status_sistem(self):
+        st.markdown("""
+        <div style="display: flex; gap: 16px; justify-content: flex-end;">
+            <div style="background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 9999px; padding: 8px 16px; display: flex; align-items: center; gap: 8px;">
+                <div style="width: 8px; height: 8px; background-color: #4cd6ff; border-radius: 50%; box-shadow: 0 0 8px #4cd6ff; animation: pulse 2s infinite;"></div>
+                <span style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 600; color: #bbc9cf; text-transform: uppercase; letter-spacing: 0.05em;">Engine: Online</span>
+            </div>
+            <div style="background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 9999px; padding: 8px 16px; display: flex; align-items: center; gap: 8px;">
+                <div style="width: 8px; height: 8px; background-color: #4cd6ff; border-radius: 50%; box-shadow: 0 0 8px #4cd6ff; animation: pulse 2s infinite; animation-delay: 0.5s;"></div>
+                <span style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 600; color: #bbc9cf; text-transform: uppercase; letter-spacing: 0.05em;">Data Feed: Syncing</span>
+            </div>
+        </div>
+        <style>
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+        </style>
+        """.replace('\n', ''), unsafe_allow_html=True)
+
 
 if __name__ == "__main__":
-    app = HomePage()
-    app.render()
+    aplikasi = HalamanBeranda()
+    aplikasi.render()

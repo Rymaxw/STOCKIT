@@ -1,9 +1,15 @@
+import warnings
+warnings.filterwarnings("ignore")
+
 import streamlit as st
 import datetime
-from utils.data_handler import StockDataHandler
-from utils.sidebar import get_sidebar_html
+import plotly.express as px
+from utils.data_handler import PengelolaDataSahamUI
+from utils.sidebar import dapatkan_html_sidebar
 
-class DataExplorationPage:
+
+class HalamanEksplorasiData:
+
     def __init__(self):
         st.set_page_config(
             page_title="Data Exploration",
@@ -12,200 +18,118 @@ class DataExplorationPage:
             initial_sidebar_state="collapsed"
         )
 
+    def _suntik_gaya(self):
+        st.markdown('<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>', unsafe_allow_html=True)
+        st.markdown('<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>', unsafe_allow_html=True)
+        
+        # Ambient Orbs Background & Main App background
+        st.markdown("""<style>.stApp{background-color:#0b0c10;color:#e2e1f0;font-family:'Inter',sans-serif;}.stApp::before{content:'';position:fixed;top:-20%;left:-10%;width:70vw;height:70vw;background:radial-gradient(circle, rgba(0, 209, 255, 0.08) 0%, rgba(0, 209, 255, 0) 70%);border-radius:50%;z-index:-1;pointer-events:none;}.stApp::after{content:'';position:fixed;bottom:-30%;right:-20%;width:80vw;height:80vw;background:radial-gradient(circle, rgba(49, 49, 192, 0.05) 0%, rgba(49, 49, 192, 0) 70%);border-radius:50%;z-index:-1;pointer-events:none;}[data-testid="stHeader"]{display:none!important}.block-container{padding-top:2rem!important; padding-bottom:2rem!important;}</style>""", unsafe_allow_html=True)
+        
+        # Glass Panels
+        st.markdown("""<style>[data-testid="stHorizontalBlock"]{background:rgba(26,27,37,0.4);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.05);box-shadow:0 8px 32px 0 rgba(0,0,0,0.3);border-radius:1rem;padding:24px;margin-bottom:24px}[data-testid="stArrowVegaLiteChart"],[data-testid="stDataFrame"]{background:rgba(26,27,37,0.4);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.05);box-shadow:0 8px 32px 0 rgba(0,0,0,0.3);border-radius:1rem;padding:24px;margin-top:16px}</style>""", unsafe_allow_html=True)
+        
+        # Glass Inputs
+        st.markdown("""<style>.stTextInput input,.stDateInput input{background:rgba(0,0,0,0.2)!important;border:1px solid rgba(255,255,255,0.1)!important;color:#e2e1f0!important;border-radius:0.5rem!important;font-family:'Inter',sans-serif!important;padding:12px!important;transition:all 0.3s ease!important}.stTextInput input:focus,.stDateInput input:focus{border-color:rgba(0,209,255,0.5)!important;box-shadow:0 0 15px rgba(0,209,255,0.1)!important;background:rgba(0,0,0,0.3)!important}</style>""", unsafe_allow_html=True)
+        
+        # Labels
+        st.markdown("""<style>[data-testid="stWidgetLabel"]{font-family:'Inter',sans-serif!important;color:#bbc9cf!important;font-size:11px!important}[data-testid="stWidgetLabel"] p{font-size:11px!important}</style>""", unsafe_allow_html=True)
+        
+        # Glass Buttons
+        st.markdown("""<style>[data-testid="stButton"] button{background:linear-gradient(135deg, rgba(0,209,255,0.1), rgba(0,103,127,0.2))!important;border:1px solid rgba(0,209,255,0.3)!important;color:#00d1ff!important;border-radius:0.5rem!important;font-family:'Inter',sans-serif!important;font-weight:500!important;padding:12px 24px!important;height:auto!important;transition:all 0.3s ease!important;backdrop-filter:blur(8px)!important;margin-top:28px!important}[data-testid="stButton"] button:hover{background:linear-gradient(135deg, rgba(0,209,255,0.2), rgba(0,103,127,0.3))!important;border-color:rgba(0,209,255,0.6)!important;box-shadow:0 0 20px rgba(0,209,255,0.2)!important;transform:translateY(-1px)!important}</style>""", unsafe_allow_html=True)
+        
+        # Scrollbars
+        st.markdown("""<style>::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:10px}::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,0.2)}</style>""", unsafe_allow_html=True)
+
     def render(self):
-        # Inject custom sidebar
-        st.markdown(get_sidebar_html("Data"), unsafe_allow_html=True)
-        
-        # Inject Custom CSS for native Streamlit widgets to match the cyber design
-        st.markdown("""
-        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-        <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Space+Grotesk:wght@600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
-        <style>
-        .stApp {
-            background-color: #0e0e0e;
-            background-image: linear-gradient(to right, rgba(0, 240, 255, 0.03) 1px, transparent 1px),
-                              linear-gradient(to bottom, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
-            background-size: 32px 32px;
-            color: #e5e2e1;
-            font-family: 'Geist', sans-serif;
-        }
-        [data-testid="stHeader"] { display: none !important; }
-        .block-container { padding-top: 2rem !important; }
-        
-        /* Cyber Panel styling for the filter row and chart/table containers */
-        [data-testid="stHorizontalBlock"] {
-            background-color: #131313;
-            border-top: 1px solid rgba(0, 240, 255, 0.3);
-            border-left: 1px solid rgba(0, 240, 255, 0.3);
-            box-shadow: inset 1px 1px 0px 0px rgba(255,255,255,0.05);
-            padding: 24px;
-            margin-bottom: 24px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        /* Optional glowing decorative blob in the filter bar */
-        [data-testid="stHorizontalBlock"]::before {
-            content: '';
-            position: absolute;
-            right: -40px;
-            top: -40px;
-            width: 160px;
-            height: 160px;
-            background-color: rgba(0,240,255,0.05);
-            border-radius: 50%;
-            filter: blur(24px);
-            pointer-events: none;
-        }
+        st.markdown(dapatkan_html_sidebar("Data"), unsafe_allow_html=True)
+        self._suntik_gaya()
+        self._render_bilah_atas()
+        self._render_header_halaman()
+        self._render_filter_dan_grafik()
 
-        [data-testid="stArrowVegaLiteChart"],
-        [data-testid="stDataFrame"] {
-            background-color: #131313;
-            border-top: 1px solid rgba(0, 240, 255, 0.3);
-            border-left: 1px solid rgba(0, 240, 255, 0.3);
-            box-shadow: inset 1px 1px 0px 0px rgba(255,255,255,0.05);
-            padding: 16px;
-            margin-top: 16px;
-        }
-        
-        /* Inputs */
-        .stTextInput input, .stDateInput input {
-            background-color: #1c1b1b !important;
-            border: 1px solid #3b494b !important;
-            color: #dbfcff !important;
-            border-radius: 0 !important;
-            font-family: 'Space Mono', monospace !important;
-            padding: 12px !important;
-        }
-        .stTextInput input:focus, .stDateInput input:focus {
-            border-color: #00f0ff !important;
-            box-shadow: 0 0 8px rgba(0, 240, 255, 0.4) !important;
-        }
-        
-        /* Labels */
-        [data-testid="stWidgetLabel"] {
-            font-family: 'Space Mono', monospace !important;
-            text-transform: uppercase !important;
-            letter-spacing: 0.1em !important;
-            color: #b9cacb !important;
-            font-size: 11px !important;
-        }
-        [data-testid="stWidgetLabel"] p {
-            font-size: 11px !important;
-        }
-        
-        /* Button */
-        [data-testid="stButton"] button {
-            border: 1px solid #00f0ff !important;
-            color: #00f0ff !important;
-            background: transparent !important;
-            border-radius: 0 !important;
-            font-family: 'Space Mono', monospace !important;
-            text-transform: uppercase !important;
-            letter-spacing: 0.2em !important;
-            padding: 12px 24px !important;
-            height: auto !important;
-            transition: all 0.2s ease-in-out !important;
-            margin-top: 28px !important; /* Align with inputs */
-        }
-        [data-testid="stButton"] button:hover {
-            background-color: rgba(0, 240, 255, 0.1) !important;
-            box-shadow: 0 0 8px rgba(0, 240, 255, 0.6) !important;
-            text-shadow: 0 0 4px rgba(0, 240, 255, 0.8) !important;
-        }
-        
-        /* Custom scrollbar to match theme */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0e0e0e; 
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #3b494b; 
-            border: 1px solid #131313;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #00f0ff; 
-        }
-        </style>
-        """.replace('\n', ''), unsafe_allow_html=True)
-
-        # TopAppBar
+    def _render_bilah_atas(self):
         st.markdown("""
-        <header style="display: flex; justify-content: space-between; align-items: center; width: 100%; border-bottom: 1px solid rgba(59, 73, 75, 0.3); background-color: rgba(19, 19, 19, 0.8); backdrop-filter: blur(12px); padding: 16px 0; margin-top: -32px; z-index: 40; position: relative; margin-bottom: 32px;">
-            <div style="display: flex; align-items: center; gap: 16px; color: #b9cacb; text-transform: uppercase; letter-spacing: 0.1em; font-family: 'Space Mono', monospace; font-size: 13px;">
-                <span>STATUS SISTEM: <span style="color: #7df4ff;">NOMINAL</span></span>
+        <header style="display: flex; justify-content: space-between; align-items: center; width: 100%; border-bottom: 1px solid rgba(255,255,255,0.05); padding: 16px 0; margin-top: -16px; z-index: 40; position: relative; margin-bottom: 32px;">
+            <div style="display: flex; align-items: center; gap: 8px; font-family: 'Inter', sans-serif; font-size: 12px; color: #bbc9cf;">
+                <span style="width: 6px; height: 6px; border-radius: 50%; background-color: #4ade80; box-shadow: 0 0 5px rgba(74,222,128,0.5);"></span>
+                <span>System Status: Optimal</span>
             </div>
-            <div style="display: flex; align-items: center; gap: 24px;">
-                <div style="display: flex; align-items: center; gap: 16px; color: #b9cacb;">
-                    <span class="material-symbols-outlined" style="cursor: pointer;">sensors</span>
-                    <span class="material-symbols-outlined" style="cursor: pointer;">wifi_tethering</span>
-                    <span class="material-symbols-outlined" style="cursor: pointer;">account_circle</span>
-                </div>
-                <button style="font-family: 'Space Mono', monospace; font-size: 11px; text-transform: uppercase; padding: 6px 16px; border: 1px solid #00f0ff; color: #00f0ff; background: transparent; cursor: pointer; letter-spacing: 0.1em; transition: all 0.3s;" onmouseover="this.style.backgroundColor='rgba(0,240,255,0.1)'" onmouseout="this.style.backgroundColor='transparent'">
-                    Deploy
-                </button>
+            <div style="display: flex; align-items: center; gap: 20px; color: #bbc9cf;">
+                <span class="material-symbols-outlined" style="cursor: pointer; font-size: 20px; transition: color 0.3s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#bbc9cf'">notifications</span>
+                <span class="material-symbols-outlined" style="cursor: pointer; font-size: 20px; transition: color 0.3s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#bbc9cf'">settings</span>
             </div>
         </header>
         """.replace('\n', ''), unsafe_allow_html=True)
 
-        # Page Header
+    def _render_header_halaman(self):
         st.markdown("""
         <div style="margin-bottom: 32px;">
-            <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 48px; color: #dbfcff; text-transform: uppercase; letter-spacing: -0.02em; font-weight: 700; margin-bottom: 8px; text-shadow: 0 0 8px rgba(0,240,255,0.3); margin-top: 0;">Eksplorasi Data Saham</h2>
-            <p style="font-family: 'Space Mono', monospace; font-size: 13px; color: #b9cacb; text-transform: uppercase; letter-spacing: 0.1em; margin: 0;">QUERY // DATA_PASAR_IDX // REALTIME</p>
+            <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 30px; font-weight: 300; color: white; letter-spacing: -0.02em; margin-bottom: 4px; margin-top: 0;">Eksplorasi Data Saham</h2>
+            <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; color: rgba(187, 201, 207, 0.7); margin: 0;">QUERY // DATA_PASAR_US // HISTORIS</p>
         </div>
         """.replace('\n', ''), unsafe_allow_html=True)
-        
-        # Filter Bar Layout
-        col1, col2, col3 = st.columns([2, 2, 1])
-        with col1:
-            raw_tickers = st.text_input("Ticker Saham", "BBCA.JK, TLKM.JK, BMRI.JK")
-            tickers = [t.strip() for t in raw_tickers.split(',')]
-            
-        with col2:
-            today = datetime.date.today()
-            one_year_ago = today - datetime.timedelta(days=365)
-            date_range = st.date_input("Rentang Waktu", value=(one_year_ago, today), max_value=today)
-            
-        with col3:
-            load_data = st.button("Muat Data", type="primary", use_container_width=True)
-        
-        if load_data:
-            if len(date_range) != 2:
-                st.error("⚠️ Pilih tanggal awal dan akhir terlebih dahulu.")
-                return
-                
-            start_date, end_date = date_range
-            
-            handler = StockDataHandler(tickers)
-            df_history = handler.fetch_historical_data(start_date, end_date)
-            
-            if not df_history.empty:
-                # Chart Header
-                st.markdown("""
-                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(59, 73, 75, 0.3); padding-bottom: 8px; margin-top: 32px;">
-                    <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 24px; color: #7df4ff; text-transform: uppercase; margin: 0; letter-spacing: 0.05em;">Pergerakan Harga Saham</h3>
-                </div>
-                """.replace('\n', ''), unsafe_allow_html=True)
-                
-                st.line_chart(df_history)
-                
-                # Raw Data Table Header
-                st.markdown("""
-                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(59, 73, 75, 0.3); padding-bottom: 8px; margin-top: 32px;">
-                    <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 24px; color: #7df4ff; text-transform: uppercase; margin: 0; letter-spacing: 0.05em; display: flex; align-items: center; gap: 8px;">
-                        Data Mentah
-                        <span class="material-symbols-outlined" style="font-size: 20px; color: #849495; cursor: pointer;">download</span>
-                    </h3>
-                </div>
-                """.replace('\n', ''), unsafe_allow_html=True)
-                
-                st.dataframe(df_history, use_container_width=True)
-            else:
-                st.warning("Data tidak ditemukan.")
+
+    def _render_filter_dan_grafik(self):
+        kolom_ticker, kolom_tanggal, kolom_tombol = st.columns([2, 2, 1])
+
+        with kolom_ticker:
+            teks_ticker = st.text_input("Ticker Saham", "AAPL, MSFT, GOOGL")
+            daftar_ticker = [t.strip() for t in teks_ticker.split(',')]
+
+        with kolom_tanggal:
+            tanggal_awal = datetime.date(2006, 1, 1)
+            tanggal_batas = datetime.date(2025, 12, 31)
+            rentang_tanggal = st.date_input("Rentang Waktu", value=(tanggal_awal, tanggal_batas), min_value=tanggal_awal, max_value=tanggal_batas)
+
+        with kolom_tombol:
+            muat_data = st.button("Load Data", type="primary", use_container_width=True)
+
+        if not muat_data:
+            return
+
+        if len(rentang_tanggal) != 2:
+            st.error("⚠️ Pilih tanggal awal dan akhir terlebih dahulu.")
+            return
+
+        tanggal_mulai, tanggal_akhir = rentang_tanggal
+
+        pengelola = PengelolaDataSahamUI(daftar_ticker)
+        df_historis = pengelola.ambil_data_historis(tanggal_mulai, tanggal_akhir)
+
+        if df_historis.empty:
+            st.warning("Data tidak ditemukan.")
+            return
+
+        self._render_grafik_harga(df_historis)
+
+    def _render_grafik_harga(self, df_historis):
+        st.markdown("""
+        <div style="margin-top: 32px; margin-bottom: 16px;">
+            <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 500; color: white; margin: 0; letter-spacing: 0.025em;">Pergerakan Harga Saham</h3>
+        </div>
+        """.replace('\n', ''), unsafe_allow_html=True)
+
+        grafik = px.line(
+            df_historis, x=df_historis.index, y=df_historis.columns,
+            labels={'value': 'Harga (USD)', 'index': 'Tanggal', 'variable': 'Ticker'},
+            template='plotly_dark'
+        )
+
+        grafik.update_layout(
+            plot_bgcolor='rgba(0,0,0,0)',
+            paper_bgcolor='rgba(0,0,0,0)',
+            font=dict(family="Inter, sans-serif"),
+            xaxis=dict(showgrid=True, gridcolor='rgba(255, 255, 255, 0.05)'),
+            yaxis=dict(showgrid=True, gridcolor='rgba(255, 255, 255, 0.05)'),
+            legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+            hovermode="x unified",
+            margin=dict(l=0, r=0, t=0, b=0)
+        )
+
+        st.markdown('<div style="background: rgba(26, 27, 37, 0.4); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.05); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3); border-radius: 1rem; padding: 24px;">', unsafe_allow_html=True)
+        st.plotly_chart(grafik, width='stretch')
+        st.markdown('</div>', unsafe_allow_html=True)
+
 
 if __name__ == "__main__":
-    DataExplorationPage().render()
+    HalamanEksplorasiData().render()
