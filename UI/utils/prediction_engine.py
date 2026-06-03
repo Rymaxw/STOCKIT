@@ -9,7 +9,6 @@ from pathlib import Path
 
 class PrediksiHargaSaham:
     """Memproyeksikan harga saham ke depan berdasarkan data historis dan metadata model."""
-
     PETA_FREKUENSI = {
         'mingguan': {'sufiks': '_mingguan.parquet', 'freq': 'W', 'label': '1 Minggu'},
         'bulanan': {'sufiks': '_bulanan.parquet', 'freq': 'M', 'label': '1 Bulan'},
@@ -24,9 +23,9 @@ class PrediksiHargaSaham:
         self.folder_model = folder_proyek / 'Models'
 
     @st.cache_data(ttl=3600, show_spinner=False)
-    def _muat_data_processed(_self, ticker: str, frekuensi: str) -> pd.DataFrame:
+    def _muat_data_processed(_self, kode_saham: str, frekuensi: str) -> pd.DataFrame:
         info = _self.PETA_FREKUENSI[frekuensi]
-        lokasi = _self.folder_processed / f"{ticker}{info['sufiks']}"
+        lokasi = _self.folder_processed / f"{kode_saham}{info['sufiks']}"
         if not lokasi.exists():
             return pd.DataFrame()
 
@@ -38,9 +37,9 @@ class PrediksiHargaSaham:
         return df
 
     @st.cache_data(ttl=3600, show_spinner=False)
-    def _muat_metadata(_self, ticker: str, frekuensi: str) -> dict:
+    def _muat_metadata(_self, kode_saham: str, frekuensi: str) -> dict:
         folder = _self.folder_model / frekuensi.capitalize()
-        lokasi = folder / f"{ticker}_metadata.json"
+        lokasi = folder / f"{kode_saham}_metadata.json"
         if not lokasi.exists():
             return {}
         with open(lokasi, 'r') as f:
@@ -58,14 +57,12 @@ class PrediksiHargaSaham:
             return {'harga_sekarang': harga_terakhir, 'prediksi': harga_terakhir,
                     'optimis': harga_terakhir, 'pesimis': harga_terakhir, 'return_pct': 0}
 
-        mu = float(log_return.mean())
-        sigma = float(log_return.std())
+        rata_rata = float(log_return.mean())
+        simpangan = float(log_return.std())
 
-        # Expected price = S0 * exp(mu * h)
-        prediksi = harga_terakhir * np.exp(mu * horizon)
-        # 1-sigma confidence band
-        optimis = harga_terakhir * np.exp((mu + sigma) * horizon)
-        pesimis = harga_terakhir * np.exp((mu - sigma) * horizon)
+        prediksi = harga_terakhir * np.exp(rata_rata * horizon)
+        optimis = harga_terakhir * np.exp((rata_rata + simpangan) * horizon)
+        pesimis = harga_terakhir * np.exp((rata_rata - simpangan) * horizon)
 
         return_pct = ((prediksi - harga_terakhir) / harga_terakhir) * 100
 
@@ -77,28 +74,28 @@ class PrediksiHargaSaham:
             'return_pct': round(return_pct, 2),
         }
 
-    def prediksi_saham(self, ticker: str) -> dict:
+    def prediksi_saham(self, kode_saham: str) -> dict:
         """Menghasilkan prediksi 1W, 1M, 1Y untuk satu saham."""
-        hasil = {'ticker': ticker}
+        hasil = {'kode_saham': kode_saham}
 
         # 1 Minggu periode
-        df_w = self._muat_data_processed(ticker, 'mingguan')
+        df_w = self._muat_data_processed(kode_saham, 'mingguan')
         hasil['1W'] = self._hitung_proyeksi(df_w, horizon=1)
-        meta_w = self._muat_metadata(ticker, 'mingguan')
+        meta_w = self._muat_metadata(kode_saham, 'mingguan')
         hasil['1W']['model'] = meta_w.get('model_terbaik', 'N/A')
         hasil['1W']['mae'] = self._ambil_mae(meta_w)
 
         # 1 Bulan periode
-        df_m = self._muat_data_processed(ticker, 'bulanan')
+        df_m = self._muat_data_processed(kode_saham, 'bulanan')
         hasil['1M'] = self._hitung_proyeksi(df_m, horizon=1)
-        meta_m = self._muat_metadata(ticker, 'bulanan')
+        meta_m = self._muat_metadata(kode_saham, 'bulanan')
         hasil['1M']['model'] = meta_m.get('model_terbaik', 'N/A')
         hasil['1M']['mae'] = self._ambil_mae(meta_m)
 
         # 1 Tahun periode
-        df_y = self._muat_data_processed(ticker, 'tahunan')
+        df_y = self._muat_data_processed(kode_saham, 'tahunan')
         hasil['1Y'] = self._hitung_proyeksi(df_y, horizon=1)
-        meta_y = self._muat_metadata(ticker, 'tahunan')
+        meta_y = self._muat_metadata(kode_saham, 'tahunan')
         hasil['1Y']['model'] = meta_y.get('model_terbaik', 'N/A')
         hasil['1Y']['mae'] = self._ambil_mae(meta_y)
 
@@ -110,26 +107,26 @@ class PrediksiHargaSaham:
     @staticmethod
     def _ambil_mae(metadata: dict) -> float:
         metrik = metadata.get('metrik_top5', {})
-        mae_dict = metrik.get('MAE', {})
-        if mae_dict:
-            return round(min(mae_dict.values()), 4)
+        kamus_mae = metrik.get('MAE', {})
+        if kamus_mae:
+            return round(min(kamus_mae.values()), 4)
         return 0.0
 
 
 class PerbandinganInvestasi:
-    """Membandingkan proyeksi investasi antar saham dengan budget tertentu."""
+    """Membandingkan proyeksi investasi antar saham dengan anggaran tertentu."""
 
-    def __init__(self, daftar_ticker: list, budget: float):
-        self.daftar_ticker = daftar_ticker
-        self.budget = budget
-        self.engine = PrediksiHargaSaham()
+    def __init__(self, daftar_kode_saham: list, anggaran: float):
+        self.daftar_kode_saham = daftar_kode_saham
+        self.anggaran = anggaran
+        self.mesin = PrediksiHargaSaham()
         self._hasil_prediksi = {}
 
     def jalankan(self) -> dict:
         """Menjalankan prediksi untuk semua saham dan menghitung nilai investasi."""
-        for ticker in self.daftar_ticker:
-            pred = self.engine.prediksi_saham(ticker)
-            self._hasil_prediksi[ticker] = pred
+        for kode_saham in self.daftar_kode_saham:
+            prediksi_data = self.mesin.prediksi_saham(kode_saham)
+            self._hasil_prediksi[kode_saham] = prediksi_data
         return self._hasil_prediksi
 
     def buat_tabel_perbandingan(self, horizon: str = '1W') -> pd.DataFrame:
@@ -137,49 +134,48 @@ class PerbandinganInvestasi:
         if not self._hasil_prediksi:
             self.jalankan()
 
-        jumlah_saham = len(self.daftar_ticker)
-        budget_per_saham = self.budget / jumlah_saham if jumlah_saham > 0 else 0
+        jumlah_saham = len(self.daftar_kode_saham)
+        anggaran_per_saham = self.anggaran / jumlah_saham if jumlah_saham > 0 else 0
 
-        rows = []
-        for ticker in self.daftar_ticker:
-            pred = self._hasil_prediksi.get(ticker, {})
-            info = pred.get(horizon, {})
-            harga_now = info.get('harga_sekarang', 0)
-            harga_pred = info.get('prediksi', 0)
-            return_pct = info.get('return_pct', 0)
+        baris = []
+        for kode_saham in self.daftar_kode_saham:
+            prediksi_data = self._hasil_prediksi.get(kode_saham, {})
+            rincian = prediksi_data.get(cakrawala, {})
+            harga_kini = rincian.get('harga_sekarang', 0)
+            harga_prediksi = rincian.get('prediksi', 0)
+            persen_imbal_hasil = rincian.get('persen_imbal_hasil', 0)
 
-            # Jumlah saham yang bisa dibeli
-            jumlah_lembar = int(budget_per_saham / harga_now) if harga_now > 0 else 0
-            nilai_awal = jumlah_lembar * harga_now
-            nilai_prediksi = jumlah_lembar * harga_pred
-            profit = nilai_prediksi - nilai_awal
+            jumlah_lembar = int(anggaran_per_saham / harga_kini) if harga_kini > 0 else 0
+            nilai_awal = jumlah_lembar * harga_kini
+            nilai_prediksi = jumlah_lembar * harga_prediksi
+            keuntungan = nilai_prediksi - nilai_awal
 
-            rows.append({
-                'Ticker': ticker,
-                'Harga Sekarang ($)': harga_now,
-                f'Prediksi ({horizon})': harga_pred,
-                'Return (%)': return_pct,
+            baris.append({
+                'Kode Saham': kode_saham,
+                'Harga Sekarang ($)': harga_kini,
+                f'Prediksi ({cakrawala})': harga_prediksi,
+                'Imbal Hasil (%)': persen_imbal_hasil,
                 'Lembar Saham': jumlah_lembar,
                 'Nilai Awal ($)': round(nilai_awal, 2),
                 'Nilai Prediksi ($)': round(nilai_prediksi, 2),
-                'Profit ($)': round(profit, 2),
-                'Model AI': info.get('model', 'N/A'),
+                'Keuntungan ($)': round(keuntungan, 2),
+                'Model AI': rincian.get('model', 'N/A'),
             })
 
-        return pd.DataFrame(rows)
+        return pd.DataFrame(baris)
 
     def buat_data_chart(self) -> pd.DataFrame:
         """Menghasilkan data untuk bar chart perbandingan return per horizon."""
         if not self._hasil_prediksi:
             self.jalankan()
 
-        rows = []
-        for ticker in self.daftar_ticker:
-            pred = self._hasil_prediksi.get(ticker, {})
-            rows.append({
-                'Ticker': ticker,
-                '1 Minggu (%)': pred.get('1W', {}).get('return_pct', 0),
-                '1 Bulan (%)': pred.get('1M', {}).get('return_pct', 0),
-                '1 Tahun (%)': pred.get('1Y', {}).get('return_pct', 0),
+        baris = []
+        for kode_saham in self.daftar_kode_saham:
+            prediksi_data = self._hasil_prediksi.get(kode_saham, {})
+            baris.append({
+                'Kode Saham': kode_saham,
+                '1 Minggu (%)': prediksi_data.get('1W', {}).get('persen_imbal_hasil', 0),
+                '1 Bulan (%)': prediksi_data.get('1M', {}).get('persen_imbal_hasil', 0),
+                '1 Tahun (%)': prediksi_data.get('1Y', {}).get('persen_imbal_hasil', 0),
             })
-        return pd.DataFrame(rows)
+        return pd.DataFrame(baris)
