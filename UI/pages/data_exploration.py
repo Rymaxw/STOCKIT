@@ -89,9 +89,9 @@ class HalamanEksplorasiData:
             daftar_ticker = [t.strip().upper() for t in teks_ticker.split(',') if t.strip()]
 
         with kolom_periode:
-            periode_opsi = {"1 Bulan": "1mo", "3 Bulan": "3mo", "6 Bulan": "6mo", "1 Tahun": "1y", "5 Tahun": "5y", "10 Tahun": "10y", "Maksimal (21 Tahun)": "21y"}
-            periode_label = st.selectbox("Periode", list(periode_opsi.keys()), index=3)
-            periode_yf = periode_opsi[periode_label]
+            tahun_pilihan = st.slider("Rentang Tahun", min_value=2006, max_value=2025, value=(2006, 2025))
+            tahun_mulai = tahun_pilihan[0]
+            tahun_akhir = tahun_pilihan[1]
 
         with kolom_tombol:
             muat_data = st.button("Load Data", type="primary", use_container_width=True)
@@ -102,15 +102,24 @@ class HalamanEksplorasiData:
         if muat_data:
             st.session_state['data_loaded'] = True
             st.session_state['daftar_ticker'] = daftar_ticker
-            st.session_state['periode_yf'] = periode_yf
+            st.session_state['tahun_mulai'] = tahun_mulai
+            st.session_state['tahun_akhir'] = tahun_akhir
 
         ticker_aktif = st.session_state.get('daftar_ticker', daftar_ticker)
-        periode_aktif = st.session_state.get('periode_yf', periode_yf)
+        tahun_mulai_aktif = st.session_state.get('tahun_mulai', tahun_mulai)
+        tahun_akhir_aktif = st.session_state.get('tahun_akhir', tahun_akhir)
 
-        # Load data menggunakan PemuatDataSaham (baca dari parquet lokal)
-        pemuat = PemuatDataSaham(periode=periode_aktif, verbose=False)
+        # Load data menggunakan PemuatDataSaham (baca dari parquet lokal secara full)
+        pemuat = PemuatDataSaham(periode='max', verbose=False)
         try:
-            dict_data = pemuat.muat(ticker_aktif)
+            dict_data_raw = pemuat.muat(ticker_aktif)
+            dict_data = {}
+            for t, df in dict_data_raw.items():
+                if not df.empty:
+                    # Filter berdasarkan tahun
+                    df_filtered = df[(df.index.year >= tahun_mulai_aktif) & (df.index.year <= tahun_akhir_aktif)]
+                    if not df_filtered.empty:
+                        dict_data[t] = df_filtered
         except Exception as e:
             st.error(f"Gagal memuat data: {e}")
             return
