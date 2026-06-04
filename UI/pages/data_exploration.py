@@ -32,7 +32,26 @@ class HalamanEksplorasiData:
         st.markdown("""<style>.stApp{background-color:#0b0c10;color:#e2e1f0;font-family:'Inter',sans-serif;}.stApp::before{content:'';position:fixed;top:-20%;left:-10%;width:70vw;height:70vw;background:radial-gradient(circle, rgba(0, 209, 255, 0.08) 0%, rgba(0, 209, 255, 0) 70%);border-radius:50%;z-index:-1;pointer-events:none;}.stApp::after{content:'';position:fixed;bottom:-30%;right:-20%;width:80vw;height:80vw;background:radial-gradient(circle, rgba(49, 49, 192, 0.05) 0%, rgba(49, 49, 192, 0) 70%);border-radius:50%;z-index:-1;pointer-events:none;}[data-testid="stHeader"]{display:none!important}.block-container{padding-top:2rem!important; padding-bottom:2rem!important;}</style>""", unsafe_allow_html=True)
         
         # Glass Inputs
-        st.markdown("""<style>.stTextInput input,.stDateInput input,.stSelectbox [data-baseweb="select"]{background:rgba(0,0,0,0.2)!important;border:1px solid rgba(255,255,255,0.1)!important;color:#e2e1f0!important;border-radius:0.5rem!important;font-family:'Inter',sans-serif!important;padding:12px!important;transition:all 0.3s ease!important}.stTextInput input:focus,.stDateInput input:focus{border-color:rgba(0,209,255,0.5)!important;box-shadow:0 0 15px rgba(0,209,255,0.1)!important;background:rgba(0,0,0,0.3)!important}</style>""", unsafe_allow_html=True)
+        st.markdown("""<style>
+        .stTextInput input, .stDateInput input, .stSelectbox [data-baseweb="select"] {
+            background: rgba(0,0,0,0.2) !important;
+            border: 1px solid rgba(255,255,255,0.1) !important;
+            color: #e2e1f0 !important;
+            border-radius: 0.5rem !important;
+            font-family: 'Inter', sans-serif !important;
+            padding: 12px !important;
+            transition: all 0.3s ease !important;
+            min-height: 48px !important;
+        }
+        .stSelectbox [data-baseweb="select"] {
+            padding: 0 12px !important;
+        }
+        .stTextInput input:focus, .stDateInput input:focus {
+            border-color: rgba(0,209,255,0.5) !important;
+            box-shadow: 0 0 15px rgba(0,209,255,0.1) !important;
+            background: rgba(0,0,0,0.3) !important;
+        }
+        </style>""", unsafe_allow_html=True)
         
         # Labels
         st.markdown("""<style>[data-testid="stWidgetLabel"]{font-family:'Inter',sans-serif!important;color:#bbc9cf!important;font-size:11px!important}[data-testid="stWidgetLabel"] p{font-size:11px!important}</style>""", unsafe_allow_html=True)

@@ -19,10 +19,19 @@ class HalamanTentang:
             #MainMenu {visibility: hidden;}
             footer {visibility: hidden;}
             [data-testid="stHeader"] {display: none !important;}
+            .stApp {
+                background-color: #11131d !important;
+            }
             .block-container {
-                padding: 0 !important;
+                padding-top: 0 !important;
+                padding-bottom: 0 !important;
+                padding-left: 0 !important;
+                padding-right: 0 !important;
                 margin: 0 !important;
                 max-width: 100% !important;
+            }
+            iframe {
+                border: none !important;
             }
             </style>
             """
@@ -257,7 +266,7 @@ class HalamanTentang:
 </main>
 </body></html>
         """
-        components.html(konten_html, height=900, scrolling=True)
+        components.html(konten_html, height=1000, scrolling=True)
 
 if __name__ == "__main__":
     HalamanTentang().render()
