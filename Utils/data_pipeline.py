@@ -12,7 +12,7 @@ MAP_PERIODE = {
     "3 Tahun Terakhir": "3y",
     "5 Tahun Terakhir": "5y",
     "10 Tahun Terakhir": "10y",
-    "21 Tahun Terakhir": "21y",
+    "21 Tahun Terakhir": "max",
 }
 
 MAP_FREKUENSI = {
@@ -120,15 +120,16 @@ class OrkestratorPipeline:
             return kode_saham, False, f"Gagal saat memproses/menyimpan: {str(e)}"
 
     def jalankan_paralel(self, daftar_kode_saham, periode_antarmuka="21 Tahun Terakhir", frekuensi_antarmuka="Harian Daily"):
-        periode_yf = MAP_PERIODE.get(periode_antarmuka, "21y")
+        periode_yf = MAP_PERIODE.get(periode_antarmuka, "max")
         interval_yf = MAP_FREKUENSI.get(frekuensi_antarmuka, "1d")
         
         hasil_sukses = []
         hasil_gagal = []
         
-        print(f"Memulai unduh data {len(daftar_kode_saham)} saham secara paralel\n")
+        print(f"Memulai unduh data {len(daftar_kode_saham)} saham secara paralel (max_workers=3)\n")
         
-        with concurrent.futures.ThreadPoolExecutor(max_workers=10) as eksekutor:
+        # Dikurangi menjadi 3 pekerja untuk menghindari Rate-Limit/Pemblokiran dari Yahoo Finance
+        with concurrent.futures.ThreadPoolExecutor(max_workers=3) as eksekutor:
             tugas_paralel = [
                 eksekutor.submit(self.proses_satu_saham, kode_saham, periode_yf, interval_yf) 
                 for kode_saham in daftar_kode_saham
@@ -140,6 +141,8 @@ class OrkestratorPipeline:
                     hasil_sukses.append(kode_saham)
                 else:
                     hasil_gagal.append({kode_saham: pesan})
+                # Beri jeda 0.5 detik antar penyelesaian untuk mendinginkan koneksi
+                time.sleep(0.5)
                     
         print(f"Sukses {len(hasil_sukses)} | Gagal {len(hasil_gagal)}")
         return hasil_sukses, hasil_gagal
