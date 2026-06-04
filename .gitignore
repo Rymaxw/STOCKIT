@@ -27,3 +27,6 @@ Thumbs.db
 !Models/**/*.pkl
 
 !**/.gitkeep
+
+# Folder Private
+Private/
