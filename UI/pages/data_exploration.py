@@ -8,6 +8,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspa
 
 import streamlit as st
 import datetime
+import pandas as pd
 from utils.sidebar import dapatkan_html_sidebar
 from Utils.candlestick import (
     PemuatDataSaham, GrafikCandlestick, GrafikKomparasi, TemaCandlestick, buat_grafik_candlestick
@@ -89,9 +90,22 @@ class HalamanEksplorasiData:
             daftar_ticker = [t.strip().upper() for t in teks_ticker.split(',') if t.strip()]
 
         with kolom_periode:
-            tahun_pilihan = st.slider("Rentang Tahun", min_value=2006, max_value=2025, value=(2006, 2025))
-            tahun_mulai = tahun_pilihan[0]
-            tahun_akhir = tahun_pilihan[1]
+            rentang_tanggal = st.date_input(
+                "Rentang Waktu", 
+                value=(datetime.date(2006, 1, 1), datetime.date(2025, 12, 31)),
+                min_value=datetime.date(2000, 1, 1),
+                max_value=datetime.date.today(),
+                format="DD/MM/YYYY"
+            )
+            if isinstance(rentang_tanggal, tuple) and len(rentang_tanggal) == 2:
+                tanggal_mulai = rentang_tanggal[0]
+                tanggal_akhir = rentang_tanggal[1]
+            elif isinstance(rentang_tanggal, tuple) and len(rentang_tanggal) == 1:
+                tanggal_mulai = rentang_tanggal[0]
+                tanggal_akhir = datetime.date.today()
+            else:
+                tanggal_mulai = rentang_tanggal if rentang_tanggal else datetime.date(2006, 1, 1)
+                tanggal_akhir = datetime.date.today()
 
         with kolom_tombol:
             muat_data = st.button("Load Data", type="primary", use_container_width=True)
@@ -102,12 +116,12 @@ class HalamanEksplorasiData:
         if muat_data:
             st.session_state['data_loaded'] = True
             st.session_state['daftar_ticker'] = daftar_ticker
-            st.session_state['tahun_mulai'] = tahun_mulai
-            st.session_state['tahun_akhir'] = tahun_akhir
+            st.session_state['tanggal_mulai'] = tanggal_mulai
+            st.session_state['tanggal_akhir'] = tanggal_akhir
 
         ticker_aktif = st.session_state.get('daftar_ticker', daftar_ticker)
-        tahun_mulai_aktif = st.session_state.get('tahun_mulai', tahun_mulai)
-        tahun_akhir_aktif = st.session_state.get('tahun_akhir', tahun_akhir)
+        tanggal_mulai_aktif = st.session_state.get('tanggal_mulai', tanggal_mulai)
+        tanggal_akhir_aktif = st.session_state.get('tanggal_akhir', tanggal_akhir)
 
         # Load data menggunakan PemuatDataSaham (baca dari parquet lokal secara full)
         pemuat = PemuatDataSaham(periode='max', verbose=False)
@@ -116,8 +130,9 @@ class HalamanEksplorasiData:
             dict_data = {}
             for t, df in dict_data_raw.items():
                 if not df.empty:
-                    # Filter berdasarkan tahun
-                    df_filtered = df[(df.index.year >= tahun_mulai_aktif) & (df.index.year <= tahun_akhir_aktif)]
+                    # Filter berdasarkan tanggal eksak
+                    masker = (df.index >= pd.to_datetime(tanggal_mulai_aktif)) & (df.index <= pd.to_datetime(tanggal_akhir_aktif))
+                    df_filtered = df.loc[masker]
                     if not df_filtered.empty:
                         dict_data[t] = df_filtered
         except Exception as e:

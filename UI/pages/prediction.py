@@ -78,7 +78,7 @@ class HalamanPrediksi:
         with kolom_budget:
             budget = st.number_input("Budget Investasi (Rp)", min_value=1000000, value=10000000, step=1000000)
         with kolom_jumlah:
-            jumlah_rekomendasi = st.number_input("Jumlah Rekomendasi Saham", min_value=1, max_value=10, value=5, step=1)
+            jumlah_rekomendasi = st.number_input("Jumlah Rekomendasi Saham", min_value=1, max_value=30, value=5, step=1)
         with kolom_tombol:
             jalankan = st.button("Analisis Investasi", type="primary", use_container_width=True)
 

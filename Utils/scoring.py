@@ -92,8 +92,7 @@ class PenilaiSaham:
             tabel_hasil['Volatilitas_Norm']  * self.bobot_volatilitas
         )
         tabel_hasil = tabel_hasil.sort_values(by='Skor_Akhir', ascending=False).reset_index(drop=True)
-        return tabel_hasil.head(5)
-
+        return tabel_hasil
 
 if __name__ == "__main__":
     print("Memuat data saham untuk evaluasi")
