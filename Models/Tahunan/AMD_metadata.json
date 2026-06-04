@@ -1,65 +1,65 @@
 {
   "kode_saham": "AMD",
   "frekuensi": "tahunan",
-  "harga_terakhir": 437.4800109863281,
+  "harga_terakhir": 534.60009765625,
   "jumlah_data_training": 16,
-  "model_terbaik": "ARIMA",
+  "model_terbaik": "BaseCdsDtForecaster",
   "metrik_top5": {
     "Model": {
-      "arima": "ARIMA",
+      "ridge_cds_dt": "Ridge w/ Cond. Deseasonalize & Detrending",
+      "et_cds_dt": "Extra Trees w/ Cond. Deseasonalize & Detrending",
       "croston": "Croston",
-      "grand_means": "Grand Means Forecaster",
-      "auto_arima": "Auto ARIMA",
-      "et_cds_dt": "Extra Trees w/ Cond. Deseasonalize & Detrending"
+      "rf_cds_dt": "Random Forest w/ Cond. Deseasonalize & Detrending",
+      "en_cds_dt": "Elastic Net w/ Cond. Deseasonalize & Detrending"
     },
     "MASE": {
-      "arima": 0.3017,
+      "ridge_cds_dt": 0.1662,
+      "et_cds_dt": 0.34,
       "croston": 0.4054,
-      "grand_means": 0.4376,
-      "auto_arima": 0.4392,
-      "et_cds_dt": 0.4553
+      "rf_cds_dt": 0.3947,
+      "en_cds_dt": 0.4913
     },
     "RMSSE": {
-      "arima": 0.2612,
+      "ridge_cds_dt": 0.145,
+      "et_cds_dt": 0.2966,
       "croston": 0.3512,
-      "grand_means": 0.3801,
-      "auto_arima": 0.3842,
-      "et_cds_dt": 0.3936
+      "rf_cds_dt": 0.3456,
+      "en_cds_dt": 0.4303
     },
     "MAE": {
-      "arima": 0.258,
+      "ridge_cds_dt": 0.145,
+      "et_cds_dt": 0.2967,
       "croston": 0.3472,
-      "grand_means": 0.3776,
-      "auto_arima": 0.3859,
-      "et_cds_dt": 0.3878
+      "rf_cds_dt": 0.3476,
+      "en_cds_dt": 0.4332
     },
     "RMSE": {
-      "arima": 0.258,
+      "ridge_cds_dt": 0.145,
+      "et_cds_dt": 0.2967,
       "croston": 0.3472,
-      "grand_means": 0.3776,
-      "auto_arima": 0.3859,
-      "et_cds_dt": 0.3878
+      "rf_cds_dt": 0.3476,
+      "en_cds_dt": 0.4332
     },
     "MAPE": {
-      "arima": 1.0502,
+      "ridge_cds_dt": 0.4344,
+      "et_cds_dt": 0.8793,
       "croston": 1.3819,
-      "grand_means": 1.3497,
-      "auto_arima": 1.0,
-      "et_cds_dt": 1.6636
+      "rf_cds_dt": 0.8607,
+      "en_cds_dt": 1.0416
     },
     "SMAPE": {
-      "arima": 1.1505,
+      "ridge_cds_dt": 0.403,
+      "et_cds_dt": 1.4826,
       "croston": 1.2388,
-      "grand_means": 1.411,
-      "auto_arima": 2.0,
-      "et_cds_dt": 1.1782
+      "rf_cds_dt": 1.5295,
+      "en_cds_dt": 1.7765
     },
     "TT (Sec)": {
-      "arima": 0.025,
+      "ridge_cds_dt": 0.02,
+      "et_cds_dt": 0.05,
       "croston": 0.015,
-      "grand_means": 0.015,
-      "auto_arima": 0.08,
-      "et_cds_dt": 0.07
+      "rf_cds_dt": 0.055,
+      "en_cds_dt": 0.02
     }
   }
 }

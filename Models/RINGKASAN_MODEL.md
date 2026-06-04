@@ -3,101 +3,102 @@
 ## 📅 Frekuensi Mingguan
 | No | Kode Saham | Model Pemenang | MAE (Error) | R-Squared (R²) |
 |---|---|---|---|---|
-| 1 | **AAPL** | BaseCdsDtForecaster | 0.03 | -1.5112 |
-| 2 | **ABBV** | BaseCdsDtForecaster | 0.0228 | -0.1902 |
-| 3 | **AMD** | NaiveForecaster | 0.0559 | -1.5183 |
-| 4 | **AMZN** | AutoETS | 0.0463 | -0.3884 |
-| 5 | **AVGO** | BaseCdsDtForecaster | 0.0418 | -0.526 |
-| 6 | **BAC** | BaseCdsDtForecaster | 0.035 | -0.6291 |
-| 7 | **BRK-B** | PolynomialTrendForecaster | 0.0172 | -0.2992 |
-| 8 | **COST** | BaseCdsDtForecaster | 0.0239 | -0.1321 |
-| 9 | **CRM** | BaseCdsDtForecaster | 0.0579 | -0.3613 |
-| 10 | **CVX** | STLForecaster | 0.0216 | -2.348 |
-| 11 | **GOOGL** | AutoARIMA | 0.0414 | -0.1471 |
-| 12 | **HD** | BaseCdsDtForecaster | 0.0234 | -0.5419 |
-| 13 | **JNJ** | BaseCdsDtForecaster | 0.0198 | -0.331 |
-| 14 | **JPM** | ARIMA | 0.0315 | -0.6358 |
-| 15 | **KO** | Croston | 0.0205 | -0.4596 |
-| 16 | **LLY** | BaseCdsDtForecaster | 0.0344 | -0.5283 |
-| 17 | **MA** | BaseCdsDtForecaster | 0.0215 | -0.2387 |
-| 18 | **META** | BaseCdsDtForecaster | 0.0583 | -0.8494 |
-| 19 | **MRK** | BaseCdsDtForecaster | 0.0193 | 0.2709 |
-| 20 | **MSFT** | AutoETS | 0.0456 | -0.5652 |
-| 21 | **NVDA** | BaseCdsDtForecaster | 0.0315 | -0.3195 |
-| 22 | **ORCL** | BaseCdsDtForecaster | 0.0753 | -0.0673 |
-| 23 | **PEP** | BaseCdsDtForecaster | 0.0292 | -0.1215 |
-| 24 | **PG** | BaseCdsDtForecaster | 0.0235 | -0.613 |
-| 25 | **TSLA** | BaseCdsDtForecaster | 0.032 | -0.6104 |
-| 26 | **UNH** | BaseCdsDtForecaster | 0.0549 | -0.3179 |
-| 27 | **V** | BaseCdsDtForecaster | 0.0182 | -0.1208 |
-| 28 | **WMT** | Croston | 0.0321 | -0.1748 |
-| 29 | **XOM** | BaseCdsDtForecaster | 0.0335 | -0.4918 |
+| 1 | **AAPL** | Huber w/ Cond. Deseasonalize & Detrending | 0.0207 | -1.1724 |
+| 2 | **ABBV** | Orthogonal Matching Pursuit w/ Cond. Deseasonalize & Detrending | 0.0283 | -0.1607 |
+| 3 | **AMD** | Extra Trees w/ Cond. Deseasonalize & Detrending | 0.0651 | -1.5442 |
+| 4 | **AMZN** | Croston | 0.0323 | -0.2401 |
+| 5 | **AVGO** | AdaBoost w/ Cond. Deseasonalize & Detrending | 0.0418 | -0.2403 |
+| 6 | **BAC** | Linear w/ Cond. Deseasonalize & Detrending | 0.0302 | -0.6383 |
+| 7 | **BRK-B** | Huber w/ Cond. Deseasonalize & Detrending | 0.0125 | -0.3673 |
+| 8 | **COST** | Gradient Boosting w/ Cond. Deseasonalize & Detrending | 0.0148 | -0.6230 |
+| 9 | **CRM** | AdaBoost w/ Cond. Deseasonalize & Detrending | 0.0476 | -0.1027 |
+| 10 | **CVX** | K Neighbors w/ Cond. Deseasonalize & Detrending | 0.0272 | -1.2632 |
+| 11 | **GOOGL** | Croston | 0.0444 | -0.5760 |
+| 12 | **HD** | Gradient Boosting w/ Cond. Deseasonalize & Detrending | 0.0302 | -0.7233 |
+| 13 | **JNJ** | Orthogonal Matching Pursuit w/ Cond. Deseasonalize & Detrending | 0.0188 | -1.1089 |
+| 14 | **JPM** | AdaBoost w/ Cond. Deseasonalize & Detrending | 0.0225 | -0.2181 |
+| 15 | **KO** | Gradient Boosting w/ Cond. Deseasonalize & Detrending | 0.0151 | 0.1374 |
+| 16 | **LLY** | Random Forest w/ Cond. Deseasonalize & Detrending | 0.0300 | 0.3003 |
+| 17 | **MA** | Random Forest w/ Cond. Deseasonalize & Detrending | 0.0175 | 0.1072 |
+| 18 | **META** | Extra Trees w/ Cond. Deseasonalize & Detrending | 0.0495 | 0.1416 |
+| 19 | **MRK** | Bayesian Ridge w/ Cond. Deseasonalize & Detrending | 0.0189 | -0.3850 |
+| 20 | **MSFT** | Orthogonal Matching Pursuit w/ Cond. Deseasonalize & Detrending | 0.0344 | -0.1314 |
+| 21 | **NFLX** | Random Forest w/ Cond. Deseasonalize & Detrending | 0.0498 | -1.5952 |
+| 22 | **NVDA** | K Neighbors w/ Cond. Deseasonalize & Detrending | 0.0422 | -0.0516 |
+| 23 | **ORCL** | Light Gradient Boosting w/ Cond. Deseasonalize & Detrending | 0.0673 | -0.5120 |
+| 24 | **PEP** | Elastic Net w/ Cond. Deseasonalize & Detrending | 0.0207 | -0.0763 |
+| 25 | **PG** | Extra Trees w/ Cond. Deseasonalize & Detrending | 0.0184 | 0.1093 |
+| 26 | **TSLA** | Huber w/ Cond. Deseasonalize & Detrending | 0.0371 | -0.5851 |
+| 27 | **UNH** | Light Gradient Boosting w/ Cond. Deseasonalize & Detrending | 0.0344 | -2.7615 |
+| 28 | **V** | Orthogonal Matching Pursuit w/ Cond. Deseasonalize & Detrending | 0.0237 | -0.0938 |
+| 29 | **WMT** | Linear w/ Cond. Deseasonalize & Detrending | 0.0251 | 0.1867 |
+| 30 | **XOM** | Random Forest w/ Cond. Deseasonalize & Detrending | 0.0335 | -0.2155 |
 
 ## 📅 Frekuensi Bulanan
 | No | Kode Saham | Model Pemenang | MAE (Error) | R-Squared (R²) |
 |---|---|---|---|---|
-| 1 | **AAPL** | ThetaForecaster | 0.0666 | -0.0465 |
-| 2 | **ABBV** | NaiveForecaster | 0.052 | -0.0216 |
-| 3 | **AMD** | ARIMA | 0.1238 | -0.1166 |
-| 4 | **AMZN** | NaiveForecaster | 0.0718 | -0.0754 |
-| 5 | **AVGO** | BaseCdsDtForecaster | 0.0706 | 0.0132 |
-| 6 | **BAC** | BaseCdsDtForecaster | 0.0664 | -0.1471 |
-| 7 | **BRK-B** | AutoARIMA | 0.0494 | -0.0766 |
-| 8 | **COST** | Croston | 0.0534 | -0.0746 |
-| 9 | **CRM** | BaseCdsDtForecaster | 0.0783 | -0.0449 |
-| 10 | **CVX** | BaseCdsDtForecaster | 0.0612 | -0.2198 |
-| 11 | **GOOGL** | BaseCdsDtForecaster | 0.0612 | -0.0978 |
-| 12 | **HD** | BaseCdsDtForecaster | 0.0534 | -0.0199 |
-| 13 | **JNJ** | BaseCdsDtForecaster | 0.0386 | -0.0245 |
-| 14 | **JPM** | Croston | 0.0587 | -0.2391 |
-| 15 | **KO** | AutoARIMA | 0.0371 | -0.0269 |
-| 16 | **LLY** | BaseCdsDtForecaster | 0.0755 | -0.0382 |
-| 17 | **MA** | BaseCdsDtForecaster | 0.0529 | 0.0948 |
-| 18 | **META** | ARIMA | 0.0896 | -0.1061 |
-| 19 | **MRK** | ARIMA | 0.0504 | -0.2517 |
-| 20 | **MSFT** | BaseCdsDtForecaster | 0.0502 | -0.0331 |
-| 21 | **NFLX** | NaiveForecaster | 0.0883 | -0.1148 |
-| 22 | **NVDA** | BaseCdsDtForecaster | 0.1143 | -0.3268 |
-| 23 | **ORCL** | NaiveForecaster | 0.0687 | -0.0737 |
-| 24 | **PEP** | PolynomialTrendForecaster | 0.0351 | -0.1372 |
-| 25 | **PG** | NaiveForecaster | 0.0394 | -0.0172 |
-| 26 | **TSLA** | AutoARIMA | 0.1502 | -0.0583 |
-| 27 | **UNH** | BaseCdsDtForecaster | 0.0557 | -0.1059 |
-| 28 | **V** | ARIMA | 0.0522 | -0.0548 |
-| 29 | **WMT** | PolynomialTrendForecaster | 0.0446 | -0.0603 |
-| 30 | **XOM** | NaiveForecaster | 0.0619 | -0.0996 |
+| 1 | **AAPL** | Elastic Net w/ Cond. Deseasonalize & Detrending | 0.0645 | -0.0977 |
+| 2 | **ABBV** | Elastic Net w/ Cond. Deseasonalize & Detrending | 0.0525 | -0.0835 |
+| 3 | **AMD** | Bayesian Ridge w/ Cond. Deseasonalize & Detrending | 0.1288 | -0.0978 |
+| 4 | **AMZN** | K Neighbors w/ Cond. Deseasonalize & Detrending | 0.0735 | -0.2948 |
+| 5 | **AVGO** | Elastic Net w/ Cond. Deseasonalize & Detrending | 0.0739 | -0.1210 |
+| 6 | **BAC** | Elastic Net w/ Cond. Deseasonalize & Detrending | 0.0678 | -0.1552 |
+| 7 | **BRK-B** | Croston | 0.0497 | -0.1323 |
+| 8 | **COST** | Croston | 0.0537 | -0.0743 |
+| 9 | **CRM** | Elastic Net w/ Cond. Deseasonalize & Detrending | 0.0793 | -0.1042 |
+| 10 | **CVX** | Elastic Net w/ Cond. Deseasonalize & Detrending | 0.0617 | -0.0641 |
+| 11 | **GOOGL** | Light Gradient Boosting w/ Cond. Deseasonalize & Detrending | 0.0630 | -0.2369 |
+| 12 | **HD** | Bayesian Ridge w/ Cond. Deseasonalize & Detrending | 0.0530 | -0.0650 |
+| 13 | **JNJ** | Bayesian Ridge w/ Cond. Deseasonalize & Detrending | 0.0376 | -0.0433 |
+| 14 | **JPM** | Croston | 0.0585 | -0.1979 |
+| 15 | **KO** | Elastic Net w/ Cond. Deseasonalize & Detrending | 0.0376 | -0.0514 |
+| 16 | **LLY** | Elastic Net w/ Cond. Deseasonalize & Detrending | 0.0757 | -0.0848 |
+| 17 | **MA** | AdaBoost w/ Cond. Deseasonalize & Detrending | 0.0569 | -0.0473 |
+| 18 | **META** | Croston | 0.0924 | -0.1920 |
+| 19 | **MRK** | Random Forest w/ Cond. Deseasonalize & Detrending | 0.0493 | -0.1772 |
+| 20 | **MSFT** | Elastic Net w/ Cond. Deseasonalize & Detrending | 0.0534 | -0.0697 |
+| 21 | **NFLX** | Croston | 0.0894 | -0.2386 |
+| 22 | **NVDA** | Orthogonal Matching Pursuit w/ Cond. Deseasonalize & Detrending | 0.1182 | -0.1260 |
+| 23 | **ORCL** | Elastic Net w/ Cond. Deseasonalize & Detrending | 0.0749 | -0.1189 |
+| 24 | **PEP** | Light Gradient Boosting w/ Cond. Deseasonalize & Detrending | 0.0319 | -0.0284 |
+| 25 | **PG** | Elastic Net w/ Cond. Deseasonalize & Detrending | 0.0404 | -0.0143 |
+| 26 | **TSLA** | Lasso w/ Cond. Deseasonalize & Detrending | 0.1526 | -0.0623 |
+| 27 | **UNH** | Orthogonal Matching Pursuit w/ Cond. Deseasonalize & Detrending | 0.0570 | -0.0608 |
+| 28 | **V** | Random Forest w/ Cond. Deseasonalize & Detrending | 0.0522 | -0.1943 |
+| 29 | **WMT** | Elastic Net w/ Cond. Deseasonalize & Detrending | 0.0445 | -0.0707 |
+| 30 | **XOM** | Orthogonal Matching Pursuit w/ Cond. Deseasonalize & Detrending | 0.0644 | -0.1111 |
 
 ## 📅 Frekuensi Tahunan
 | No | Kode Saham | Model Pemenang | MAE (Error) | R-Squared (R²) |
 |---|---|---|---|---|
-| 1 | **AAPL** | NaiveForecaster | N/A | N/A |
-| 2 | **ABBV** | BaseCdsDtForecaster | N/A | N/A |
-| 3 | **AMD** | ARIMA | N/A | N/A |
-| 4 | **AMZN** | AutoARIMA | N/A | N/A |
-| 5 | **AVGO** | NaiveForecaster | N/A | N/A |
-| 6 | **BAC** | Croston | N/A | N/A |
-| 7 | **BRK-B** | BaseCdsDtForecaster | N/A | N/A |
-| 8 | **COST** | BaseCdsDtForecaster | N/A | N/A |
-| 9 | **CRM** | BaseCdsDtForecaster | N/A | N/A |
-| 10 | **CVX** | BaseCdsDtForecaster | N/A | N/A |
-| 11 | **GOOGL** | NaiveForecaster | N/A | N/A |
-| 12 | **HD** | BaseCdsDtForecaster | N/A | N/A |
-| 13 | **JNJ** | Croston | N/A | N/A |
-| 14 | **JPM** | NaiveForecaster | N/A | N/A |
-| 15 | **KO** | Croston | N/A | N/A |
-| 16 | **LLY** | Croston | N/A | N/A |
-| 17 | **MA** | NaiveForecaster | N/A | N/A |
-| 18 | **META** | Croston | N/A | N/A |
-| 19 | **MRK** | NaiveForecaster | N/A | N/A |
-| 20 | **MSFT** | Croston | N/A | N/A |
-| 21 | **NFLX** | BaseCdsDtForecaster | N/A | N/A |
-| 22 | **NVDA** | BaseCdsDtForecaster | N/A | N/A |
-| 23 | **ORCL** | BaseCdsDtForecaster | N/A | N/A |
-| 24 | **PEP** | NaiveForecaster | N/A | N/A |
-| 25 | **PG** | BaseCdsDtForecaster | N/A | N/A |
-| 26 | **TSLA** | BaseCdsDtForecaster | N/A | N/A |
-| 27 | **UNH** | BaseCdsDtForecaster | N/A | N/A |
-| 28 | **V** | NaiveForecaster | N/A | N/A |
-| 29 | **WMT** | BaseCdsDtForecaster | N/A | N/A |
-| 30 | **XOM** | BaseCdsDtForecaster | N/A | N/A |
+| 1 | **AAPL** | Elastic Net w/ Cond. Deseasonalize & Detrending | 0.0916 | N/A |
+| 2 | **ABBV** | Ridge w/ Cond. Deseasonalize & Detrending | 0.0465 | N/A |
+| 3 | **AMD** | Ridge w/ Cond. Deseasonalize & Detrending | 0.1450 | N/A |
+| 4 | **AMZN** | Elastic Net w/ Cond. Deseasonalize & Detrending | 0.1374 | N/A |
+| 5 | **AVGO** | Lasso w/ Cond. Deseasonalize & Detrending | 0.1221 | N/A |
+| 6 | **BAC** | Croston | 0.0677 | N/A |
+| 7 | **BRK-B** | Light Gradient Boosting w/ Cond. Deseasonalize & Detrending | 0.0643 | N/A |
+| 8 | **COST** | Bayesian Ridge w/ Cond. Deseasonalize & Detrending | 0.1391 | N/A |
+| 9 | **CRM** | Extra Trees w/ Cond. Deseasonalize & Detrending | 0.1091 | N/A |
+| 10 | **CVX** | Lasso w/ Cond. Deseasonalize & Detrending | 0.0368 | N/A |
+| 11 | **GOOGL** | Huber w/ Cond. Deseasonalize & Detrending | 0.0497 | N/A |
+| 12 | **HD** | Random Forest w/ Cond. Deseasonalize & Detrending | 0.1009 | N/A |
+| 13 | **JNJ** | Croston | 0.2175 | N/A |
+| 14 | **JPM** | Croston | 0.1470 | N/A |
+| 15 | **KO** | Croston | 0.0376 | N/A |
+| 16 | **LLY** | Croston | 0.0474 | N/A |
+| 17 | **MA** | K Neighbors w/ Cond. Deseasonalize & Detrending | 0.0607 | N/A |
+| 18 | **META** | Orthogonal Matching Pursuit w/ Cond. Deseasonalize & Detrending | 0.0492 | N/A |
+| 19 | **MRK** | AdaBoost w/ Cond. Deseasonalize & Detrending | 0.0900 | N/A |
+| 20 | **MSFT** | Orthogonal Matching Pursuit w/ Cond. Deseasonalize & Detrending | 0.0318 | N/A |
+| 21 | **NFLX** | Ridge w/ Cond. Deseasonalize & Detrending | 0.0619 | N/A |
+| 22 | **NVDA** | Orthogonal Matching Pursuit w/ Cond. Deseasonalize & Detrending | 0.1704 | N/A |
+| 23 | **ORCL** | Decision Tree w/ Cond. Deseasonalize & Detrending | 0.1415 | N/A |
+| 24 | **PEP** | Orthogonal Matching Pursuit w/ Cond. Deseasonalize & Detrending | 0.0624 | N/A |
+| 25 | **PG** | K Neighbors w/ Cond. Deseasonalize & Detrending | 0.1293 | N/A |
+| 26 | **TSLA** | Light Gradient Boosting w/ Cond. Deseasonalize & Detrending | 0.1747 | N/A |
+| 27 | **UNH** | Decision Tree w/ Cond. Deseasonalize & Detrending | 0.1897 | N/A |
+| 28 | **V** | Bayesian Ridge w/ Cond. Deseasonalize & Detrending | 0.0311 | N/A |
+| 29 | **WMT** | K Neighbors w/ Cond. Deseasonalize & Detrending | 0.2201 | N/A |
+| 30 | **XOM** | Lasso w/ Cond. Deseasonalize & Detrending | 0.0004 | N/A |
 

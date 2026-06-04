@@ -1,4 +1,7 @@
 import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import json
 import warnings
 import time
@@ -77,7 +80,24 @@ class PemuatDataModel:
         df = df.ffill()
 
         df['Log_Return'] = np.log(df['Close'] / df['Close'].shift(1))
-        df = df.dropna(subset=['Log_Return'])
+        
+        # Buat lag fitur eksogen agar tidak memicu error data masa depan saat forecast
+        fitur_eksogen = [
+            'MA5', 'MA20', 'MA50', 'RSI_14', 
+            'MACD_Garis', 'MACD_Sinyal', 'MACD_Histogram', 
+            'Bollinger_Atas', 'Bollinger_Tengah', 'Bollinger_Bawah', 
+            'ATR_14', 'Volatilitas_30H'
+        ]
+        
+        kolom_eksogen_lag = []
+        for f in fitur_eksogen:
+            if f in df.columns:
+                nama_kolom_lag = f"{f}_Lag{konfigurasi.horizon_prediksi}"
+                df[nama_kolom_lag] = df[f].shift(konfigurasi.horizon_prediksi)
+                kolom_eksogen_lag.append(nama_kolom_lag)
+        
+        kolom_wajib = ['Log_Return'] + kolom_eksogen_lag
+        df = df.dropna(subset=kolom_wajib)
 
         return df
 
@@ -95,8 +115,13 @@ class PelatihModelPyCaret:
 
     def jalankan_setup(self, data: pd.DataFrame, konfigurasi: KonfigurasiWaktu):
         param_musiman = konfigurasi.periode_musiman if konfigurasi.periode_musiman > 1 else 1
+        
+        # Cari semua kolom lag eksogen yang ada di data
+        kolom_fitur = [c for c in data.columns if c == 'Log_Return' or '_Lag' in c]
+        
         setup(
-            data=data[['Log_Return']],
+            data=data[kolom_fitur],
+            target='Log_Return',
             fh=konfigurasi.horizon_prediksi,
             fold=konfigurasi.jumlah_fold,
             fold_strategy='sliding',
@@ -107,7 +132,10 @@ class PelatihModelPyCaret:
         return self
 
     def cari_model_terbaik(self):
-        self.model_terbaik = compare_models(sort='MAE')
+        self.model_terbaik = compare_models(
+            exclude=['arima', 'auto_arima', 'tbats', 'bats'],
+            sort='MAE'
+        )
         self.tabel_metrik = pull()
         return self
 
@@ -221,3 +249,13 @@ if __name__ == "__main__":
     sukses_mingguan, gagal_mingguan = orkestrator.latih_semua_saham(daftar_saham, frekuensi='mingguan')
         
     print(f"\nTotal Waktu Seluruh Pelatihan (3 Frekuensi): {time.time() - waktu_total:.1f} detik")
+    
+    try:
+        from Utils.buat_ringkasan_model import PengekstrakMetadata
+        print("\n[INFO] Menghasilkan ringkasan model otomatis...")
+        ekstraktor = PengekstrakMetadata()
+        df_ringkasan = ekstraktor.ambil_ringkasan()
+        if not df_ringkasan.empty:
+            ekstraktor.tulis_markdown(df_ringkasan)
+    except Exception as e:
+        print(f"[GALAT] Gagal membuat ringkasan model otomatis: {e}")

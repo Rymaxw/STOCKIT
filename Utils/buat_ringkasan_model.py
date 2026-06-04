@@ -68,6 +68,30 @@ class PengekstrakMetadata:
             
         return df
 
+    def tulis_markdown(self, df: pd.DataFrame):
+        lokasi_md = self.folder_models / 'RINGKASAN_MODEL.md'
+        
+        konten = "# 🏆 Ringkasan Model AI Terbaik per Saham\n\n"
+        
+        for frekuensi in self.frekuensi_list:
+            konten += f"## 📅 Frekuensi {frekuensi}\n"
+            konten += "| No | Kode Saham | Model Pemenang | MAE (Error) | R-Squared (R²) |\n"
+            konten += "|---|---|---|---|---|\n"
+            
+            df_freq = df[df['Frekuensi'] == frekuensi].copy()
+            if not df_freq.empty:
+                df_freq = df_freq.sort_values(by='Kode_Saham')
+                for i, row in enumerate(df_freq.itertuples(index=False), 1):
+                    mae_str = f"{row.MAE:.4f}" if (row.MAE is not None and not pd.isna(row.MAE)) else "N/A"
+                    r2_str = f"{row.R_Squared:.4f}" if (row.R_Squared is not None and not pd.isna(row.R_Squared)) else "N/A"
+                    konten += f"| {i} | **{row.Kode_Saham}** | {row.Model_Pemenang} | {mae_str} | {r2_str} |\n"
+            konten += "\n"
+            
+        with open(lokasi_md, 'w', encoding='utf-8') as f:
+            f.write(konten)
+        print(f"Berhasil memperbarui berkas markdown di: {lokasi_md}")
+
+
 if __name__ == "__main__":
     ekstraktor = PengekstrakMetadata()
     df_ringkasan = ekstraktor.ambil_ringkasan()
@@ -81,3 +105,6 @@ if __name__ == "__main__":
     print("="*80)
     print(df_ringkasan)
     print("="*80 + "\n")
+    
+    if not df_ringkasan.empty:
+        ekstraktor.tulis_markdown(df_ringkasan)
