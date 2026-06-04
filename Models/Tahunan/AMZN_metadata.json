@@ -1,65 +1,65 @@
 {
   "kode_saham": "AMZN",
   "frekuensi": "tahunan",
-  "harga_terakhir": 263.94500732421875,
+  "harga_terakhir": 250.5800018310547,
   "jumlah_data_training": 16,
-  "model_terbaik": "AutoARIMA",
+  "model_terbaik": "BaseCdsDtForecaster",
   "metrik_top5": {
     "Model": {
-      "auto_arima": "Auto ARIMA",
-      "llar_cds_dt": "Lasso Least Angular Regressor w/ Cond. Deseasonalize & Detrending",
-      "lightgbm_cds_dt": "Light Gradient Boosting w/ Cond. Deseasonalize & Detrending",
       "en_cds_dt": "Elastic Net w/ Cond. Deseasonalize & Detrending",
-      "lasso_cds_dt": "Lasso w/ Cond. Deseasonalize & Detrending"
+      "lightgbm_cds_dt": "Light Gradient Boosting w/ Cond. Deseasonalize & Detrending",
+      "lasso_cds_dt": "Lasso w/ Cond. Deseasonalize & Detrending",
+      "llar_cds_dt": "Lasso Least Angular Regressor w/ Cond. Deseasonalize & Detrending",
+      "ridge_cds_dt": "Ridge w/ Cond. Deseasonalize & Detrending"
     },
     "MASE": {
-      "auto_arima": 0.2038,
-      "llar_cds_dt": 0.2696,
+      "en_cds_dt": 0.262,
       "lightgbm_cds_dt": 0.2696,
-      "en_cds_dt": 0.2696,
-      "lasso_cds_dt": 0.2696
+      "lasso_cds_dt": 0.2943,
+      "llar_cds_dt": 0.2943,
+      "ridge_cds_dt": 0.3013
     },
     "RMSSE": {
-      "auto_arima": 0.1672,
-      "llar_cds_dt": 0.2229,
+      "en_cds_dt": 0.216,
       "lightgbm_cds_dt": 0.2229,
-      "en_cds_dt": 0.2229,
-      "lasso_cds_dt": 0.2229
+      "lasso_cds_dt": 0.2429,
+      "llar_cds_dt": 0.2429,
+      "ridge_cds_dt": 0.2475
     },
     "MAE": {
-      "auto_arima": 0.106,
-      "llar_cds_dt": 0.1421,
+      "en_cds_dt": 0.1374,
       "lightgbm_cds_dt": 0.1421,
-      "en_cds_dt": 0.1421,
-      "lasso_cds_dt": 0.1421
+      "lasso_cds_dt": 0.1546,
+      "llar_cds_dt": 0.1546,
+      "ridge_cds_dt": 0.1571
     },
     "RMSE": {
-      "auto_arima": 0.106,
-      "llar_cds_dt": 0.1421,
+      "en_cds_dt": 0.1374,
       "lightgbm_cds_dt": 0.1421,
-      "en_cds_dt": 0.1421,
-      "lasso_cds_dt": 0.1421
+      "lasso_cds_dt": 0.1546,
+      "llar_cds_dt": 0.1546,
+      "ridge_cds_dt": 0.1571
     },
     "MAPE": {
-      "auto_arima": 1.7099,
-      "llar_cds_dt": 1.1638,
+      "en_cds_dt": 1.5436,
       "lightgbm_cds_dt": 1.1638,
-      "en_cds_dt": 1.1638,
-      "lasso_cds_dt": 1.1638
+      "lasso_cds_dt": 1.5573,
+      "llar_cds_dt": 1.5573,
+      "ridge_cds_dt": 2.3138
     },
     "SMAPE": {
-      "auto_arima": 0.687,
-      "llar_cds_dt": 0.8296,
+      "en_cds_dt": 0.8049,
       "lightgbm_cds_dt": 0.8296,
-      "en_cds_dt": 0.8296,
-      "lasso_cds_dt": 0.8296
+      "lasso_cds_dt": 0.8822,
+      "llar_cds_dt": 0.8822,
+      "ridge_cds_dt": 0.7975
     },
     "TT (Sec)": {
-      "auto_arima": 0.13,
-      "llar_cds_dt": 0.04,
-      "lightgbm_cds_dt": 0.04,
-      "en_cds_dt": 0.035,
-      "lasso_cds_dt": 0.04
+      "en_cds_dt": 0.025,
+      "lightgbm_cds_dt": 0.045,
+      "lasso_cds_dt": 0.02,
+      "llar_cds_dt": 0.025,
+      "ridge_cds_dt": 0.02
     }
   }
 }

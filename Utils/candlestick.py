@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
+from Utils.indikator import PenghitungIndikator
 
 
 class TemaCandlestick:
@@ -16,11 +17,18 @@ class TemaCandlestick:
     TEKS_TIPIS  = "#8b949e"
     NAIK        = "#3fb950"   
     TURUN       = "#f85149"   
+    MA5         = "#79c0ff"   
     MA20        = "#ffa657"   
     MA50        = "#58a6ff"   
     MA200       = "#bc8cff"  
     VOL_NAIK    = "rgba(63,185,80,0.4)"
     VOL_TURUN   = "rgba(248,81,73,0.4)"
+    BOLLINGER   = "rgba(139, 148, 158, 0.12)"
+    RSI         = "#bc8cff"
+    MACD        = "#58a6ff"
+    MACD_SINYAL = "#ffa657"
+    ATR         = "#79c0ff"
+    VOLATILITAS = "#ff7b72"
 
     PALET       = [
         "#58a6ff", "#3fb950", "#ffa657", "#f85149",
@@ -199,23 +207,35 @@ class GrafikCandlestick:
         judul: str = None,
         *,
         tampilkan_volume: bool = True,
+        tampilkan_ma5: bool = False,
         tampilkan_ma20: bool = True,
         tampilkan_ma50: bool = True,
         tampilkan_ma200: bool = False,
+        tampilkan_bollinger: bool = False,
+        tampilkan_rsi: bool = False,
+        tampilkan_macd: bool = False,
+        tampilkan_atr: bool = False,
+        tampilkan_volatilitas: bool = False,
         tinggi: int = None,
         tanggal_dari: str = None,
         tanggal_sampai: str = None,
     ):
-        self.kode_saham       = kode_saham
-        self.judul            = judul or kode_saham
-        self.tampilkan_volume = tampilkan_volume
-        self.tampilkan_ma20   = tampilkan_ma20
-        self.tampilkan_ma50   = tampilkan_ma50
-        self.tampilkan_ma200  = tampilkan_ma200
-        self.tinggi           = tinggi
-        self.tanggal_dari     = tanggal_dari
-        self.tanggal_sampai   = tanggal_sampai
-        self.tema             = TemaCandlestick()
+        self.kode_saham            = kode_saham
+        self.judul                 = judul or kode_saham
+        self.tampilkan_volume      = tampilkan_volume
+        self.tampilkan_ma5         = tampilkan_ma5
+        self.tampilkan_ma20        = tampilkan_ma20
+        self.tampilkan_ma50        = tampilkan_ma50
+        self.tampilkan_ma200       = tampilkan_ma200
+        self.tampilkan_bollinger   = tampilkan_bollinger
+        self.tampilkan_rsi         = tampilkan_rsi
+        self.tampilkan_macd        = tampilkan_macd
+        self.tampilkan_atr         = tampilkan_atr
+        self.tampilkan_volatilitas = tampilkan_volatilitas
+        self.tinggi                = tinggi
+        self.tanggal_dari          = tanggal_dari
+        self.tanggal_sampai        = tanggal_sampai
+        self.tema                  = TemaCandlestick()
 
         self.df = self._siapkan_data(df)
 
@@ -239,17 +259,75 @@ class GrafikCandlestick:
 
         if df.empty:
             raise ValueError("DataFrame kosong setelah filter tanggal.")
+
+        # Fallback dinamis jika indikator belum dihitung di dataset
+        df = df.copy()
+        if 'MA5' not in df.columns:
+            df['MA5'] = PenghitungIndikator.hitung_rerata_bergerak(df, jendela=5)
+        if 'MA20' not in df.columns:
+            df['MA20'] = PenghitungIndikator.hitung_rerata_bergerak(df, jendela=20)
+        if 'MA50' not in df.columns:
+            df['MA50'] = PenghitungIndikator.hitung_rerata_bergerak(df, jendela=50)
+        if 'MA200' not in df.columns:
+            df['MA200'] = PenghitungIndikator.hitung_rerata_bergerak(df, jendela=200)
+        if 'RSI_14' not in df.columns:
+            df['RSI_14'] = PenghitungIndikator.hitung_rsi(df, jendela=14)
+        if 'MACD_Garis' not in df.columns:
+            df_macd = PenghitungIndikator.hitung_macd(df)
+            df['MACD_Garis'] = df_macd['MACD_Garis']
+            df['MACD_Sinyal'] = df_macd['MACD_Sinyal']
+            df['MACD_Histogram'] = df_macd['MACD_Histogram']
+        if 'Bollinger_Atas' not in df.columns:
+            df_bb = PenghitungIndikator.hitung_pita_bollinger(df)
+            df['Bollinger_Atas'] = df_bb['Bollinger_Atas']
+            df['Bollinger_Tengah'] = df_bb['Bollinger_Tengah']
+            df['Bollinger_Bawah'] = df_bb['Bollinger_Bawah']
+        if 'ATR_14' not in df.columns:
+            df['ATR_14'] = PenghitungIndikator.hitung_atr(df, jendela=14)
+        if 'Volatilitas_30H' not in df.columns:
+            df['Volatilitas_30H'] = PenghitungIndikator.hitung_volatilitas_bergulir(df, jendela=30)
+
         return df
 
-    def _buat_subplot(self, ada_volume: bool) -> go.Figure:
+    def _buat_layout_dan_subplots(self) -> tuple[go.Figure, dict]:
+        baris_aktif = [("utama", 0.50)]
+        
+        ada_volume = self.tampilkan_volume and "Volume" in self.df.columns
         if ada_volume:
-            return make_subplots(
-                rows=2, cols=1, shared_xaxes=True,
-                vertical_spacing=0.03, row_heights=[0.75, 0.25],
-            )
-        return make_subplots(rows=1, cols=1)
+            baris_aktif.append(("volume", 0.15))
+        if self.tampilkan_rsi:
+            baris_aktif.append(("rsi", 0.15))
+        if self.tampilkan_macd:
+            baris_aktif.append(("macd", 0.18))
+        if self.tampilkan_atr:
+            baris_aktif.append(("atr", 0.12))
+        if self.tampilkan_volatilitas:
+            baris_aktif.append(("volatilitas", 0.12))
+            
+        # Hitung tinggi baris
+        if len(baris_aktif) == 1:
+            row_heights = [1.0]
+        else:
+            total_tambahan = sum(b for l, b in baris_aktif[1:])
+            tinggi_utama = max(0.40, 1.0 - total_tambahan)
+            row_heights = [tinggi_utama] + [b for l, b in baris_aktif[1:]]
+            
+            # Normalisasi
+            total = sum(row_heights)
+            row_heights = [h / total for h in row_heights]
+            
+        fig = make_subplots(
+            rows=len(baris_aktif),
+            cols=1,
+            shared_xaxes=True,
+            vertical_spacing=0.03,
+            row_heights=row_heights
+        )
+        
+        peta_baris = {label: index for index, (label, _) in enumerate(baris_aktif, 1)}
+        return fig, peta_baris
 
-    def _tambah_candlestick(self, fig: go.Figure) -> go.Figure:
+    def _tambah_candlestick(self, fig: go.Figure, row: int) -> go.Figure:
         fig.add_trace(go.Candlestick(
             x=self.df.index,
             open=self.df["Open"], high=self.df["High"],
@@ -263,11 +341,12 @@ class GrafikCandlestick:
                 line=dict(color=TemaCandlestick.TURUN, width=1),
                 fillcolor=TemaCandlestick.TURUN,
             ),
-        ), row=1, col=1)
+        ), row=row, col=1)
         return fig
 
-    def _tambah_moving_average(self, fig: go.Figure) -> go.Figure:
+    def _tambah_moving_average(self, fig: go.Figure, row: int) -> go.Figure:
         konfigurasi_ma = [
+            (self.tampilkan_ma5,   5,   "MA5",   TemaCandlestick.MA5),
             (self.tampilkan_ma20,  20,  "MA20",  TemaCandlestick.MA20),
             (self.tampilkan_ma50,  50,  "MA50",  TemaCandlestick.MA50),
             (self.tampilkan_ma200, 200, "MA200", TemaCandlestick.MA200),
@@ -276,15 +355,49 @@ class GrafikCandlestick:
             if aktif and len(self.df) >= jendela:
                 fig.add_trace(go.Scatter(
                     x=self.df.index,
-                    y=self.df["Close"].rolling(jendela).mean(),
+                    y=self.df[nama],
                     name=nama,
                     line=dict(color=warna, width=1.2),
                     opacity=0.85,
                     hovertemplate=f"{nama}: $%{{y:,.2f}}<extra></extra>",
-                ), row=1, col=1)
+                ), row=row, col=1)
         return fig
 
-    def _tambah_volume(self, fig: go.Figure) -> go.Figure:
+    def _tambah_bollinger_bands(self, fig: go.Figure, row: int) -> go.Figure:
+        # BB Atas
+        fig.add_trace(go.Scatter(
+            x=self.df.index, y=self.df["Bollinger_Atas"],
+            name="BB Atas",
+            line=dict(color=TemaCandlestick.BOLLINGER, width=0.8),
+            legendgroup="BB",
+            showlegend=False,
+            hovertemplate="BB Atas: $%{y:,.2f}<extra></extra>",
+        ), row=row, col=1)
+        
+        # BB Bawah (diarsir ke BB Atas)
+        fig.add_trace(go.Scatter(
+            x=self.df.index, y=self.df["Bollinger_Bawah"],
+            name="Pita Bollinger",
+            line=dict(color=TemaCandlestick.BOLLINGER, width=0.8),
+            fill='tonexty',
+            fillcolor="rgba(139, 148, 158, 0.04)",
+            legendgroup="BB",
+            hovertemplate="BB Bawah: $%{y:,.2f}<extra></extra>",
+        ), row=row, col=1)
+        
+        # BB Tengah
+        fig.add_trace(go.Scatter(
+            x=self.df.index, y=self.df["Bollinger_Tengah"],
+            name="BB Tengah",
+            line=dict(color=TemaCandlestick.BOLLINGER, width=1.0, dash='dash'),
+            legendgroup="BB",
+            showlegend=False,
+            hovertemplate="BB Tengah: $%{y:,.2f}<extra></extra>",
+        ), row=row, col=1)
+        
+        return fig
+
+    def _tambah_volume(self, fig: go.Figure, row: int) -> go.Figure:
         daftar_warna = [
             TemaCandlestick.VOL_NAIK if c >= o else TemaCandlestick.VOL_TURUN
             for c, o in zip(self.df["Close"], self.df["Open"])
@@ -295,11 +408,100 @@ class GrafikCandlestick:
             marker_color=daftar_warna,
             marker_line_width=0,
             hovertemplate="Vol: %{y:,.0f}<extra></extra>",
-        ), row=2, col=1)
+        ), row=row, col=1)
         fig.update_yaxes(
             title_text="Volume",
             title_font=dict(color=TemaCandlestick.TEKS_TIPIS, size=10),
-            tickprefix="", row=2, col=1,
+            tickprefix="", row=row, col=1,
+        )
+        return fig
+
+    def _tambah_rsi(self, fig: go.Figure, row: int) -> go.Figure:
+        fig.add_trace(go.Scatter(
+            x=self.df.index, y=self.df["RSI_14"],
+            name="RSI (14)",
+            line=dict(color=TemaCandlestick.RSI, width=1.5),
+            hovertemplate="RSI: %{y:.2f}<extra></extra>",
+        ), row=row, col=1)
+        
+        # Garis oversold (30) dan overbought (70)
+        fig.add_hline(y=70, line_dash="dash", line_color="#f85149", line_width=1, row=row, col=1)
+        fig.add_hline(y=30, line_dash="dash", line_color="#3fb950", line_width=1, row=row, col=1)
+        fig.add_hrect(y0=30, y1=70, fillcolor="rgba(188, 140, 255, 0.03)", line_width=0, row=row, col=1)
+        
+        fig.update_yaxes(
+            title_text="RSI",
+            title_font=dict(color=TemaCandlestick.TEKS_TIPIS, size=10),
+            tickvals=[30, 50, 70],
+            range=[10, 90],
+            row=row, col=1
+        )
+        return fig
+
+    def _tambah_macd(self, fig: go.Figure, row: int) -> go.Figure:
+        # MACD Line
+        fig.add_trace(go.Scatter(
+            x=self.df.index, y=self.df["MACD_Garis"],
+            name="MACD",
+            line=dict(color=TemaCandlestick.MACD, width=1.5),
+            hovertemplate="MACD: %{y:.3f}<extra></extra>",
+        ), row=row, col=1)
+        
+        # Signal Line
+        fig.add_trace(go.Scatter(
+            x=self.df.index, y=self.df["MACD_Sinyal"],
+            name="Sinyal",
+            line=dict(color=TemaCandlestick.MACD_SINYAL, width=1.2),
+            hovertemplate="Sinyal: %{y:.3f}<extra></extra>",
+        ), row=row, col=1)
+        
+        # Histogram
+        warna_histo = [
+            TemaCandlestick.NAIK if val >= 0 else TemaCandlestick.TURUN 
+            for val in self.df["MACD_Histogram"]
+        ]
+        fig.add_trace(go.Bar(
+            x=self.df.index, y=self.df["MACD_Histogram"],
+            name="Histogram",
+            marker_color=warna_histo,
+            marker_line_width=0,
+            hovertemplate="Histo: %{y:.3f}<extra></extra>",
+        ), row=row, col=1)
+        
+        fig.update_yaxes(
+            title_text="MACD",
+            title_font=dict(color=TemaCandlestick.TEKS_TIPIS, size=10),
+            row=row, col=1
+        )
+        return fig
+
+    def _tambah_atr(self, fig: go.Figure, row: int) -> go.Figure:
+        fig.add_trace(go.Scatter(
+            x=self.df.index, y=self.df["ATR_14"],
+            name="ATR (14)",
+            line=dict(color=TemaCandlestick.ATR, width=1.5),
+            hovertemplate="ATR: %{y:,.3f}<extra></extra>",
+        ), row=row, col=1)
+        
+        fig.update_yaxes(
+            title_text="ATR",
+            title_font=dict(color=TemaCandlestick.TEKS_TIPIS, size=10),
+            row=row, col=1
+        )
+        return fig
+
+    def _tambah_volatilitas(self, fig: go.Figure, row: int) -> go.Figure:
+        fig.add_trace(go.Scatter(
+            x=self.df.index, y=self.df["Volatilitas_30H"] * 100,
+            name="Volatilitas 30H",
+            line=dict(color=TemaCandlestick.VOLATILITAS, width=1.5),
+            hovertemplate="Vol 30H: %{y:.2f}%<extra></extra>",
+        ), row=row, col=1)
+        
+        fig.update_yaxes(
+            title_text="Vol (%)",
+            title_font=dict(color=TemaCandlestick.TEKS_TIPIS, size=10),
+            row=row, col=1
         )
         return fig
 
@@ -335,22 +537,35 @@ class GrafikCandlestick:
         return fig
 
     def bangun(self) -> go.Figure:
-        ada_volume = self.tampilkan_volume and "Volume" in self.df.columns
-        tinggi     = self.tinggi or (720 if ada_volume else 600)
-
-        fig = self._buat_subplot(ada_volume)
-        fig = self._tambah_candlestick(fig)
-        fig = self._tambah_moving_average(fig)
-
-        if ada_volume:
-            fig = self._tambah_volume(fig)
+        fig, peta_baris = self._buat_layout_dan_subplots()
+        
+        # Panel utama
+        r_utama = peta_baris["utama"]
+        fig = self._tambah_candlestick(fig, r_utama)
+        fig = self._tambah_moving_average(fig, r_utama)
+        
+        if self.tampilkan_bollinger:
+            fig = self._tambah_bollinger_bands(fig, r_utama)
+            
+        # Panel tambahan
+        if "volume" in peta_baris:
+            fig = self._tambah_volume(fig, peta_baris["volume"])
+        if "rsi" in peta_baris:
+            fig = self._tambah_rsi(fig, peta_baris["rsi"])
+        if "macd" in peta_baris:
+            fig = self._tambah_macd(fig, peta_baris["macd"])
+        if "atr" in peta_baris:
+            fig = self._tambah_atr(fig, peta_baris["atr"])
+        if "volatilitas" in peta_baris:
+            fig = self._tambah_volatilitas(fig, peta_baris["volatilitas"])
 
         fig = self._tambah_anotasi(fig)
-        fig = TemaCandlestick.terapkan(fig, self.judul, self.kode_saham, tinggi)
-
-        if ada_volume:
-            fig.update_yaxes(tickprefix="", row=2, col=1)
-
+        
+        # Tentukan tinggi chart
+        tinggi_dasar = 600
+        tinggi_akhir = self.tinggi or (tinggi_dasar + 120 * (len(peta_baris) - 1))
+        
+        fig = TemaCandlestick.terapkan(fig, self.judul, self.kode_saham, tinggi_akhir)
         return fig
 
     def tampilkan(self) -> None:
@@ -449,9 +664,15 @@ def buat_grafik_candlestick(
     judul: str = None,
     *,
     tampilkan_volume: bool = True,
+    tampilkan_ma5: bool = False,
     tampilkan_ma20: bool = True,
     tampilkan_ma50: bool = True,
     tampilkan_ma200: bool = False,
+    tampilkan_bollinger: bool = False,
+    tampilkan_rsi: bool = False,
+    tampilkan_macd: bool = False,
+    tampilkan_atr: bool = False,
+    tampilkan_volatilitas: bool = False,
     tinggi: int = None,
     tanggal_dari: str = None,
     tanggal_sampai: str = None,
@@ -459,9 +680,15 @@ def buat_grafik_candlestick(
     return GrafikCandlestick(
         df, kode_saham, judul,
         tampilkan_volume=tampilkan_volume,
+        tampilkan_ma5=tampilkan_ma5,
         tampilkan_ma20=tampilkan_ma20,
         tampilkan_ma50=tampilkan_ma50,
         tampilkan_ma200=tampilkan_ma200,
+        tampilkan_bollinger=tampilkan_bollinger,
+        tampilkan_rsi=tampilkan_rsi,
+        tampilkan_macd=tampilkan_macd,
+        tampilkan_atr=tampilkan_atr,
+        tampilkan_volatilitas=tampilkan_volatilitas,
         tinggi=tinggi,
         tanggal_dari=tanggal_dari,
         tanggal_sampai=tanggal_sampai,

@@ -1,72 +1,72 @@
 {
   "kode_saham": "WMT",
   "frekuensi": "mingguan",
-  "harga_terakhir": 130.09500122070312,
+  "harga_terakhir": 116.21499633789062,
   "jumlah_data_training": 784,
-  "model_terbaik": "Croston",
+  "model_terbaik": "BaseCdsDtForecaster",
   "metrik_top5": {
     "Model": {
-      "croston": "Croston",
-      "huber_cds_dt": "Huber w/ Cond. Deseasonalize & Detrending",
-      "omp_cds_dt": "Orthogonal Matching Pursuit w/ Cond. Deseasonalize & Detrending",
       "lr_cds_dt": "Linear w/ Cond. Deseasonalize & Detrending",
-      "br_cds_dt": "Bayesian Ridge w/ Cond. Deseasonalize & Detrending"
+      "ridge_cds_dt": "Ridge w/ Cond. Deseasonalize & Detrending",
+      "huber_cds_dt": "Huber w/ Cond. Deseasonalize & Detrending",
+      "br_cds_dt": "Bayesian Ridge w/ Cond. Deseasonalize & Detrending",
+      "en_cds_dt": "Elastic Net w/ Cond. Deseasonalize & Detrending"
     },
     "MASE": {
-      "croston": 1.0912,
-      "huber_cds_dt": 1.1101,
-      "omp_cds_dt": 1.1086,
-      "lr_cds_dt": 1.1086,
-      "br_cds_dt": 1.1154
+      "lr_cds_dt": 0.8483,
+      "ridge_cds_dt": 0.8625,
+      "huber_cds_dt": 0.9046,
+      "br_cds_dt": 0.9091,
+      "en_cds_dt": 0.9195
     },
     "RMSSE": {
-      "croston": 1.0205,
-      "huber_cds_dt": 0.9828,
-      "omp_cds_dt": 0.9773,
-      "lr_cds_dt": 0.9773,
-      "br_cds_dt": 0.9813
+      "lr_cds_dt": 0.7269,
+      "ridge_cds_dt": 0.7447,
+      "huber_cds_dt": 0.7985,
+      "br_cds_dt": 0.8064,
+      "en_cds_dt": 0.8034
     },
     "MAE": {
-      "croston": 0.0321,
-      "huber_cds_dt": 0.0326,
-      "omp_cds_dt": 0.0326,
-      "lr_cds_dt": 0.0326,
-      "br_cds_dt": 0.0328
+      "lr_cds_dt": 0.0251,
+      "ridge_cds_dt": 0.0255,
+      "huber_cds_dt": 0.0267,
+      "br_cds_dt": 0.0269,
+      "en_cds_dt": 0.0272
     },
     "RMSE": {
-      "croston": 0.0415,
-      "huber_cds_dt": 0.0399,
-      "omp_cds_dt": 0.0397,
-      "lr_cds_dt": 0.0397,
-      "br_cds_dt": 0.0399
+      "lr_cds_dt": 0.0297,
+      "ridge_cds_dt": 0.0304,
+      "huber_cds_dt": 0.0326,
+      "br_cds_dt": 0.033,
+      "en_cds_dt": 0.0328
     },
     "MAPE": {
-      "croston": 0.8723,
-      "huber_cds_dt": 0.7265,
-      "omp_cds_dt": 0.746,
-      "lr_cds_dt": 0.746,
-      "br_cds_dt": 0.753
+      "lr_cds_dt": 0.807,
+      "ridge_cds_dt": 0.8316,
+      "huber_cds_dt": 0.913,
+      "br_cds_dt": 0.8167,
+      "en_cds_dt": 0.8459
     },
     "SMAPE": {
-      "croston": 0.9415,
-      "huber_cds_dt": 1.2115,
-      "omp_cds_dt": 1.2513,
-      "lr_cds_dt": 1.2513,
-      "br_cds_dt": 1.2644
+      "lr_cds_dt": 1.2645,
+      "ridge_cds_dt": 1.2881,
+      "huber_cds_dt": 1.2624,
+      "br_cds_dt": 1.2723,
+      "en_cds_dt": 1.3514
     },
     "R2": {
-      "croston": -0.1748,
-      "huber_cds_dt": -0.2565,
-      "omp_cds_dt": -0.2501,
-      "lr_cds_dt": -0.2501,
-      "br_cds_dt": -0.2742
+      "lr_cds_dt": 0.1867,
+      "ridge_cds_dt": 0.1524,
+      "huber_cds_dt": -0.0418,
+      "br_cds_dt": -0.0791,
+      "en_cds_dt": -0.083
     },
     "TT (Sec)": {
-      "croston": 0.0067,
-      "huber_cds_dt": 0.02,
-      "omp_cds_dt": 0.0233,
-      "lr_cds_dt": 0.02,
-      "br_cds_dt": 0.02
+      "lr_cds_dt": 0.0233,
+      "ridge_cds_dt": 0.0267,
+      "huber_cds_dt": 0.0267,
+      "br_cds_dt": 0.0233,
+      "en_cds_dt": 0.0233
     }
   }
 }

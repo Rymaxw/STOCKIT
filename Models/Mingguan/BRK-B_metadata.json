@@ -1,72 +1,72 @@
 {
   "kode_saham": "BRK-B",
   "frekuensi": "mingguan",
-  "harga_terakhir": 486.0799865722656,
+  "harga_terakhir": 473.1499938964844,
   "jumlah_data_training": 784,
-  "model_terbaik": "PolynomialTrendForecaster",
+  "model_terbaik": "BaseCdsDtForecaster",
   "metrik_top5": {
     "Model": {
-      "polytrend": "Polynomial Trend Forecaster",
-      "exp_smooth": "Exponential Smoothing",
-      "ets": "ETS",
-      "theta": "Theta Forecaster",
+      "huber_cds_dt": "Huber w/ Cond. Deseasonalize & Detrending",
+      "omp_cds_dt": "Orthogonal Matching Pursuit w/ Cond. Deseasonalize & Detrending",
+      "gbr_cds_dt": "Gradient Boosting w/ Cond. Deseasonalize & Detrending",
+      "en_cds_dt": "Elastic Net w/ Cond. Deseasonalize & Detrending",
       "ridge_cds_dt": "Ridge w/ Cond. Deseasonalize & Detrending"
     },
     "MASE": {
-      "polytrend": 0.6366,
-      "exp_smooth": 0.635,
-      "ets": 0.6366,
-      "theta": 0.6366,
-      "ridge_cds_dt": 0.6366
+      "huber_cds_dt": 0.4621,
+      "omp_cds_dt": 0.4613,
+      "gbr_cds_dt": 0.4657,
+      "en_cds_dt": 0.4681,
+      "ridge_cds_dt": 0.4678
     },
     "RMSSE": {
-      "polytrend": 0.5804,
-      "exp_smooth": 0.5814,
-      "ets": 0.5804,
-      "theta": 0.5805,
-      "ridge_cds_dt": 0.5832
+      "huber_cds_dt": 0.4024,
+      "omp_cds_dt": 0.3796,
+      "gbr_cds_dt": 0.4,
+      "en_cds_dt": 0.3905,
+      "ridge_cds_dt": 0.4056
     },
     "MAE": {
-      "polytrend": 0.0172,
-      "exp_smooth": 0.0172,
-      "ets": 0.0172,
-      "theta": 0.0172,
-      "ridge_cds_dt": 0.0172
+      "huber_cds_dt": 0.0125,
+      "omp_cds_dt": 0.0125,
+      "gbr_cds_dt": 0.0126,
+      "en_cds_dt": 0.0127,
+      "ridge_cds_dt": 0.0127
     },
     "RMSE": {
-      "polytrend": 0.0214,
-      "exp_smooth": 0.0214,
-      "ets": 0.0214,
-      "theta": 0.0214,
-      "ridge_cds_dt": 0.0215
+      "huber_cds_dt": 0.0148,
+      "omp_cds_dt": 0.014,
+      "gbr_cds_dt": 0.0148,
+      "en_cds_dt": 0.0144,
+      "ridge_cds_dt": 0.015
     },
     "MAPE": {
-      "polytrend": 0.9318,
-      "exp_smooth": 0.9213,
-      "ets": 0.9318,
-      "theta": 0.9318,
-      "ridge_cds_dt": 0.9148
+      "huber_cds_dt": 1.0202,
+      "omp_cds_dt": 0.9026,
+      "gbr_cds_dt": 0.9953,
+      "en_cds_dt": 0.9574,
+      "ridge_cds_dt": 1.187
     },
     "SMAPE": {
-      "polytrend": 1.548,
-      "exp_smooth": 1.5183,
-      "ets": 1.5485,
-      "theta": 1.548,
-      "ridge_cds_dt": 1.5225
+      "huber_cds_dt": 1.3819,
+      "omp_cds_dt": 1.6404,
+      "gbr_cds_dt": 1.2652,
+      "en_cds_dt": 1.548,
+      "ridge_cds_dt": 1.3746
     },
     "R2": {
-      "polytrend": -0.2992,
-      "exp_smooth": -0.2993,
-      "ets": -0.2988,
-      "theta": -0.2993,
-      "ridge_cds_dt": -0.3125
+      "huber_cds_dt": -0.3673,
+      "omp_cds_dt": -0.1394,
+      "gbr_cds_dt": -0.4141,
+      "en_cds_dt": -0.2135,
+      "ridge_cds_dt": -0.4329
     },
     "TT (Sec)": {
-      "polytrend": 0.01,
-      "exp_smooth": 0.0133,
-      "ets": 0.0133,
-      "theta": 0.01,
-      "ridge_cds_dt": 0.0167
+      "huber_cds_dt": 0.03,
+      "omp_cds_dt": 0.0267,
+      "gbr_cds_dt": 0.0967,
+      "en_cds_dt": 0.0233,
+      "ridge_cds_dt": 0.0267
     }
   }
 }

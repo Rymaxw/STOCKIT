@@ -5,6 +5,7 @@ import os
 import concurrent.futures 
 import time
 import json
+from Utils.indikator import PenghitungIndikator
 
 MAP_PERIODE = {
     "1 Tahun Terakhir": "1y",
@@ -41,8 +42,39 @@ class PemrosesData:
         return data_saham[self.kolom_wajib].copy()
 
     def agregasi_waktu(self, data_ohlcv, frekuensi):
-        kode_freq = {'mingguan': 'W', 'bulanan': 'ME', 'tahunan': 'YE'}[frekuensi]
+        kode_freq = {'mingguan': 'W', 'bulanan': 'M', 'tahunan': 'Y'}[frekuensi]
         return data_ohlcv.resample(kode_freq).agg(self.logika_agregasi).dropna()
+
+    def tambah_indikator_teknikal(self, df: pd.DataFrame, frekuensi: str = 'harian') -> pd.DataFrame:
+        df = df.copy()
+        
+        # Hitung Rerata Bergerak (MA)
+        df['MA5'] = PenghitungIndikator.hitung_rerata_bergerak(df, jendela=5)
+        df['MA20'] = PenghitungIndikator.hitung_rerata_bergerak(df, jendela=20)
+        df['MA50'] = PenghitungIndikator.hitung_rerata_bergerak(df, jendela=50)
+        
+        # Hitung RSI-14
+        df['RSI_14'] = PenghitungIndikator.hitung_rsi(df, jendela=14)
+        
+        # Hitung MACD
+        df_macd = PenghitungIndikator.hitung_macd(df)
+        df['MACD_Garis'] = df_macd['MACD_Garis']
+        df['MACD_Sinyal'] = df_macd['MACD_Sinyal']
+        df['MACD_Histogram'] = df_macd['MACD_Histogram']
+        
+        # Hitung Bollinger Bands
+        df_bb = PenghitungIndikator.hitung_pita_bollinger(df)
+        df['Bollinger_Atas'] = df_bb['Bollinger_Atas']
+        df['Bollinger_Tengah'] = df_bb['Bollinger_Tengah']
+        df['Bollinger_Bawah'] = df_bb['Bollinger_Bawah']
+        
+        # Hitung ATR
+        df['ATR_14'] = PenghitungIndikator.hitung_atr(df, jendela=14)
+        
+        # Hitung Volatilitas Bergulir 30 Hari
+        df['Volatilitas_30H'] = PenghitungIndikator.hitung_volatilitas_bergulir(df, jendela=30, frekuensi=frekuensi)
+        
+        return df
 
 class ManajerPenyimpanan:
     def __init__(self, folder_proyek):
@@ -72,10 +104,16 @@ class OrkestratorPipeline:
 
         try:
             data_ohlcv = self.pemroses.filter_kolom_wajib(data_saham)
-            self.manajer.simpan_mentah(data_ohlcv, kode_saham)
+            
+            # Tambahkan indikator teknikal untuk data harian (mentah lokal)
+            data_harian_lengkap = self.pemroses.tambah_indikator_teknikal(data_ohlcv, frekuensi='harian')
+            self.manajer.simpan_mentah(data_harian_lengkap, kode_saham)
+            
             for frekuensi in ['mingguan', 'bulanan', 'tahunan']:
                 data_agregasi = self.pemroses.agregasi_waktu(data_ohlcv, frekuensi)
-                self.manajer.simpan_agregasi(data_agregasi, kode_saham, frekuensi)
+                # Tambahkan indikator teknikal untuk data teragregasi
+                data_agregasi_lengkap = self.pemroses.tambah_indikator_teknikal(data_agregasi, frekuensi=frekuensi)
+                self.manajer.simpan_agregasi(data_agregasi_lengkap, kode_saham, frekuensi)
                 
             return kode_saham, True, "Data Mentah & Diproses Berhasil Disimpan"
         except Exception as e:

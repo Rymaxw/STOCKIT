@@ -1,72 +1,72 @@
 {
   "kode_saham": "AAPL",
   "frekuensi": "mingguan",
-  "harga_terakhir": 294.0400085449219,
+  "harga_terakhir": 310.9750061035156,
   "jumlah_data_training": 784,
   "model_terbaik": "BaseCdsDtForecaster",
   "metrik_top5": {
     "Model": {
-      "gbr_cds_dt": "Gradient Boosting w/ Cond. Deseasonalize & Detrending",
-      "croston": "Croston",
-      "arima": "ARIMA",
       "huber_cds_dt": "Huber w/ Cond. Deseasonalize & Detrending",
-      "omp_cds_dt": "Orthogonal Matching Pursuit w/ Cond. Deseasonalize & Detrending"
+      "en_cds_dt": "Elastic Net w/ Cond. Deseasonalize & Detrending",
+      "lasso_cds_dt": "Lasso w/ Cond. Deseasonalize & Detrending",
+      "llar_cds_dt": "Lasso Least Angular Regressor w/ Cond. Deseasonalize & Detrending",
+      "lr_cds_dt": "Linear w/ Cond. Deseasonalize & Detrending"
     },
     "MASE": {
-      "gbr_cds_dt": 0.715,
-      "croston": 0.7342,
-      "arima": 0.7411,
-      "huber_cds_dt": 0.745,
-      "omp_cds_dt": 0.7436
+      "huber_cds_dt": 0.4935,
+      "en_cds_dt": 0.5023,
+      "lasso_cds_dt": 0.5023,
+      "llar_cds_dt": 0.5023,
+      "lr_cds_dt": 0.5063
     },
     "RMSSE": {
-      "gbr_cds_dt": 0.5944,
-      "croston": 0.6344,
-      "arima": 0.621,
-      "huber_cds_dt": 0.6234,
-      "omp_cds_dt": 0.6237
+      "huber_cds_dt": 0.434,
+      "en_cds_dt": 0.4305,
+      "lasso_cds_dt": 0.4305,
+      "llar_cds_dt": 0.4305,
+      "lr_cds_dt": 0.4299
     },
     "MAE": {
-      "gbr_cds_dt": 0.03,
-      "croston": 0.0308,
-      "arima": 0.0311,
-      "huber_cds_dt": 0.0312,
-      "omp_cds_dt": 0.0312
+      "huber_cds_dt": 0.0207,
+      "en_cds_dt": 0.0211,
+      "lasso_cds_dt": 0.0211,
+      "llar_cds_dt": 0.0211,
+      "lr_cds_dt": 0.0213
     },
     "RMSE": {
-      "gbr_cds_dt": 0.0333,
-      "croston": 0.0356,
-      "arima": 0.0348,
-      "huber_cds_dt": 0.0349,
-      "omp_cds_dt": 0.035
+      "huber_cds_dt": 0.0244,
+      "en_cds_dt": 0.0242,
+      "lasso_cds_dt": 0.0242,
+      "llar_cds_dt": 0.0242,
+      "lr_cds_dt": 0.0242
     },
     "MAPE": {
-      "gbr_cds_dt": 1.4083,
-      "croston": 2.1511,
-      "arima": 1.0946,
-      "huber_cds_dt": 1.1766,
-      "omp_cds_dt": 1.0705
+      "huber_cds_dt": 0.9906,
+      "en_cds_dt": 1.0644,
+      "lasso_cds_dt": 1.0644,
+      "llar_cds_dt": 1.0644,
+      "lr_cds_dt": 1.2474
     },
     "SMAPE": {
-      "gbr_cds_dt": 1.5388,
-      "croston": 1.2704,
-      "arima": 1.6345,
-      "huber_cds_dt": 1.6179,
-      "omp_cds_dt": 1.6476
+      "huber_cds_dt": 1.4361,
+      "en_cds_dt": 1.4736,
+      "lasso_cds_dt": 1.4736,
+      "llar_cds_dt": 1.4736,
+      "lr_cds_dt": 1.7093
     },
     "R2": {
-      "gbr_cds_dt": -1.5112,
-      "croston": -2.7132,
-      "arima": -1.7006,
-      "huber_cds_dt": -1.7666,
-      "omp_cds_dt": -1.734
+      "huber_cds_dt": -1.1724,
+      "en_cds_dt": -0.9727,
+      "lasso_cds_dt": -0.9727,
+      "llar_cds_dt": -0.9727,
+      "lr_cds_dt": -1.1071
     },
     "TT (Sec)": {
-      "gbr_cds_dt": 0.0333,
-      "croston": 0.01,
-      "arima": 0.02,
-      "huber_cds_dt": 0.0167,
-      "omp_cds_dt": 0.02
+      "huber_cds_dt": 0.0267,
+      "en_cds_dt": 0.0267,
+      "lasso_cds_dt": 0.0233,
+      "llar_cds_dt": 0.0267,
+      "lr_cds_dt": 0.0267
     }
   }
 }

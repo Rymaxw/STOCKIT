@@ -1,65 +1,65 @@
 {
   "kode_saham": "GOOGL",
   "frekuensi": "tahunan",
-  "harga_terakhir": 385.0,
+  "harga_terakhir": 359.32501220703125,
   "jumlah_data_training": 16,
-  "model_terbaik": "NaiveForecaster",
+  "model_terbaik": "BaseCdsDtForecaster",
   "metrik_top5": {
     "Model": {
-      "naive": "Naive Forecaster",
-      "llar_cds_dt": "Lasso Least Angular Regressor w/ Cond. Deseasonalize & Detrending",
-      "lightgbm_cds_dt": "Light Gradient Boosting w/ Cond. Deseasonalize & Detrending",
+      "huber_cds_dt": "Huber w/ Cond. Deseasonalize & Detrending",
+      "br_cds_dt": "Bayesian Ridge w/ Cond. Deseasonalize & Detrending",
+      "knn_cds_dt": "K Neighbors w/ Cond. Deseasonalize & Detrending",
       "en_cds_dt": "Elastic Net w/ Cond. Deseasonalize & Detrending",
-      "lasso_cds_dt": "Lasso w/ Cond. Deseasonalize & Detrending"
+      "lightgbm_cds_dt": "Light Gradient Boosting w/ Cond. Deseasonalize & Detrending"
     },
     "MASE": {
-      "naive": 0.4391,
-      "llar_cds_dt": 0.5204,
-      "lightgbm_cds_dt": 0.5204,
-      "en_cds_dt": 0.5204,
-      "lasso_cds_dt": 0.5204
+      "huber_cds_dt": 0.1249,
+      "br_cds_dt": 0.4803,
+      "knn_cds_dt": 0.4982,
+      "en_cds_dt": 0.4981,
+      "lightgbm_cds_dt": 0.5204
     },
     "RMSSE": {
-      "naive": 0.3556,
-      "llar_cds_dt": 0.423,
-      "lightgbm_cds_dt": 0.423,
-      "en_cds_dt": 0.423,
-      "lasso_cds_dt": 0.423
+      "huber_cds_dt": 0.1007,
+      "br_cds_dt": 0.387,
+      "knn_cds_dt": 0.4051,
+      "en_cds_dt": 0.4058,
+      "lightgbm_cds_dt": 0.423
     },
     "MAE": {
-      "naive": 0.1756,
-      "llar_cds_dt": 0.209,
-      "lightgbm_cds_dt": 0.209,
-      "en_cds_dt": 0.209,
-      "lasso_cds_dt": 0.209
+      "huber_cds_dt": 0.0497,
+      "br_cds_dt": 0.1909,
+      "knn_cds_dt": 0.2002,
+      "en_cds_dt": 0.2006,
+      "lightgbm_cds_dt": 0.209
     },
     "RMSE": {
-      "naive": 0.1756,
-      "llar_cds_dt": 0.209,
-      "lightgbm_cds_dt": 0.209,
-      "en_cds_dt": 0.209,
-      "lasso_cds_dt": 0.209
+      "huber_cds_dt": 0.0497,
+      "br_cds_dt": 0.1909,
+      "knn_cds_dt": 0.2002,
+      "en_cds_dt": 0.2006,
+      "lightgbm_cds_dt": 0.209
     },
     "MAPE": {
-      "naive": 0.4436,
-      "llar_cds_dt": 0.4902,
-      "lightgbm_cds_dt": 0.4902,
-      "en_cds_dt": 0.4902,
-      "lasso_cds_dt": 0.4902
+      "huber_cds_dt": 0.1369,
+      "br_cds_dt": 0.5299,
+      "knn_cds_dt": 0.4641,
+      "en_cds_dt": 0.4483,
+      "lightgbm_cds_dt": 0.4902
     },
     "SMAPE": {
-      "naive": 0.4428,
-      "llar_cds_dt": 0.6598,
-      "lightgbm_cds_dt": 0.6598,
-      "en_cds_dt": 0.6598,
-      "lasso_cds_dt": 0.6598
+      "huber_cds_dt": 0.1463,
+      "br_cds_dt": 0.4437,
+      "knn_cds_dt": 0.6185,
+      "en_cds_dt": 0.6134,
+      "lightgbm_cds_dt": 0.6598
     },
     "TT (Sec)": {
-      "naive": 0.02,
-      "llar_cds_dt": 0.035,
-      "lightgbm_cds_dt": 0.065,
-      "en_cds_dt": 0.035,
-      "lasso_cds_dt": 0.035
+      "huber_cds_dt": 0.025,
+      "br_cds_dt": 0.025,
+      "knn_cds_dt": 0.035,
+      "en_cds_dt": 0.025,
+      "lightgbm_cds_dt": 0.045
     }
   }
 }

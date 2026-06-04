@@ -1,65 +1,65 @@
 {
   "kode_saham": "PG",
   "frekuensi": "tahunan",
-  "harga_terakhir": 144.7279052734375,
+  "harga_terakhir": 141.52499389648438,
   "jumlah_data_training": 16,
   "model_terbaik": "BaseCdsDtForecaster",
   "metrik_top5": {
     "Model": {
-      "et_cds_dt": "Extra Trees w/ Cond. Deseasonalize & Detrending",
-      "rf_cds_dt": "Random Forest w/ Cond. Deseasonalize & Detrending",
+      "knn_cds_dt": "K Neighbors w/ Cond. Deseasonalize & Detrending",
+      "croston": "Croston",
       "dt_cds_dt": "Decision Tree w/ Cond. Deseasonalize & Detrending",
       "ada_cds_dt": "AdaBoost w/ Cond. Deseasonalize & Detrending",
-      "gbr_cds_dt": "Gradient Boosting w/ Cond. Deseasonalize & Detrending"
+      "lasso_cds_dt": "Lasso w/ Cond. Deseasonalize & Detrending"
     },
     "MASE": {
-      "et_cds_dt": 0.2012,
-      "rf_cds_dt": 0.5642,
-      "dt_cds_dt": 0.6866,
-      "ada_cds_dt": 0.6866,
-      "gbr_cds_dt": 0.6863
+      "knn_cds_dt": 0.8795,
+      "croston": 0.9202,
+      "dt_cds_dt": 1.0254,
+      "ada_cds_dt": 1.0636,
+      "lasso_cds_dt": 1.0505
     },
     "RMSSE": {
-      "et_cds_dt": 0.1711,
-      "rf_cds_dt": 0.4733,
-      "dt_cds_dt": 0.5691,
-      "ada_cds_dt": 0.5691,
-      "gbr_cds_dt": 0.5689
+      "knn_cds_dt": 0.7535,
+      "croston": 0.7885,
+      "dt_cds_dt": 0.8615,
+      "ada_cds_dt": 0.8987,
+      "lasso_cds_dt": 0.8971
     },
     "MAE": {
-      "et_cds_dt": 0.0292,
-      "rf_cds_dt": 0.0798,
-      "dt_cds_dt": 0.0949,
-      "ada_cds_dt": 0.0949,
-      "gbr_cds_dt": 0.0949
+      "knn_cds_dt": 0.1293,
+      "croston": 0.1354,
+      "dt_cds_dt": 0.1454,
+      "ada_cds_dt": 0.1524,
+      "lasso_cds_dt": 0.1535
     },
     "RMSE": {
-      "et_cds_dt": 0.0292,
-      "rf_cds_dt": 0.0798,
-      "dt_cds_dt": 0.0949,
-      "ada_cds_dt": 0.0949,
-      "gbr_cds_dt": 0.0949
+      "knn_cds_dt": 0.1293,
+      "croston": 0.1354,
+      "dt_cds_dt": 0.1454,
+      "ada_cds_dt": 0.1524,
+      "lasso_cds_dt": 0.1535
     },
     "MAPE": {
-      "et_cds_dt": 0.21,
-      "rf_cds_dt": 0.5434,
-      "dt_cds_dt": 0.6117,
-      "ada_cds_dt": 0.6117,
-      "gbr_cds_dt": 0.6121
+      "knn_cds_dt": 0.958,
+      "croston": 1.0035,
+      "dt_cds_dt": 0.9966,
+      "ada_cds_dt": 1.0692,
+      "lasso_cds_dt": 1.1231
     },
     "SMAPE": {
-      "et_cds_dt": 0.233,
-      "rf_cds_dt": 0.5434,
-      "dt_cds_dt": 0.4388,
-      "ada_cds_dt": 0.4388,
-      "gbr_cds_dt": 0.441
+      "knn_cds_dt": 1.1658,
+      "croston": 1.1694,
+      "dt_cds_dt": 1.8677,
+      "ada_cds_dt": 1.7979,
+      "lasso_cds_dt": 1.3054
     },
     "TT (Sec)": {
-      "et_cds_dt": 0.065,
-      "rf_cds_dt": 0.075,
-      "dt_cds_dt": 0.03,
-      "ada_cds_dt": 0.05,
-      "gbr_cds_dt": 0.055
+      "knn_cds_dt": 0.025,
+      "croston": 0.015,
+      "dt_cds_dt": 0.02,
+      "ada_cds_dt": 0.03,
+      "lasso_cds_dt": 0.025
     }
   }
 }
