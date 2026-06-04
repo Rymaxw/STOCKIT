@@ -1,0 +1,72 @@
+{
+  "kode_saham": "NFLX",
+  "frekuensi": "mingguan",
+  "harga_terakhir": 81.71499633789062,
+  "jumlah_data_training": 784,
+  "model_terbaik": "BaseCdsDtForecaster",
+  "metrik_top5": {
+    "Model": {
+      "rf_cds_dt": "Random Forest w/ Cond. Deseasonalize & Detrending",
+      "en_cds_dt": "Elastic Net w/ Cond. Deseasonalize & Detrending",
+      "lasso_cds_dt": "Lasso w/ Cond. Deseasonalize & Detrending",
+      "llar_cds_dt": "Lasso Least Angular Regressor w/ Cond. Deseasonalize & Detrending",
+      "croston": "Croston"
+    },
+    "MASE": {
+      "rf_cds_dt": 0.77,
+      "en_cds_dt": 0.7887,
+      "lasso_cds_dt": 0.7887,
+      "llar_cds_dt": 0.7887,
+      "croston": 0.8019
+    },
+    "RMSSE": {
+      "rf_cds_dt": 0.7372,
+      "en_cds_dt": 0.7109,
+      "lasso_cds_dt": 0.7109,
+      "llar_cds_dt": 0.7109,
+      "croston": 0.7228
+    },
+    "MAE": {
+      "rf_cds_dt": 0.0498,
+      "en_cds_dt": 0.051,
+      "lasso_cds_dt": 0.051,
+      "llar_cds_dt": 0.051,
+      "croston": 0.0519
+    },
+    "RMSE": {
+      "rf_cds_dt": 0.067,
+      "en_cds_dt": 0.0646,
+      "lasso_cds_dt": 0.0646,
+      "llar_cds_dt": 0.0646,
+      "croston": 0.0657
+    },
+    "MAPE": {
+      "rf_cds_dt": 0.999,
+      "en_cds_dt": 1.1986,
+      "lasso_cds_dt": 1.1986,
+      "llar_cds_dt": 1.1986,
+      "croston": 1.3203
+    },
+    "SMAPE": {
+      "rf_cds_dt": 1.3071,
+      "en_cds_dt": 1.6119,
+      "lasso_cds_dt": 1.6119,
+      "llar_cds_dt": 1.6119,
+      "croston": 1.3996
+    },
+    "R2": {
+      "rf_cds_dt": -1.5952,
+      "en_cds_dt": -1.5184,
+      "lasso_cds_dt": -1.5184,
+      "llar_cds_dt": -1.5184,
+      "croston": -2.737
+    },
+    "TT (Sec)": {
+      "rf_cds_dt": 0.58,
+      "en_cds_dt": 0.0433,
+      "lasso_cds_dt": 0.0467,
+      "llar_cds_dt": 0.0433,
+      "croston": 0.01
+    }
+  }
+}

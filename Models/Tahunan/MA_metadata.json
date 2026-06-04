@@ -1,65 +1,65 @@
 {
   "kode_saham": "MA",
   "frekuensi": "tahunan",
-  "harga_terakhir": 502.8299865722656,
+  "harga_terakhir": 467.1400146484375,
   "jumlah_data_training": 16,
-  "model_terbaik": "NaiveForecaster",
+  "model_terbaik": "BaseCdsDtForecaster",
   "metrik_top5": {
     "Model": {
-      "naive": "Naive Forecaster",
-      "grand_means": "Grand Means Forecaster",
-      "auto_arima": "Auto ARIMA",
-      "arima": "ARIMA",
-      "polytrend": "Polynomial Trend Forecaster"
+      "knn_cds_dt": "K Neighbors w/ Cond. Deseasonalize & Detrending",
+      "omp_cds_dt": "Orthogonal Matching Pursuit w/ Cond. Deseasonalize & Detrending",
+      "br_cds_dt": "Bayesian Ridge w/ Cond. Deseasonalize & Detrending",
+      "et_cds_dt": "Extra Trees w/ Cond. Deseasonalize & Detrending",
+      "en_cds_dt": "Elastic Net w/ Cond. Deseasonalize & Detrending"
     },
     "MASE": {
-      "naive": 0.3433,
-      "grand_means": 0.3465,
-      "auto_arima": 0.3465,
-      "arima": 0.3475,
-      "polytrend": 0.4209
+      "knn_cds_dt": 0.2818,
+      "omp_cds_dt": 0.3184,
+      "br_cds_dt": 0.3615,
+      "et_cds_dt": 0.4106,
+      "en_cds_dt": 0.3927
     },
     "RMSSE": {
-      "naive": 0.2854,
-      "grand_means": 0.289,
-      "auto_arima": 0.289,
-      "arima": 0.2898,
-      "polytrend": 0.3641
+      "knn_cds_dt": 0.2458,
+      "omp_cds_dt": 0.2778,
+      "br_cds_dt": 0.313,
+      "et_cds_dt": 0.3469,
+      "en_cds_dt": 0.3408
     },
     "MAE": {
-      "naive": 0.0681,
-      "grand_means": 0.0691,
-      "auto_arima": 0.0691,
-      "arima": 0.0693,
-      "polytrend": 0.0895
+      "knn_cds_dt": 0.0607,
+      "omp_cds_dt": 0.0686,
+      "br_cds_dt": 0.0769,
+      "et_cds_dt": 0.0838,
+      "en_cds_dt": 0.0839
     },
     "RMSE": {
-      "naive": 0.0681,
-      "grand_means": 0.0691,
-      "auto_arima": 0.0691,
-      "arima": 0.0693,
-      "polytrend": 0.0895
+      "knn_cds_dt": 0.0607,
+      "omp_cds_dt": 0.0686,
+      "br_cds_dt": 0.0769,
+      "et_cds_dt": 0.0838,
+      "en_cds_dt": 0.0839
     },
     "MAPE": {
-      "naive": 0.7656,
-      "grand_means": 0.7454,
-      "auto_arima": 0.7454,
-      "arima": 0.7483,
-      "polytrend": 0.5335
+      "knn_cds_dt": 0.2987,
+      "omp_cds_dt": 0.3379,
+      "br_cds_dt": 0.451,
+      "et_cds_dt": 0.7576,
+      "en_cds_dt": 0.4655
     },
     "SMAPE": {
-      "naive": 0.4435,
-      "grand_means": 0.4496,
-      "auto_arima": 0.4496,
-      "arima": 0.4503,
-      "polytrend": 0.6664
+      "knn_cds_dt": 0.3982,
+      "omp_cds_dt": 0.4687,
+      "br_cds_dt": 0.5493,
+      "et_cds_dt": 0.5449,
+      "en_cds_dt": 0.6205
     },
     "TT (Sec)": {
-      "naive": 0.02,
-      "grand_means": 0.015,
-      "auto_arima": 0.09,
-      "arima": 0.025,
-      "polytrend": 0.015
+      "knn_cds_dt": 0.03,
+      "omp_cds_dt": 0.025,
+      "br_cds_dt": 0.025,
+      "et_cds_dt": 0.05,
+      "en_cds_dt": 0.025
     }
   }
 }

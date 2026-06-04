@@ -99,7 +99,6 @@ class HalamanBeranda:
         """.replace('\n', ''), unsafe_allow_html=True)
 
         # Layout Columns
-        # Padding applied via columns in streamlit
         st.markdown('<div>', unsafe_allow_html=True)
         kolom_kiri, spacer, kolom_kanan = st.columns([5, 0.2, 4])
 

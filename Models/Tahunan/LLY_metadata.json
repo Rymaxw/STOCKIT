@@ -1,65 +1,65 @@
 {
   "kode_saham": "LLY",
   "frekuensi": "tahunan",
-  "harga_terakhir": 990.1099853515625,
+  "harga_terakhir": 1088.4150390625,
   "jumlah_data_training": 16,
   "model_terbaik": "Croston",
   "metrik_top5": {
     "Model": {
       "croston": "Croston",
-      "arima": "ARIMA",
-      "theta": "Theta Forecaster",
-      "grand_means": "Grand Means Forecaster",
-      "auto_arima": "Auto ARIMA"
+      "lightgbm_cds_dt": "Light Gradient Boosting w/ Cond. Deseasonalize & Detrending",
+      "rf_cds_dt": "Random Forest w/ Cond. Deseasonalize & Detrending",
+      "lasso_cds_dt": "Lasso w/ Cond. Deseasonalize & Detrending",
+      "llar_cds_dt": "Lasso Least Angular Regressor w/ Cond. Deseasonalize & Detrending"
     },
     "MASE": {
       "croston": 0.2382,
-      "arima": 0.2438,
-      "theta": 0.3285,
-      "grand_means": 0.3388,
-      "auto_arima": 0.3388
+      "lightgbm_cds_dt": 0.3691,
+      "rf_cds_dt": 0.5077,
+      "lasso_cds_dt": 0.5269,
+      "llar_cds_dt": 0.5269
     },
     "RMSSE": {
       "croston": 0.225,
-      "arima": 0.2313,
-      "theta": 0.3033,
-      "grand_means": 0.3187,
-      "auto_arima": 0.3187
+      "lightgbm_cds_dt": 0.3425,
+      "rf_cds_dt": 0.476,
+      "lasso_cds_dt": 0.4867,
+      "llar_cds_dt": 0.4867
     },
     "MAE": {
       "croston": 0.0474,
-      "arima": 0.0489,
-      "theta": 0.0628,
-      "grand_means": 0.067,
-      "auto_arima": 0.067
+      "lightgbm_cds_dt": 0.0712,
+      "rf_cds_dt": 0.0998,
+      "lasso_cds_dt": 0.1009,
+      "llar_cds_dt": 0.1009
     },
     "RMSE": {
       "croston": 0.0474,
-      "arima": 0.0489,
-      "theta": 0.0628,
-      "grand_means": 0.067,
-      "auto_arima": 0.067
+      "lightgbm_cds_dt": 0.0712,
+      "rf_cds_dt": 0.0998,
+      "lasso_cds_dt": 0.1009,
+      "llar_cds_dt": 0.1009
     },
     "MAPE": {
       "croston": 0.146,
-      "arima": 0.1481,
-      "theta": 0.2106,
-      "grand_means": 0.2095,
-      "auto_arima": 0.2095
+      "lightgbm_cds_dt": 0.2344,
+      "rf_cds_dt": 0.3159,
+      "lasso_cds_dt": 0.3375,
+      "llar_cds_dt": 0.3375
     },
     "SMAPE": {
       "croston": 0.1605,
-      "arima": 0.1666,
-      "theta": 0.1851,
-      "grand_means": 0.2362,
-      "auto_arima": 0.2362
+      "lightgbm_cds_dt": 0.2073,
+      "rf_cds_dt": 0.2724,
+      "lasso_cds_dt": 0.2778,
+      "llar_cds_dt": 0.2778
     },
     "TT (Sec)": {
-      "croston": 0.015,
-      "arima": 0.04,
-      "theta": 0.025,
-      "grand_means": 0.02,
-      "auto_arima": 0.135
+      "croston": 0.005,
+      "lightgbm_cds_dt": 0.025,
+      "rf_cds_dt": 0.055,
+      "lasso_cds_dt": 0.025,
+      "llar_cds_dt": 0.025
     }
   }
 }

@@ -125,7 +125,7 @@ class HalamanOptimasi:
         kolom3.metric("Rasio Sharpe", metrik["rasio_sharpe"])
 
     def _render_tab_hasil(self, optimasi: OptimasiPortofolio):
-        tab_alokasi, tab_kinerja, tab_frontier = st.tabs(["Alokasi", "Kinerja", "Efficient Frontier"])
+        tab_alokasi, tab_kinerja, tab_frontier, tab_ai = st.tabs(["Alokasi", "Kinerja", "Efficient Frontier", "Model AI"])
 
         with tab_alokasi:
             st.markdown("""
@@ -142,6 +142,30 @@ class HalamanOptimasi:
 
         with tab_frontier:
             st.write("Visualisasi Efficient Frontier.")
+            
+        with tab_ai:
+            st.markdown("""
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 16px; margin-bottom: 24px;">
+                <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 500; color: #e2e1f0; letter-spacing: -0.01em; margin: 0;">Metadata Model Prediksi</h3>
+            </div>
+            """.replace('\n', ''), unsafe_allow_html=True)
+            import json
+            import os
+            model_info = []
+            folder_model = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), 'Models', 'Mingguan')
+            for ticker in optimasi.daftar_ticker:
+                meta_file = os.path.join(folder_model, f"{ticker}_metadata.json")
+                if os.path.exists(meta_file):
+                    with open(meta_file, 'r') as f:
+                        meta = json.load(f)
+                        nama = list(meta.get('metrik_top5', {}).get('Model', {}).values())[0] if meta.get('metrik_top5', {}).get('Model', {}) else meta.get('model_terbaik', 'N/A')
+                        mae = min(meta.get('metrik_top5', {}).get('MAE', {}).values()) if meta.get('metrik_top5', {}).get('MAE', {}) else 0
+                        model_info.append({"Ticker": ticker, "Model AI Terbaik": nama, "MAE (Error)": round(mae, 4)})
+                else:
+                    model_info.append({"Ticker": ticker, "Model AI Terbaik": "Statistik Sederhana (Fallback)", "MAE (Error)": "-"})
+            
+            if model_info:
+                st.dataframe(model_info, use_container_width=True, hide_index=True)
 
     def _render_tabel_rekomendasi(self, optimasi: OptimasiPortofolio):
         st.markdown("""

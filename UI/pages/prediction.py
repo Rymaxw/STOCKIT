@@ -191,12 +191,13 @@ class HalamanPrediksi:
         kartu_html = ""
         for _, row in df.iterrows():
             ticker = row['Ticker']
-            harga_now = row['Harga Sekarang ($)']
+            harga_now = row['Harga Sekarang (Rp)']
             harga_pred = row[f'Prediksi ({horizon})']
             return_pct = row['Return (%)']
             lembar = row['Lembar Saham']
-            nilai_pred = row['Nilai Prediksi ($)']
-            profit = row['Profit ($)']
+            nilai_pred = row['Nilai Prediksi (Rp)']
+            profit = row['Profit (Rp)']
+            metode = row.get('Metode', 'Statistik')
 
             if return_pct > 0:
                 warna_return = "#4ade80"
@@ -231,7 +232,7 @@ class HalamanPrediksi:
                             <p style="font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 500; color: #a4e6ff; margin: 0; text-shadow: 0 0 10px rgba(164,230,255,0.4);">Rp {harga_pred:,.0f}</p>
                         </div>
                     </div>
-                    <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 12px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;">
+                    <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 12px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 12px;">
                         <div>
                             <p style="font-family: 'Space Grotesk', sans-serif; font-size: 10px; font-weight: 600; color: #bbc9cf; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 2px 0;">Lembar</p>
                             <p style="font-family: 'Space Grotesk', sans-serif; font-size: 14px; color: #e2e1f0; margin: 0;">{lembar:,}</p>
@@ -244,6 +245,10 @@ class HalamanPrediksi:
                             <p style="font-family: 'Space Grotesk', sans-serif; font-size: 10px; font-weight: 600; color: #bbc9cf; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 2px 0;">Profit/Loss</p>
                             <p style="font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 600; color: {warna_profit}; margin: 0;">Rp {profit:+,.0f}</p>
                         </div>
+                    </div>
+                    <div style="background: rgba(0,209,255,0.05); padding: 8px 12px; border-radius: 6px; border: 1px solid rgba(0,209,255,0.1); display: flex; align-items: center; gap: 8px;">
+                        <span class="material-symbols-outlined" style="font-size: 14px; color: #00d1ff;">psychology</span>
+                        <p style="font-family: 'Space Grotesk', sans-serif; font-size: 11px; color: #a4e6ff; margin: 0; line-height: 1.2;">Model AI: <b>{metode}</b></p>
                     </div>
                 </div>
             </div>
