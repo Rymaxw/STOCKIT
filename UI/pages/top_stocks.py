@@ -56,11 +56,15 @@ class HalamanSahamTerbaik:
 
     def _render_konten_utama(self):
         pengelola = PengelolaDataSahamUI([])
-        df_terbaik = pengelola.ambil_saham_terbaik()
+
+        with st.spinner("Mengunduh data live dari Yahoo Finance..."):
+            df_terbaik = pengelola.ambil_saham_terbaik_live()
 
         if df_terbaik.empty:
-            st.warning("Data penilaian saham belum tersedia. Silakan pastikan data riil sudah terunduh di folder Data/Raw.")
+            st.warning("Gagal mengunduh data live saham dari Yahoo Finance. Silakan periksa koneksi internet Anda.")
             return
+
+        st.markdown('<div style="margin-bottom: 32px;"></div>', unsafe_allow_html=True)
 
         self._render_kartu_podium(df_terbaik)
         self._render_grafik_dan_tabel(df_terbaik)
@@ -128,8 +132,9 @@ class HalamanSahamTerbaik:
 
         with kolom_kiri:
             st.markdown("""
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+            <div style="margin-bottom: 16px;">
                 <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 32px; font-weight: 500; color: #e2e1f0; letter-spacing: -0.01em; margin: 0;">Momentum vs Value</h3>
+                <p style="font-family: 'Space Grotesk', sans-serif; font-size: 14px; color: #bbc9cf; margin: 4px 0 0 0;">Grafik di bawah menunjukkan imbal hasil / <b>Return (%)</b> (Sumbu Y) per masing-masing ticker saham.</p>
             </div>
             """.replace('\n', ''), unsafe_allow_html=True)
             data_grafik = df_terbaik.set_index('Ticker')[['Return (%)']]

@@ -80,7 +80,7 @@ class PrediksiHargaSaham:
         info = self.PETA_FREKUENSI[frekuensi]
 
         # Coba gunakan model AI terlebih dahulu
-        model = self._muat_model_ai(ticker, frekuensi)
+        
         if model is not None:
             try:
                 prediksi_log_return = model.predict()

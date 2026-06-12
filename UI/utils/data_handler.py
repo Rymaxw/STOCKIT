@@ -81,6 +81,50 @@ class PengelolaDataSahamUI:
         except Exception:
             return pd.DataFrame()
 
+    @st.cache_data(ttl=300)
+    def ambil_saham_terbaik_live(_self) -> pd.DataFrame:
+        try:
+            from Utils.st_dataloader import baca_daftar_ticker
+            lokasi_json = os.path.join(_self.folder_utama, 'Data', 'Raw', 'tickers_us.json')
+            if os.path.exists(lokasi_json):
+                daftar_saham = baca_daftar_ticker(lokasi_json)
+            else:
+                daftar_saham = [
+                    'AAPL', 'MSFT', 'GOOGL', 'AMZN', 'NVDA', 'META', 'TSLA',
+                    'AVGO', 'AMD', 'ORCL', 'BRK-B', 'JPM', 'V', 'MA', 'BAC',
+                    'LLY', 'UNH', 'JNJ', 'MRK', 'ABBV', 'WMT', 'PG', 'COST',
+                    'HD', 'KO', 'PEP', 'CVX', 'XOM', 'CRM', 'NFLX'
+                ]
+            
+            import yfinance as yf
+            data_live = yf.download(daftar_saham, period="60d", progress=False)
+            
+            if data_live.empty:
+                return pd.DataFrame()
+            
+            data_dict = {}
+            for ticker in daftar_saham:
+                if ticker in data_live['Close'].columns:
+                    df_ticker = pd.DataFrame(data_live['Close'][ticker]).rename(columns={ticker: 'Close'})
+                    df_ticker = df_ticker.dropna()
+                    if not df_ticker.empty:
+                        data_dict[ticker] = df_ticker
+            
+            if not data_dict:
+                return pd.DataFrame()
+            
+            from Utils.scoring import PenilaiSaham
+            penilai = PenilaiSaham()
+            saham_terbaik = penilai.evaluasi_saham(data_dict)
+            
+            if saham_terbaik.empty:
+                return pd.DataFrame()
+            
+            return _self._format_hasil_penilaian(saham_terbaik)
+        except Exception:
+            return pd.DataFrame()
+
+
     @staticmethod
     def _format_hasil_penilaian(tabel: pd.DataFrame) -> pd.DataFrame:
         hasil = tabel.rename(columns={
