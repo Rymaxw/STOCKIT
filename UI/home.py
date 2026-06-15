@@ -29,7 +29,6 @@ class HalamanBeranda:
         st.markdown('<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>', unsafe_allow_html=True)
         st.markdown('<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>', unsafe_allow_html=True)
         
-        # Base Theme Styles
         st.markdown("""
         <style>
             .stApp {
@@ -47,7 +46,6 @@ class HalamanBeranda:
         </style>
         """, unsafe_allow_html=True)
 
-        # Button Styles (Glow Button)
         st.markdown("""
         <style>
             [data-testid="stButton"] button {
@@ -85,7 +83,6 @@ class HalamanBeranda:
 
         st.markdown(dapatkan_html_sidebar("Home"), unsafe_allow_html=True)
 
-        # Title Hero
         st.markdown("""
         <div style="margin-bottom: 48px;">
             <h1 style="font-family: 'Space Grotesk', sans-serif; font-size: 48px; font-weight: 600; color: #e2e1f0; margin-bottom: 12px; display: flex; align-items: center; gap: 16px; letter-spacing: -0.02em; margin-top: 0; text-shadow: 0 0 20px rgba(164,230,255,0.4);">
@@ -98,7 +95,6 @@ class HalamanBeranda:
         </div>
         """.replace('\n', ''), unsafe_allow_html=True)
 
-        # Layout Columns
         st.markdown('<div>', unsafe_allow_html=True)
         kolom_kiri, spacer, kolom_kanan = st.columns([5, 0.2, 4])
 
@@ -110,7 +106,6 @@ class HalamanBeranda:
             
         st.markdown('</div>', unsafe_allow_html=True)
         
-        # Render status at the bottom corner
         st.markdown('<div style="margin-top: 48px;">', unsafe_allow_html=True)
         self._render_status_sistem()
         st.markdown('</div>', unsafe_allow_html=True)
@@ -138,7 +133,6 @@ class HalamanBeranda:
         </style>
         """.replace('\n', ''), unsafe_allow_html=True)
 
-        # Place the button
         if st.button("Buka Dasbor Optimasi", use_container_width=False):
             st.switch_page("pages/optimization.py")
 

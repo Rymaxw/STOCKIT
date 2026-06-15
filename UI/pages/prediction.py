@@ -21,28 +21,20 @@ class HalamanPrediksi:
         st.markdown('<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>', unsafe_allow_html=True)
         st.markdown('<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>', unsafe_allow_html=True)
 
-        # Ambient Orbs Background & Main App background
         st.markdown("""<style>.stApp{background-color:#11131d;color:#e2e1f0;font-family:'Space Grotesk',sans-serif;}.stApp::before{content:'';position:fixed;top:0;left:0;width:40vw;height:40vw;background:radial-gradient(circle, rgba(0, 209, 255, 0.15) 0%, transparent 70%);border-radius:50%;z-index:-1;pointer-events:none;}.stApp::after{content:'';position:fixed;bottom:0;right:0;width:50vw;height:50vw;background:radial-gradient(circle, rgba(192, 193, 255, 0.1) 0%, transparent 70%);border-radius:50%;z-index:-1;pointer-events:none;}[data-testid="stHeader"]{display:none!important}.block-container{padding-top:2rem!important; padding-bottom:2rem!important;}</style>""", unsafe_allow_html=True)
 
-        # Glass Cards
         st.markdown("""<style>[data-testid="stHorizontalBlock"],[data-testid="stArrowVegaLiteChart"],[data-testid="stDataFrame"],[data-testid="stTabs"]{background:linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(192,193,255,0.05) 100%);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:0.5px solid rgba(255,255,255,0.1);border-top-color:rgba(255,255,255,0.2);border-left-color:rgba(255,255,255,0.2);box-shadow:0 20px 40px rgba(0,0,0,0.3);border-radius:0.75rem;padding:24px;margin-bottom:24px;position:relative}</style>""", unsafe_allow_html=True)
 
-        # Glass Inputs
         st.markdown("""<style>.stTextInput input,.stNumberInput input{background:rgba(255,255,255,0.04)!important;border:0.5px solid rgba(255,255,255,0.1)!important;color:#e2e1f0!important;border-radius:0.5rem!important;font-family:'Space Grotesk',sans-serif!important;padding:12px!important;transition:all 0.3s ease!important}.stTextInput input:focus,.stNumberInput input:focus{border-color:rgba(0,209,255,0.5)!important;box-shadow:0 0 15px rgba(0,209,255,0.1)!important;background:rgba(255,255,255,0.08)!important}</style>""", unsafe_allow_html=True)
 
-        # Radio & Labels
         st.markdown("""<style>.stRadio label div{color:#bbc9cf!important;font-family:'Space Grotesk',sans-serif!important;font-size:14px!important}[data-testid="stWidgetLabel"]{font-family:'Space Grotesk',sans-serif!important;text-transform:uppercase!important;letter-spacing:0.05em!important;color:#bbc9cf!important;font-size:12px!important;font-weight:600!important}[data-testid="stWidgetLabel"] p{font-size:12px!important;font-weight:600!important}</style>""", unsafe_allow_html=True)
 
-        # Glass Buttons
         st.markdown("""<style>[data-testid="stButton"] button{background:rgba(255,255,255,0.04)!important;backdrop-filter:blur(12px)!important;border:0.5px solid rgba(255,255,255,0.1)!important;border-top-color:rgba(255,255,255,0.2)!important;color:#e2e1f0!important;border-radius:0.5rem!important;font-family:'Space Grotesk',sans-serif!important;text-transform:uppercase!important;letter-spacing:0.05em!important;font-weight:600!important;padding:12px 24px!important;height:auto!important;transition:all 0.3s ease!important;margin-top:28px!important}[data-testid="stButton"] button:hover{background:rgba(255,255,255,0.1)!important;border-color:rgba(0,209,255,0.5)!important;color:#00d1ff!important;box-shadow:0 0 15px rgba(0,209,255,0.2)!important}</style>""", unsafe_allow_html=True)
 
-        # Metrics
         st.markdown("""<style>[data-testid="metric-container"]{border:none;padding:16px}[data-testid="stMetricValue"]{font-family:'Space Grotesk',sans-serif!important;font-size:48px!important;color:#a4e6ff!important;font-weight:600!important;line-height:1.1!important;letter-spacing:-0.02em!important;text-shadow:0 0 20px rgba(164,230,255,0.4)!important}[data-testid="stMetricLabel"]{font-family:'Space Grotesk',sans-serif!important;color:#bbc9cf!important;text-transform:uppercase!important;letter-spacing:0.05em!important;font-size:12px!important;font-weight:600!important}</style>""", unsafe_allow_html=True)
 
-        # Tabs
         st.markdown("""<style>button[data-baseweb="tab"]{font-family:'Space Grotesk',sans-serif!important;text-transform:uppercase!important;letter-spacing:0.05em!important;color:#bbc9cf!important;background-color:transparent!important;font-weight:600!important;font-size:14px!important}button[data-baseweb="tab"][aria-selected="true"]{color:#00d1ff!important;border-bottom-color:#00d1ff!important}</style>""", unsafe_allow_html=True)
 
-        # Scrollbars
         st.markdown("""<style>::-webkit-scrollbar{width:4px;height:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:4px}::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,0.2)}</style>""", unsafe_allow_html=True)
 
     def render(self):
@@ -85,7 +77,6 @@ class HalamanPrediksi:
         if not jalankan:
             return
 
-        # Get top stocks using existing scoring system
         pengelola = PengelolaDataSahamUI([])
         df_terbaik = pengelola.ambil_saham_terbaik()
 
@@ -95,7 +86,6 @@ class HalamanPrediksi:
 
         daftar_ticker = df_terbaik['Ticker'].head(jumlah_rekomendasi).tolist()
 
-        # Run prediction engine
         perbandingan = PerbandinganInvestasi(daftar_ticker, budget)
         perbandingan.jalankan()
 

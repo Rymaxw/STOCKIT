@@ -23,13 +23,10 @@ class HalamanSahamTerbaik:
         st.markdown('<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>', unsafe_allow_html=True)
         st.markdown('<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>', unsafe_allow_html=True)
         
-        # Ambient Orbs Background & Main App background
         st.markdown("""<style>.stApp{background-color:#0c0e17;color:#e2e1f0;font-family:'Space Grotesk',sans-serif;}.stApp::before{content:'';position:fixed;top:-10%;left:-5%;width:40vw;height:40vw;background:rgba(164,230,255,0.05);filter:blur(100px);border-radius:50%;z-index:-1;pointer-events:none;}.stApp::after{content:'';position:fixed;bottom:-20%;right:-10%;width:50vw;height:50vw;background:rgba(49,49,192,0.05);filter:blur(120px);border-radius:50%;z-index:-1;pointer-events:none;}[data-testid="stHeader"]{display:none!important}.block-container{padding-top:2rem!important; padding-bottom:2rem!important;}</style>""", unsafe_allow_html=True)
         
-        # Glass Panels for Charts/DataFrames
         st.markdown("""<style>[data-testid="stArrowVegaLiteChart"],[data-testid="stDataFrame"]{background:rgba(255,255,255,0.03);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:0.5px solid rgba(255,255,255,0.1);border-top-color:rgba(255,255,255,0.2);border-left-color:rgba(255,255,255,0.2);box-shadow:0 20px 40px rgba(0,0,0,0.3);padding:24px;border-radius:0.75rem;}</style>""", unsafe_allow_html=True)
         
-        # Scrollbars
         st.markdown("""<style>::-webkit-scrollbar{width:4px;height:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:4px}::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,0.2)}</style>""", unsafe_allow_html=True)
 
     def render(self):
@@ -73,7 +70,7 @@ class HalamanSahamTerbaik:
         rank = indeks + 1
         
         bg_color = "linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(16,0,169,0.05) 100%)"
-        highlight_color = "#a4e6ff" # primary
+        highlight_color = "#a4e6ff" 
         highlight_bg = "rgba(164,230,255,0.2)"
         bar_color = "#a4e6ff"
         glow = "text-shadow: 0 0 10px rgba(164,230,255,0.5);"
