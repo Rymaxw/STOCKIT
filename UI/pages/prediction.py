@@ -1,7 +1,9 @@
 import warnings
 warnings.filterwarnings("ignore")
 
+import os
 import streamlit as st
+from pathlib import Path
 from UI.utils.sidebar import dapatkan_html_sidebar
 from UI.utils.prediction_engine import PrediksiHargaSaham, PerbandinganInvestasi
 from UI.utils.data_handler import PengelolaDataSahamUI
@@ -58,6 +60,17 @@ class HalamanPrediksi:
         </div>
         """.replace('\n', ''), unsafe_allow_html=True)
 
+    def _daftar_ticker_tersedia(self) -> list:
+        """Mengambil daftar ticker yang memiliki data dan model AI."""
+        folder_proyek = Path(__file__).resolve().parent.parent.parent
+        folder_raw = folder_proyek / 'Data' / 'Raw'
+        if not folder_raw.exists():
+            return []
+        return sorted([
+            f.stem for f in folder_raw.glob('*.parquet')
+            if f.stem != '.DS_Store'
+        ])
+
     def _render_input_dan_hasil(self):
         st.markdown("""
         <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
@@ -65,31 +78,63 @@ class HalamanPrediksi:
         </div>
         """.replace('\n', ''), unsafe_allow_html=True)
 
-        kolom_budget, kolom_jumlah, kolom_tombol = st.columns([3, 2, 2])
+        # ── Mode selector ──────────────────────────────────────────
+        mode = st.radio(
+            "Mode Analisis",
+            ("Rekomendasi Otomatis (Top Saham)", "Pilih Saham Sendiri"),
+            horizontal=True,
+        )
 
-        with kolom_budget:
-            budget = st.number_input("Budget Investasi (Rp)", min_value=1000000, value=10000000, step=1000000)
-        with kolom_jumlah:
-            jumlah_rekomendasi = st.number_input("Jumlah Rekomendasi Saham", min_value=1, max_value=30, value=5, step=1)
-        with kolom_tombol:
-            jalankan = st.button("Analisis Investasi", type="primary", use_container_width=True)
+        is_kustom = mode == "Pilih Saham Sendiri"
+
+        if is_kustom:
+            kolom_budget, kolom_saham, kolom_tombol = st.columns([2, 4, 2])
+
+            with kolom_budget:
+                budget = st.number_input("Budget Investasi (Rp)", min_value=1000000, value=10000000, step=1000000)
+            with kolom_saham:
+                daftar_tersedia = self._daftar_ticker_tersedia()
+                daftar_ticker = st.multiselect(
+                    "Pilih Saham",
+                    daftar_tersedia,
+                    default=daftar_tersedia[:3] if len(daftar_tersedia) >= 3 else daftar_tersedia,
+                )
+            with kolom_tombol:
+                jalankan = st.button("Analisis Investasi", type="primary", use_container_width=True)
+        else:
+            kolom_budget, kolom_jumlah, kolom_tombol = st.columns([3, 2, 2])
+
+            with kolom_budget:
+                budget = st.number_input("Budget Investasi (Rp)", min_value=1000000, value=10000000, step=1000000)
+            with kolom_jumlah:
+                jumlah_rekomendasi = st.number_input("Jumlah Rekomendasi Saham", min_value=1, max_value=30, value=5, step=1)
+            with kolom_tombol:
+                jalankan = st.button("Analisis Investasi", type="primary", use_container_width=True)
 
         if not jalankan:
             return
 
-        pengelola = PengelolaDataSahamUI([])
-        df_terbaik = pengelola.ambil_saham_terbaik()
+        # ── Tentukan daftar ticker berdasarkan mode ────────────────
+        if is_kustom:
+            if not daftar_ticker:
+                st.warning("Pilih minimal 1 saham untuk dianalisis.")
+                return
+        else:
+            pengelola = PengelolaDataSahamUI([])
+            df_terbaik = pengelola.ambil_saham_terbaik()
 
-        if df_terbaik.empty:
-            st.warning("Data saham belum tersedia. Pastikan data sudah terunduh di folder Data/Raw.")
-            return
+            if df_terbaik.empty:
+                st.warning("Data saham belum tersedia. Pastikan data sudah terunduh di folder Data/Raw.")
+                return
 
-        daftar_ticker = df_terbaik['Ticker'].head(jumlah_rekomendasi).tolist()
+            daftar_ticker = df_terbaik['Ticker'].head(jumlah_rekomendasi).tolist()
 
+        # ── Jalankan prediksi (engine & model AI yang sama) ────────
         perbandingan = PerbandinganInvestasi(daftar_ticker, budget)
         perbandingan.jalankan()
 
-        self._render_ringkasan_rekomendasi(df_terbaik.head(jumlah_rekomendasi), budget)
+        if not is_kustom:
+            self._render_ringkasan_rekomendasi(df_terbaik.head(jumlah_rekomendasi), budget)
         self._render_prediksi_tabs(perbandingan)
         self._render_chart_perbandingan(perbandingan)
 
