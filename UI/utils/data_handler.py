@@ -82,7 +82,7 @@ class PengelolaDataSahamUI:
             return pd.DataFrame()
 
     @st.cache_data(ttl=300)
-    def ambil_saham_terbaik_live(_self) -> pd.DataFrame:
+    def ambil_saham_terbaik_live(_self) -> dict:
         try:
             from Utils.st_dataloader import baca_daftar_ticker
             lokasi_json = os.path.join(_self.folder_utama, 'Data', 'Raw', 'tickers_us.json')
@@ -100,7 +100,7 @@ class PengelolaDataSahamUI:
             data_live = yf.download(daftar_saham, period="60d", progress=False)
             
             if data_live.empty:
-                return pd.DataFrame()
+                return {'tabel': pd.DataFrame(), 'historis': pd.DataFrame(), 'ohlcv': pd.DataFrame()}
             
             data_dict = {}
             for ticker in daftar_saham:
@@ -111,18 +111,25 @@ class PengelolaDataSahamUI:
                         data_dict[ticker] = df_ticker
             
             if not data_dict:
-                return pd.DataFrame()
+                return {'tabel': pd.DataFrame(), 'historis': pd.DataFrame(), 'ohlcv': pd.DataFrame()}
             
             from Utils.scoring import PenilaiSaham
             penilai = PenilaiSaham()
             saham_terbaik = penilai.evaluasi_saham(data_dict)
             
             if saham_terbaik.empty:
-                return pd.DataFrame()
+                return {'tabel': pd.DataFrame(), 'historis': pd.DataFrame(), 'ohlcv': pd.DataFrame()}
             
-            return _self._format_hasil_penilaian(saham_terbaik)
+            # Ambil data historis harga penutupan untuk sparkline
+            df_historis = data_live['Close'].dropna(how='all')
+            
+            return {
+                'tabel': _self._format_hasil_penilaian(saham_terbaik),
+                'historis': df_historis,
+                'ohlcv': data_live,
+            }
         except Exception:
-            return pd.DataFrame()
+            return {'tabel': pd.DataFrame(), 'historis': pd.DataFrame(), 'ohlcv': pd.DataFrame()}
 
 
     @staticmethod
@@ -138,4 +145,13 @@ class PengelolaDataSahamUI:
         hasil['Risiko (%)'] = (hasil['Risiko (%)'] * 100).round(2)
         hasil['Skor'] = (hasil['Skor'] * 100).round(1)
 
-        return hasil[['Ticker', 'Return (%)', 'Risiko (%)', 'Skor']]
+        # Tambah kolom harga dan perubahan harian jika tersedia dari scoring
+        kolom_output = ['Ticker', 'Return (%)', 'Risiko (%)', 'Skor']
+        if 'Harga_Terakhir' in hasil.columns:
+            hasil['Harga'] = hasil['Harga_Terakhir'].round(2)
+            kolom_output.append('Harga')
+        if 'Perubahan_Harian' in hasil.columns:
+            hasil['Perubahan Harian (%)'] = (hasil['Perubahan_Harian'] * 100).round(2)
+            kolom_output.append('Perubahan Harian (%)')
+
+        return hasil[kolom_output]

@@ -2,7 +2,10 @@ import warnings
 warnings.filterwarnings("ignore")
 
 import os
+import pandas as pd
+import numpy as np
 import streamlit as st
+import plotly.graph_objects as go
 from pathlib import Path
 from UI.utils.sidebar import dapatkan_html_sidebar
 from UI.utils.prediction_engine import PrediksiHargaSaham, PerbandinganInvestasi
@@ -200,7 +203,7 @@ class HalamanPrediksi:
         </div>
         """.replace('\n', ''), unsafe_allow_html=True)
 
-        tab_1w, tab_1m, tab_1y = st.tabs(["📅 1 Minggu", "📅 1 Bulan", "📅 1 Tahun"])
+        tab_1w, tab_1m, tab_1y = st.tabs(["1 Minggu", "1 Bulan", "1 Tahun"])
 
         with tab_1w:
             self._render_kartu_prediksi(perbandingan, '1W', '1 Minggu')
@@ -294,6 +297,144 @@ class HalamanPrediksi:
             {kartu_html}
         </div>
         """.replace('\n', ''), unsafe_allow_html=True)
+
+        # ── Chart Historis + Prediksi per saham ────────────────────
+        self._render_chart_prediksi_per_saham(df, horizon, label)
+
+    def _render_chart_prediksi_per_saham(self, df_prediksi, horizon, label):
+        """Menampilkan grafik harga historis + titik prediksi untuk setiap saham."""
+        st.markdown("""
+        <div style="display: flex; align-items: center; gap: 10px; margin-top: 24px; margin-bottom: 16px;">
+            <span class="material-symbols-outlined" style="font-size: 20px; color: #a4e6ff;">show_chart</span>
+            <h4 style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 500; color: #e2e1f0; letter-spacing: -0.01em; margin: 0;">Grafik Historis &amp; Proyeksi Harga</h4>
+        </div>
+        """.replace('\n', ''), unsafe_allow_html=True)
+
+        folder_proyek = Path(__file__).resolve().parent.parent.parent
+        folder_raw = folder_proyek / 'Data' / 'Raw'
+
+        # Tentukan jumlah hari proyeksi berdasarkan horizon
+        peta_hari = {'1W': 7, '1M': 30, '1Y': 365}
+        hari_kedepan = peta_hari.get(horizon, 7)
+
+        # Buat chart per 2 kolom
+        tickers = df_prediksi['Ticker'].tolist()
+        for i in range(0, len(tickers), 2):
+            batch = tickers[i:i+2]
+            cols = st.columns(len(batch))
+            for j, ticker in enumerate(batch):
+                with cols[j]:
+                    row = df_prediksi[df_prediksi['Ticker'] == ticker].iloc[0]
+                    harga_now = row['Harga Sekarang (Rp)']
+                    harga_pred = row[f'Prediksi ({horizon})']
+                    return_pct = row['Return (%)']
+
+                    # Muat data historis dari parquet
+                    lokasi = folder_raw / f"{ticker}.parquet"
+                    if not lokasi.exists():
+                        st.caption(f"{ticker}: Data historis tidak tersedia.")
+                        continue
+
+                    try:
+                        df_hist = pd.read_parquet(lokasi)
+                        if df_hist.index.tz is not None:
+                            df_hist.index = df_hist.index.tz_localize(None)
+                    except Exception:
+                        st.caption(f"{ticker}: Gagal memuat data.")
+                        continue
+
+                    # Ambil 90 hari terakhir
+                    df_plot = df_hist[['Close']].dropna().tail(90)
+                    if df_plot.empty:
+                        st.caption(f"{ticker}: Data kosong.")
+                        continue
+
+                    # Titik prediksi di masa depan
+                    tanggal_terakhir = df_plot.index[-1]
+                    tanggal_prediksi = tanggal_terakhir + pd.Timedelta(days=hari_kedepan)
+
+                    warna_pred = '#4ade80' if return_pct >= 0 else '#f87171'
+
+                    fig = go.Figure()
+
+                    # Garis historis
+                    fig.add_trace(go.Scatter(
+                        x=df_plot.index,
+                        y=df_plot['Close'],
+                        mode='lines',
+                        line=dict(color='#a4e6ff', width=2),
+                        name='Historis',
+                        hovertemplate='%{x|%d %b %Y}<br>$%{y:,.2f}<extra></extra>',
+                    ))
+
+                    # Garis penghubung (dotted) dari harga terakhir ke prediksi
+                    fig.add_trace(go.Scatter(
+                        x=[tanggal_terakhir, tanggal_prediksi],
+                        y=[harga_now, harga_pred],
+                        mode='lines',
+                        line=dict(color=warna_pred, width=2, dash='dot'),
+                        name='Proyeksi',
+                        showlegend=False,
+                    ))
+
+                    # Titik prediksi
+                    fig.add_trace(go.Scatter(
+                        x=[tanggal_prediksi],
+                        y=[harga_pred],
+                        mode='markers+text',
+                        marker=dict(size=12, color=warna_pred, symbol='diamond',
+                                    line=dict(width=1, color='rgba(255,255,255,0.5)')),
+                        text=[f'${harga_pred:,.0f}'],
+                        textposition='top center',
+                        textfont=dict(color=warna_pred, family='Space Grotesk', size=11, weight=600),
+                        name=f'Prediksi {label}',
+                        hovertemplate=f'Prediksi {label}<br>${{y:,.2f}}<br>{return_pct:+.2f}%<extra></extra>',
+                    ))
+
+                    # Titik harga terakhir
+                    fig.add_trace(go.Scatter(
+                        x=[tanggal_terakhir],
+                        y=[harga_now],
+                        mode='markers',
+                        marker=dict(size=8, color='#a4e6ff',
+                                    line=dict(width=1, color='rgba(255,255,255,0.5)')),
+                        name='Harga Terakhir',
+                        showlegend=False,
+                        hovertemplate=f'Harga Terakhir<br>${{y:,.2f}}<extra></extra>',
+                    ))
+
+                    fig.update_layout(
+                        title=dict(
+                            text=f'{ticker}',
+                            font=dict(family='Space Grotesk', size=16, color='#e2e1f0'),
+                            x=0,
+                        ),
+                        plot_bgcolor='rgba(0,0,0,0)',
+                        paper_bgcolor='rgba(0,0,0,0)',
+                        font=dict(family='Space Grotesk', color='#bbc9cf'),
+                        xaxis=dict(
+                            gridcolor='rgba(255,255,255,0.05)',
+                            tickfont=dict(size=10),
+                        ),
+                        yaxis=dict(
+                            title='Price ($)',
+                            gridcolor='rgba(255,255,255,0.05)',
+                            tickfont=dict(size=10),
+                        ),
+                        legend=dict(
+                            orientation='h',
+                            yanchor='bottom',
+                            y=1.02,
+                            xanchor='right',
+                            x=1,
+                            font=dict(size=10, color='#8a9aa0'),
+                        ),
+                        margin=dict(l=40, r=10, t=50, b=30),
+                        height=300,
+                        showlegend=True,
+                    )
+
+                    st.plotly_chart(fig, use_container_width=True)
 
     def _render_chart_perbandingan(self, perbandingan):
         st.markdown("""

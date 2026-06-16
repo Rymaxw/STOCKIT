@@ -28,7 +28,6 @@ def inisialisasi_sistem(folder_proyek: str):
         if daftar_saham:
             saham_sukses = tarik_data_dengan_cache(daftar_saham, folder_proyek)
             
-        # GRACEFUL FALLBACK: Jika fetch yfinance gagal (misal kena blokir/rate-limit), gunakan data lokal parquet
         if not saham_sukses:
             folder_raw = os.path.join(folder_proyek, 'Data', 'Raw')
             if os.path.exists(folder_raw):

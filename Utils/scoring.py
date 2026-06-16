@@ -49,10 +49,18 @@ class PenilaiSaham:
         else:
             rasio_sharpe = (rata_rata_profit / std_profit) * np.sqrt(252)
             volatilitas = std_profit * np.sqrt(252)
+        if len(grup) >= 2:
+            harga_kemarin = grup['Close'].iloc[-2]
+            perubahan_harian = (harga_sekarang - harga_kemarin) / harga_kemarin
+        else:
+            perubahan_harian = 0.0
+
         return {
             'Profit_30H': profit_30h,
             'Rasio_Sharpe': rasio_sharpe,
             'Volatilitas': volatilitas,
+            'Harga_Terakhir': float(harga_sekarang),
+            'Perubahan_Harian': perubahan_harian,
         }
 
     def _normalisasi_kolom(self, tabel: pd.DataFrame, kolom: str, dibalik: bool = False) -> pd.Series:
