@@ -3,5 +3,5 @@ pandas
 numpy
 yfinance
 plotly
-pycaret==3.3.2
+pycaret[time_series]==3.3.2
 pyarrow
