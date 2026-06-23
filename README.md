@@ -2,7 +2,7 @@
 
 > Platform analisis data sains berbasis **Streamlit** untuk mengoptimalkan keuntungan portofolio saham AS, dilengkapi prediksi harga berbasis **AI/Machine Learning** menggunakan **PyCaret**.
 
-**PASD'26** — Proyek Akhir Sains Data 2026
+**PASD'26** — Proyek Sains Data 2026
 
 ---
 
