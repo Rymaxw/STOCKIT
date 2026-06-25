@@ -28,14 +28,14 @@ def inisialisasi_sistem(folder_proyek: str):
         if daftar_saham:
             saham_sukses = tarik_data_dengan_cache(daftar_saham, folder_proyek)
             
-        if not saham_sukses:
-            folder_raw = os.path.join(folder_proyek, 'Data', 'Raw')
-            if os.path.exists(folder_raw):
-                for file in os.listdir(folder_raw):
-                    if file.endswith('.parquet') and not file.startswith('tickers'):
-                        ticker = file.replace('.parquet', '')
-                        if ticker not in saham_sukses:
-                            saham_sukses.append(ticker)
+        # Selalu tambahkan saham dari file lokal Parquet jika ada yang belum tercakup (misal gagal download live)
+        folder_raw = os.path.join(folder_proyek, 'Data', 'Raw')
+        if os.path.exists(folder_raw):
+            for file in os.listdir(folder_raw):
+                if file.endswith('.parquet') and not file.startswith('tickers'):
+                    ticker = file.replace('.parquet', '')
+                    if ticker not in saham_sukses:
+                        saham_sukses.append(ticker)
         
         saham_sukses.sort()
         st.session_state['data_tersedia'] = saham_sukses
