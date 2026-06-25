@@ -34,3 +34,6 @@ Private/
 # Word reports
 *.docx
 Laporan_Akhir_Tugas_Besar_STOCKIT.docx
+
+# Logs
+logs.log
