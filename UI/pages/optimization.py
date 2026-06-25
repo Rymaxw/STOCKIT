@@ -138,10 +138,146 @@ class HalamanOptimasi:
             st.bar_chart(df_bobot.set_index('Saham'))
 
         with tab_kinerja:
-            st.write("Visualisasi Backtesting Portofolio.")
+            df_kinerja = optimasi.hitung_kinerja_historis()
+            if df_kinerja.empty:
+                st.warning("Data historis tidak mencukupi untuk melakukan backtesting.")
+            else:
+                import plotly.graph_objects as go
+                fig = go.Figure()
+                fig.add_trace(go.Scatter(
+                    x=df_kinerja.index,
+                    y=df_kinerja['Optimal'],
+                    name='Portofolio Optimal',
+                    line=dict(color='#00d1ff', width=2),
+                    hovertemplate='Tanggal: %{x}<br>Nilai: Rp %{y:,.0f}<extra></extra>'
+                ))
+                fig.add_trace(go.Scatter(
+                    x=df_kinerja.index,
+                    y=df_kinerja['Equal Weight'],
+                    name='Portofolio Equal Weight',
+                    line=dict(color='#ff7b72', width=1.5, dash='dash'),
+                    hovertemplate='Tanggal: %{x}<br>Nilai: Rp %{y:,.0f}<extra></extra>'
+                ))
+                
+                fig.update_layout(
+                    title=dict(
+                        text="Simulasi Pertumbuhan Nilai Investasi (Backtesting)",
+                        font=dict(family='Space Grotesk', size=16, color='#e2e1f0'),
+                    ),
+                    plot_bgcolor='rgba(0,0,0,0)',
+                    paper_bgcolor='rgba(0,0,0,0)',
+                    font=dict(family='Space Grotesk', color='#bbc9cf'),
+                    xaxis=dict(
+                        gridcolor='rgba(255,255,255,0.05)',
+                        tickfont=dict(size=10),
+                    ),
+                    yaxis=dict(
+                        title='Nilai Portofolio (Rp)',
+                        gridcolor='rgba(255,255,255,0.05)',
+                        tickfont=dict(size=10),
+                    ),
+                    legend=dict(
+                        orientation='h',
+                        yanchor='bottom',
+                        y=1.02,
+                        xanchor='right',
+                        x=1,
+                        font=dict(size=10, color='#8a9aa0'),
+                    ),
+                    margin=dict(l=40, r=10, t=50, b=30),
+                    height=400,
+                    showlegend=True,
+                )
+                st.plotly_chart(fig, width="stretch")
 
         with tab_frontier:
-            st.write("Visualisasi Efficient Frontier.")
+            vol, ret, sharpe = optimasi.generate_efficient_frontier(n_portfolios=1000)
+            if len(vol) == 0:
+                st.warning("Data tidak mencukupi untuk membuat Efficient Frontier.")
+            else:
+                import plotly.graph_objects as go
+                import numpy as np
+                
+                # Hitung koordinat untuk portofolio optimal kita
+                opt_weights = optimasi.hitung_bobot_optimal()['Bobot'].values
+                if len(opt_weights) > 0 and optimasi.rata_rata_return is not None:
+                    opt_ret = np.sum(optimasi.rata_rata_return * opt_weights) * optimasi.HARI_PERDAGANGAN
+                    opt_vol = np.sqrt(np.dot(opt_weights.T, np.dot(optimasi.matriks_kovarian, opt_weights))) * np.sqrt(optimasi.HARI_PERDAGANGAN)
+                    opt_sharpe = (opt_ret - optimasi.SUKU_BUNGA_BEBAS_RISIKO) / opt_vol if opt_vol != 0 else 0
+                else:
+                    opt_ret, opt_vol, opt_sharpe = 0, 0, 0
+                
+                fig = go.Figure()
+                
+                # Plot simulated portfolios
+                fig.add_trace(go.Scatter(
+                    x=vol * 100,
+                    y=ret * 100,
+                    mode='markers',
+                    marker=dict(
+                        color=sharpe,
+                        colorscale='Viridis',
+                        size=5,
+                        colorbar=dict(
+                            title=dict(text="Sharpe Ratio", font=dict(family='Space Grotesk', size=10, color='#bbc9cf')),
+                            tickfont=dict(family='Space Grotesk', size=8, color='#bbc9cf')
+                        ),
+                        showscale=True,
+                        opacity=0.6
+                    ),
+                    name='Simulasi Portofolio',
+                    hovertemplate='Volatilitas: %{x:.2f}%<br>Expected Return: %{y:.2f}%<br>Sharpe Ratio: %{marker.color:.2f}<extra></extra>'
+                ))
+                
+                # Plot optimal portfolio as a bright star
+                if opt_ret > 0:
+                    fig.add_trace(go.Scatter(
+                        x=[opt_vol * 100],
+                        y=[opt_ret * 100],
+                        mode='markers',
+                        marker=dict(
+                            color='#00d1ff',
+                            size=14,
+                            symbol='star',
+                            line=dict(color='#ffffff', width=1.5)
+                        ),
+                        name='Portofolio Optimal Anda',
+                        hovertemplate='<b>Portofolio Optimal Anda</b><br>Volatilitas: %{x:.2f}%<br>Expected Return: %{y:.2f}%<br>Sharpe Ratio: ' + f'{opt_sharpe:.2f}' + '<extra></extra>'
+                    ))
+                
+                fig.update_layout(
+                    title=dict(
+                        text="Efficient Frontier (Teori Portofolio Markowitz)",
+                        font=dict(family='Space Grotesk', size=16, color='#e2e1f0'),
+                    ),
+                    plot_bgcolor='rgba(0,0,0,0)',
+                    paper_bgcolor='rgba(0,0,0,0)',
+                    font=dict(family='Space Grotesk', color='#bbc9cf'),
+                    xaxis=dict(
+                        title='Volatilitas (Risiko) (%)',
+                        gridcolor='rgba(255,255,255,0.05)',
+                        tickfont=dict(size=10),
+                        ticksuffix='%'
+                    ),
+                    yaxis=dict(
+                        title='Expected Return (%)',
+                        gridcolor='rgba(255,255,255,0.05)',
+                        tickfont=dict(size=10),
+                        ticksuffix='%'
+                    ),
+                    legend=dict(
+                        orientation='h',
+                        yanchor='bottom',
+                        y=1.02,
+                        xanchor='right',
+                        x=1,
+                        font=dict(size=10, color='#8a9aa0'),
+                    ),
+                    margin=dict(l=40, r=10, t=50, b=30),
+                    height=400,
+                    showlegend=True,
+                )
+                st.plotly_chart(fig, width="stretch")
             
         with tab_ai:
             st.markdown("""
