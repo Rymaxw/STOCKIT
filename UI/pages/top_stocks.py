@@ -316,7 +316,7 @@ class HalamanSahamTerbaik:
             showlegend=False,
         )
 
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
 
     # ── Data Table ───────────────────────────────────────────────────
     def _render_tabel_data(self, df_terbaik):
@@ -337,7 +337,7 @@ class HalamanSahamTerbaik:
         st.dataframe(
             df_terbaik[kolom_ada],
             hide_index=True,
-            use_container_width=True,
+            width="stretch",
         )
 
     # ── Interactive Candlestick Expander ──────────────────────────────
@@ -453,7 +453,7 @@ class HalamanSahamTerbaik:
             height=500,
         )
 
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
 
 
 if __name__ == "__main__":
