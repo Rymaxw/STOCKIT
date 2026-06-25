@@ -27,6 +27,7 @@ class OptimasiPortofolio:
             self.daftar_ticker = []
             self.jumlah_aset = 0
 
+        self.df = df
         self._inisialisasi_metrik(df)
 
     def _inisialisasi_metrik(self, df: pd.DataFrame):
@@ -105,3 +106,50 @@ class OptimasiPortofolio:
             'Alokasi (Rp)': alokasi_rp,
             'Jumlah Lot': int(alokasi_rp / harga_per_lot)
         }
+
+    def hitung_kinerja_historis(self) -> pd.DataFrame:
+        if self.df is None or self.df.empty or self.jumlah_aset == 0:
+            return pd.DataFrame()
+            
+        returns = self.df.pct_change().dropna()
+        bobot = self._hitung_bobot_invers_volatilitas()
+        
+        # Optimal portfolio returns
+        port_returns = returns.dot(bobot)
+        port_cum = (1 + port_returns).cumprod() * self.modal_awal
+        
+        # Equal weight portfolio returns
+        eq_weights = np.ones(self.jumlah_aset) / self.jumlah_aset
+        eq_returns = returns.dot(eq_weights)
+        eq_cum = (1 + eq_returns).cumprod() * self.modal_awal
+        
+        df_kinerja = pd.DataFrame({
+            'Optimal': port_cum,
+            'Equal Weight': eq_cum
+        }, index=returns.index)
+        
+        return df_kinerja
+
+    def generate_efficient_frontier(self, n_portfolios=500) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+        if self.matriks_kovarian is None or self.rata_rata_return is None or self.jumlah_aset == 0:
+            return np.array([]), np.array([]), np.array([])
+            
+        results = np.zeros((3, n_portfolios))
+        mu = self.rata_rata_return.values
+        cov = self.matriks_kovarian.values
+        
+        rng = np.random.default_rng(42)
+        for i in range(n_portfolios):
+            weights = rng.random(self.jumlah_aset)
+            weights /= np.sum(weights)
+            
+            # Expected Return
+            r = np.sum(mu * weights) * self.HARI_PERDAGANGAN
+            # Volatility
+            vol = np.sqrt(np.dot(weights.T, np.dot(cov, weights))) * np.sqrt(self.HARI_PERDAGANGAN)
+            
+            results[0, i] = vol
+            results[1, i] = r
+            results[2, i] = (r - self.SUKU_BUNGA_BEBAS_RISIKO) / vol if vol != 0 else 0
+            
+        return results[0], results[1], results[2]
