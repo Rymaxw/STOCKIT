@@ -102,7 +102,7 @@ class HalamanEksplorasiData:
                 tanggal_akhir = datetime.date.today()
 
         with kolom_tombol:
-            muat_data = st.button("Load Data", type="primary", use_container_width=True)
+            muat_data = st.button("Load Data", type="primary", width="stretch")
 
         if not muat_data and 'data_loaded' not in st.session_state:
             return
@@ -182,7 +182,7 @@ class HalamanEksplorasiData:
                     tampilkan_atr=show_atr,
                     tampilkan_volatilitas=show_vol,
                 )
-                st.plotly_chart(fig, use_container_width=True)
+                st.plotly_chart(fig, width="stretch")
             except Exception as e:
                 st.error(f"Gagal memuat grafik {ticker_nama}: {e}")
 
@@ -202,7 +202,7 @@ class HalamanEksplorasiData:
                     judul="Perbandingan Performa Saham",
                     tinggi=500,
                 ).bangun()
-                st.plotly_chart(fig_komparasi, use_container_width=True)
+                st.plotly_chart(fig_komparasi, width="stretch")
             except Exception as e:
                 st.error(f"Gagal memuat grafik komparasi: {e}")
 

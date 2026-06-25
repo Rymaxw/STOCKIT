@@ -103,7 +103,7 @@ class HalamanPrediksi:
                     default=daftar_tersedia[:3] if len(daftar_tersedia) >= 3 else daftar_tersedia,
                 )
             with kolom_tombol:
-                jalankan = st.button("Analisis Investasi", type="primary", use_container_width=True)
+                jalankan = st.button("Analisis Investasi", type="primary", width="stretch")
         else:
             kolom_budget, kolom_jumlah, kolom_tombol = st.columns([3, 2, 2])
 
@@ -112,7 +112,7 @@ class HalamanPrediksi:
             with kolom_jumlah:
                 jumlah_rekomendasi = st.number_input("Jumlah Rekomendasi Saham", min_value=1, max_value=30, value=5, step=1)
             with kolom_tombol:
-                jalankan = st.button("Analisis Investasi", type="primary", use_container_width=True)
+                jalankan = st.button("Analisis Investasi", type="primary", width="stretch")
 
         if not jalankan:
             return
@@ -434,7 +434,7 @@ class HalamanPrediksi:
                         showlegend=True,
                     )
 
-                    st.plotly_chart(fig, use_container_width=True)
+                    st.plotly_chart(fig, width="stretch")
 
     def _render_chart_perbandingan(self, perbandingan):
         st.markdown("""

@@ -133,7 +133,7 @@ class HalamanBeranda:
         </style>
         """.replace('\n', ''), unsafe_allow_html=True)
 
-        if st.button("Buka Dasbor Optimasi", use_container_width=False):
+        if st.button("Buka Dasbor Optimasi", width="content"):
             st.switch_page("pages/optimization.py")
 
     def _render_kartu_eksplorasi(self):
@@ -155,7 +155,7 @@ class HalamanBeranda:
         </div>
         """.replace('\n', ''), unsafe_allow_html=True)
 
-        if st.button("Eksplorasi Market Data Sekarang", use_container_width=True):
+        if st.button("Eksplorasi Market Data Sekarang", width="stretch"):
             st.switch_page("pages/data_exploration.py")
 
     def _render_status_sistem(self):

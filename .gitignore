@@ -30,3 +30,7 @@ Thumbs.db
 
 # Folder Private
 Private/
+
+# Word reports
+*.docx
+Laporan_Akhir_Tugas_Besar_STOCKIT.docx

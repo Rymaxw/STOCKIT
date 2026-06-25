@@ -96,7 +96,7 @@ class HalamanOptimasi:
         with kolom_modal:
             modal = st.number_input("Modal Awal (Rp)", min_value=1000000, value=10000000, step=1000000)
         with kolom_tombol:
-            jalankan = st.button("Jalankan Optimasi", type="primary", use_container_width=True)
+            jalankan = st.button("Jalankan Optimasi", type="primary", width="stretch")
 
         if not jalankan:
             return
@@ -165,7 +165,7 @@ class HalamanOptimasi:
                     model_info.append({"Ticker": ticker, "Model AI Terbaik": "Statistik Sederhana (Fallback)", "MAE (Error)": "-"})
             
             if model_info:
-                st.dataframe(model_info, use_container_width=True, hide_index=True)
+                st.dataframe(model_info, width="stretch", hide_index=True)
 
     def _render_tabel_rekomendasi(self, optimasi: OptimasiPortofolio):
         st.markdown("""

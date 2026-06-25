@@ -20,6 +20,13 @@ class OptimasiPortofolio:
         tanggal_mulai = tanggal_akhir - timedelta(days=365)
 
         df = pengelola.ambil_data_historis(tanggal_mulai, tanggal_akhir)
+        if not df.empty:
+            self.daftar_ticker = list(df.columns)
+            self.jumlah_aset = len(self.daftar_ticker)
+        else:
+            self.daftar_ticker = []
+            self.jumlah_aset = 0
+
         self._inisialisasi_metrik(df)
 
     def _inisialisasi_metrik(self, df: pd.DataFrame):
